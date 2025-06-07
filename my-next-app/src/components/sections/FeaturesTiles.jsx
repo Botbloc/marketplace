@@ -114,7 +114,7 @@ class FeaturesTiles extends React.Component {
                       Universal Robot Core
                     </h4>
                     <p className="m-0 text-sm">
-                    {"Our Universal Robot Core is the heart of every BotBloc creation. With a powerful computing module and flexible mounting points, the core allows users to add custom hardware like arms, wheels, and cameras. Whether you're building a robot for manufacturing or household chores, this core scales with your needs, offering endless possibilities at an affordable price."}
+                    Our Universal Robot Core is the heart of every BotBloc creation. With a powerful computing module and flexible mounting points, the core allows users to add custom hardware like arms, wheels, and cameras. Whether you're building a robot for manufacturing or household chores, this core scales with your needs, offering endless possibilities at an affordable price.
                     </p>
                   </div>
                 </div>

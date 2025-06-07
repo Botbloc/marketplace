@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
-import Tabs, { TabList, Tab, TabPanel } from '../elements/Tabs';
+import Tabs, { TabList, Tab, TabPanel } from './../elements/Tabs';
 import Image from '../elements/Image';
 
 const propTypes = {

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import SectionHeader from './partials/SectionHeader';
 import Input from '../elements/Input';
 import Button from '../elements/Button';
-import Checkbox from '../elements/Checkbox';
 
 const propTypes = {
   ...SectionProps.types
@@ -15,7 +14,7 @@ const defaultProps = {
   ...SectionProps.defaults
 }
 
-class LoginForm extends React.Component {
+class SignupForm extends React.Component {
 
   render() {
 
@@ -46,7 +45,7 @@ class LoginForm extends React.Component {
     );
 
     const sectionHeader = {
-      title: 'Welcome back. We exist to make entrepreneurship easier.',
+      title: 'Welcome. We exist to make entrepreneurship easier.',
     };
 
     return (
@@ -64,6 +63,13 @@ class LoginForm extends React.Component {
                     <fieldset>
                       <div className="mb-12">
                         <Input
+                          label="Full name"
+                          placeholder="Full name" 
+                          labelHidden
+                          required />
+                      </div>
+                      <div className="mb-12">
+                        <Input
                           type="email"
                           label="Email"
                           placeholder="Email"
@@ -79,17 +85,13 @@ class LoginForm extends React.Component {
                           required />
                       </div>
                       <div className="mt-24 mb-32">
-                        <Button color="primary" wide>Sign in</Button>
-                      </div>
-                      <div className="signin-footer mb-32">
-                        <Checkbox>Remember me</Checkbox>
-                        <Link to="/recover-password/" className="func-link text-xs">Forgot password?</Link>
+                        <Button color="primary" wide>Sign up</Button>
                       </div>
                     </fieldset>
                   </form>
                   <div className="signin-bottom has-top-divider">
                     <div className="pt-32 text-xs center-content text-color-low">
-                      {"Don't you have an account?"} <Link to="/signup/" className="func-link">Sign up</Link>
+                      Already have an account? <Link to="/login/" className="func-link">Login</Link>
                     </div>
                   </div>
                 </div>
@@ -102,7 +104,7 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.propTypes = propTypes;
-LoginForm.defaultProps = defaultProps;
+SignupForm.propTypes = propTypes;
+SignupForm.defaultProps = defaultProps;
 
-export default LoginForm;
+export default SignupForm;
