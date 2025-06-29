@@ -1,11 +1,13 @@
+"use client"
 import React from "react";
 import {useEffect, useState} from "react";
-import image1 from "../../assets/images/placeholder.jpg";
-import Button from "../elements/Button"
+import Button from "../../../components/elements/Button"
 import Product from "../../../components/sections/Product"
 
 const Product_id = async ({params})=>{
-    const {id} = params;
+
+    const param = await params;
+    const id  = param.id;
     return(
        <Product productID={id} /> 
     )
