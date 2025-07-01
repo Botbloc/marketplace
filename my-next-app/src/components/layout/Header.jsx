@@ -106,7 +106,8 @@ const Header = ({
                       { label: 'Products', href: '#hero-section' },
                       { label: 'Solutions', href: '#feature-section' },
                       { label: 'Community', href: '#roadmap-section' },
-                      { label: 'Contact', href: '#roadmap-section' },
+                      { label: 'Shopping cart', href: '#roadmap-section' },
+                      //{ label: 'Contact', href: '#roadmap-section' },
                     ].map(({ label, href }) => (
                       <li key={label}>
                         <Link href={href} onClick={closeMenu}>

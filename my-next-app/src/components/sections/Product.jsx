@@ -42,18 +42,27 @@ let product_iamges = [
     image1,
     image1,
     image1,
-    image1,
-    image1,
-    image1,
-    image1,
     image1
-    
 ]
 
 
 const Product = ({productID,...prop})=>{
 
     const [Display, setDisplay] = useState();
+
+    const setQuan = (type, quan) =>{
+    if (type === "+"){
+        setQuantity(quantity+1);
+    }
+    else if (type === "-"){
+        if (quantity >0){
+            setQuantity(quantity-1);
+        }
+    }
+    else if (type === "NA"){
+        setQuantity(quan);
+    }
+}
 
     useEffect(()=>{
         setDisplay(image2);
@@ -64,7 +73,14 @@ const Product = ({productID,...prop})=>{
 
     // switch between Detail, Statistics, and review
     const [TextType, setTextType] = useState("Detail");
+    const [quantity, setQuantity] = useState(0);
 
+    const onQuanChange = (value)=>{
+        if ((Number(value) >= 0 && /^[0-9]*$/.test(value))){
+            setQuan("NA",value);
+        }
+        
+    }
 
     const setDetailTextDisplay = () => {
         if (TextType == "Detail"){
@@ -142,7 +158,21 @@ const Product = ({productID,...prop})=>{
                 <div className="col-md-6 right-pane">
                     <h2>{product_detail.product_name}</h2>
                     <h3>{product_detail.currency + " " + product_detail.price}</h3>
-                    <button>Add to shopping cart</button>
+                    <div className="buy-module">  
+                        <div className="buy-module-button">
+                            <div className="buy-module-container">
+                        
+                        <div className="buy_quantity">
+                            <button onClick={()=> setQuan("-")}>-</button>
+                            <input type="text" onChange={(e)=> {onQuanChange(e.target.value)}} value={quantity}></input>
+                            <button onClick={()=> setQuan("+")}>+</button>  
+
+                        </div>
+                        <button className="confirm_button">Add to shopping cart</button>
+                        </div>             
+                        </div>
+                    </div>
+                    
                 </div>
            </div>
            <div className="borderline"></div>
