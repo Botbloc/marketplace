@@ -4,7 +4,7 @@ import Search_bar from '../components/sections/Search_bar';
 import MultiWindowDisplay from '../components/sections/MultiWindowDisplay';
 import ProductList from '../components/sections/ProductList';
 import Brief from '../components/sections/Brief';
-import Carousel_new from '../components/elements/Carousel_new';
+//import Carousel_new from '../components/elements/Carousel_new';
 export default function Home() {
   return (
     <>
@@ -13,7 +13,8 @@ export default function Home() {
       <MultiWindowDisplay />
       <Brief/>
       <ProductList/>
-      <Carousel_new/>
+      {//<Carousel_new/>
+      }
     </>
   );
 }
