@@ -8,17 +8,21 @@ const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
     const [cart, setCart] = useState([]);
+    const [currency, setCurrency] = useState("$");
+    // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
 
     const addCart = () => {
 
     }
 
-    const removeCart = () => {
-
+    const removeCart = (id) => {
+        for (let i = 0; i <= cart.length; i++){
+            
+        }
     }
 
     const clearCart = () => {
-
+        setCart([]);
     }
 
     const listCart = () => {

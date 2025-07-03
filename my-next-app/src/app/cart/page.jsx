@@ -2,6 +2,7 @@
 //import React from "react";
 import {useState, useEffect, useContext} from "react";
 import cart_logic from "../../global_quantity/CartContext";
+import Link from "next/link";
 
 const template_product = [
     {
@@ -27,44 +28,87 @@ const template_product = [
 
 const cart = () =>{
 
+    
+    const [product, setProduct] = useState([]);
+    const [currency, setCurrency] = useState("$");
+    const [total, setTotal] = useState("0");
+
+
     // get data from context
     useEffect(() => {
         setProduct(template_product);
     },[])
 
-    const [product, setProduct] = useState([]);
-
     const generateProductEntity = (e) => {
+        const href = "product/"
         return(
             <div className="product_container">
                 {console.log("product: ",product)}
                 {product.map((item) => {
                     return(
-                        <div className="product_in_cart" key={item.id}>
-                            <h4>{item.product_name}</h4>
-                        </div>
-                    )
-                    
-                    
+                        <Link href={href+item.id}>
+                            <div className="product_in_cart" key={item.id}>
+                                <h4>{item.product_name}</h4>
+                                <h5>{item.currency + " " + item.price}</h5>
+                            </div>
+                        </Link>
+                        
+                    )                 
                 })}
-                
-
             </div>
         )
         
         
     }
 
+    const displayCalculation = () => {
+        return(
+            <div className="calculation_display">
+                {product.map((item)=>{
+                    if (item.id === product.at(-1)?.id){
+                        return (
+                            <div className="product_in_cart" key={item.id}>
+                                <h5>+</h5>
+                                <h5>{item.product}</h5>
+                                <h5>{item.currency + " " + item.price}</h5>
+                            </div>
+                        )
+                    }
+                    else{
+                        return(            
+                        <div className="product_in_cart" key={item.id}>
+                            <h5>{item.product}</h5>
+                            <h5>{item.currency + " " + item.price}</h5>
+                        </div>
+                    )
+                    }
+                })}
+                <div className="borderline">
+                </div>
+                <div className="total">
+                    <h5>total: </h5>
+                    <h5>{currency+" "+total}</h5>
+                </div>
+            </div>
+        )
+    }
+
     return(
         product != undefined
         && <div className="cart_window">
+            <div>
+                <h4>Shopping Cart</h4>
+            </div>
             <div className="row">
                 <div className="col-md-6 left_pane">
-                    <h4>Shopping Cart</h4>
+                    
                     {generateProductEntity(product)}
                 </div>
                 <div className="col-md-6 right_pane">
-
+                    <div>
+                        {displayCalculation()}
+                    </div>
+                    <button>Proceed to checkout</button>
                 </div>
 
             </div>

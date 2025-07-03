@@ -74,6 +74,11 @@ const Header = ({
 
   const navClasses = classNames('header-nav', isActive && 'is-active');
 
+  // for signin buttons:
+  //href="https://forms.office.com/Pages/DesignPageV2.aspx?subpage=design&FormId=paqCANYIyE-0gk-IxtBvPkDmIERVABVNmV8EVNvfaVFUOEwySFpKSjhYN1hMSjZDTVY3MEI0MkFRQS4u&Token=90c758245d7e4d038cfb1666e0540740"
+
+  // for register button:
+  //href="https://forms.office.com/Pages/DesignPageV2.aspx?subpage=design&FormId=paqCANYIyE-0gk-IxtBvPkDmIERVABVNmV8EVNvfaVFUOEwySFpKSjhYN1hMSjZDTVY3MEI0MkFRQS4u&Token=90c758245d7e4d038cfb1666e0540740"
   return (
     <header {...props} className={headerClasses}>
       <div className="container">
@@ -103,10 +108,10 @@ const Header = ({
                     )}
                   >
                     {[
-                      { label: 'Products', href: '#hero-section' },
-                      { label: 'Solutions', href: '#feature-section' },
-                      { label: 'Community', href: '#roadmap-section' },
-                      { label: 'Shopping cart', href: '#roadmap-section' },
+                      { label: 'Products', href: '/#hero-section' },
+                      { label: 'Solutions', href: '/#feature-section' },
+                      { label: 'Community', href: '/#roadmap-section' },
+                      { label: 'Shopping Cart', href: 'cart' },
                       //{ label: 'Contact', href: '#roadmap-section' },
                     ].map(({ label, href }) => (
                       <li key={label}>
@@ -119,25 +124,18 @@ const Header = ({
 
                   {!hideSignin && (
                     <ul className="list-reset header-nav-right">
-                      <li>
-                        <a
-                          href="https://forms.office.com/Pages/DesignPageV2.aspx?subpage=design&FormId=paqCANYIyE-0gk-IxtBvPkDmIERVABVNmV8EVNvfaVFUOEwySFpKSjhYN1hMSjZDTVY3MEI0MkFRQS4u&Token=90c758245d7e4d038cfb1666e0540740"
-                          className="button button-primary button-wide-mobile button-sm button_2"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                      <li>                        
+                        <Link href="login" onClick={closeMenu} className="button button-primary button-wide-mobile button-sm button_2">
                           Sign in
-                        </a>
+                          
+                        </Link>
+
                       </li>
                       <li>
-                        <a
-                          href="https://forms.office.com/Pages/DesignPageV2.aspx?subpage=design&FormId=paqCANYIyE-0gk-IxtBvPkDmIERVABVNmV8EVNvfaVFUOEwySFpKSjhYN1hMSjZDTVY3MEI0MkFRQS4u&Token=90c758245d7e4d038cfb1666e0540740"
-                          className="button button-primary button-wide-mobile button-sm button_2"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <Link href="register" onClick={closeMenu} className="button button-primary button-wide-mobile button-sm button_2">
                           Register
-                        </a>
+                          
+                        </Link>
                       </li>
                     </ul>
                   )}
