@@ -109,8 +109,8 @@ const Header = ({
                   >
                     {[
                       { label: 'Products', href: '/#hero-section' },
-                      { label: 'Solutions', href: '/#feature-section' },
-                      { label: 'Community', href: '/#roadmap-section' },
+                      //{ label: 'Solutions', href: '/#feature-section' },
+                      //{ label: 'Community', href: '/#roadmap-section' },
                       { label: 'Shopping Cart', href: 'cart' },
                       //{ label: 'Contact', href: '#roadmap-section' },
                     ].map(({ label, href }) => (

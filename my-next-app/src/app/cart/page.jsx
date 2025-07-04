@@ -67,28 +67,29 @@ const cart = () =>{
                 {product.map((item)=>{
                     if (item.id === product.at(-1)?.id){
                         return (
-                            <div className="product_in_cart" key={item.id}>
-                                <h5>+</h5>
-                                <h5>{item.product}</h5>
-                                <h5>{item.currency + " " + item.price}</h5>
+                            <div className="display_item" key={item.id}>
+                                <span>+</span>
+                                <span>{item.product}</span>
+                                <span>{item.currency + " " + item.price}</span>
                             </div>
                         )
                     }
                     else{
                         return(            
-                        <div className="product_in_cart" key={item.id}>
-                            <h5>{item.product}</h5>
-                            <h5>{item.currency + " " + item.price}</h5>
+                        <div className="display_item" key={item.id}>
+                            <span>{item.product}</span>
+                            <span>{item.currency + " " + item.price}</span>
                         </div>
                     )
                     }
                 })}
                 <div className="borderline">
                 </div>
-                <div className="total">
-                    <h5>total: </h5>
-                    <h5>{currency+" "+total}</h5>
+                <div className="display_item">
+                    <span>total: </span>
+                    <span>{currency+" "+total}</span>
                 </div>
+                
             </div>
         )
     }

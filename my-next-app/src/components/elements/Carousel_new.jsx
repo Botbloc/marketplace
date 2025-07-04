@@ -1,9 +1,14 @@
+'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import {ProductContext} from '../../global_quantity/ProductContext';
 
 const Carousel_new = () => {
+
+
+
     return(
         <Swiper
             modules={[Navigation]}
@@ -19,7 +24,8 @@ const Carousel_new = () => {
             >
             {products.map((item, index) => (
                 <SwiperSlide key={index}>
-                <ProductCard item={item} />
+                {//<ProductCard item={item} />
+                }
                 </SwiperSlide>
             ))}
         </Swiper>

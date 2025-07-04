@@ -13,6 +13,7 @@ export default function Home() {
       <MultiWindowDisplay />
       <Brief/>
       <ProductList/>
+      
       {//<Carousel_new/>
       }
     </>

@@ -1,0 +1,297 @@
+import "./profile.scss";
+import { useLoaderData, useParams, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom"
+import { Music } from 'lucide-react'; // Spotify icon
+import {useState, useContext, useEffect} from "react";
+import HandleUserInfo from "../../apiFunctions/HandleUserInfo";
+import HandleAdminInfo from "../../apiFunctions/HandleAdminInfo";
+import Friend_list from "./popup_screen/Friend_list";
+import AuthContext from "../../authentication/AuthContext";
+import HandleFollowUser from "../../apiFunctions/HandleFollowUser"
+//import { Music } from 'lucide-react';
+
+// this should be linked back to the profile of the person in question 
+// background image and profile pic 
+// have a default background image otherwise, these trees work fine for now 
+// else show their background image 
+// name needs to be dynamic as well these are dummy values 
+// make bio dynamic 
+
+import back from "../../assets/profile_background.jpg"
+import Sophie from "../../assets/anne-sophie-mutter_profile.jpg"
+import placeholder from "../../assets/placeholder.jpg"
+
+const Profile = () => {
+    const params = useParams();
+	const [userData_profile, setUserData_profile] = useState(null);
+    const [userData_profile_admin, setUserData_profile_admin] = useState(null);
+    
+    const [followed, setFollowed] = useState("Click to Follow!");
+    const [exist, setExist] = useState(false);
+    //console.log("userData: ",userData_profile);
+    //console.log("follow: ", followed);
+    const {auth, logout_auth, userData,set_user_detail} = useContext(AuthContext);
+    let exists = true;
+    
+
+    // the following is the variable controlling the showing. 
+    // Can be removed once everything is tested but for simpicity we just connecting the info from api to them first: Lucas
+    let interests = [];
+    const [events_interested, setEvents_interested] = useState(["event1","event2","event3"]);
+    //const [name, setName] = useState("name");
+    const [friends, setFriends] = useState();
+    const [nickname, setNickName] = useState("nickname");
+    const [image, setImage] = useState();
+    const [image_user, setImage_user] = useState();
+    const [bio, setBio] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [acc_type, set_acc_type] = useState();
+    useEffect(() => { // use Effect for data retrieval
+        const fetchUserInfo = async () => {
+            try{
+            const response = await HandleUserInfo(params.id, setUserData_profile, auth, userData,set_user_detail);
+            const res = await HandleAdminInfo(params.id, setUserData_profile_admin, auth, userData,set_user_detail);
+            }
+            catch(err){
+                console.error(err);
+            }
+            finally{
+                setLoading(false);
+            }
+        };
+
+        fetchUserInfo();
+    }, [params.id, auth]);
+    
+    
+
+
+    useEffect(  () => { // useEffect for data handling
+        console.log("userData_profile: ", userData_profile);
+        console.log("userData_profile_admin: ", userData_profile_admin);
+        // the data retrieved from api will have time delay that making userData empty here. Should have a loading screen before it arrives
+        if ( userData_profile !== null && userData_profile !== "User not found" && userData_profile !== "wrong type" ){ // for user info
+            setExist(true);
+            set_acc_type("user");
+            console.log("finally");
+            //console.log("userData_profile[\"interests\"]: ",userData_profile["interests"]);
+            interests = userData_profile["interests"];
+            setBio(userData_profile["bio"]);
+            setNickName(userData_profile["name"]);
+            setFriends(userData_profile["friends"]);
+            setEvents_interested(userData_profile["events_interested"]);
+            if (userData_profile["profile_picture"] === "" || userData_profile["profile_picture"] === null){ // placeholder image
+                //console.log("no photo");
+                userData_profile["profile_picture"] = placeholder;
+                setImage_user(placeholder);
+            }
+            if( userData_profile["friends"].includes(auth.token)){
+                setFollowed("followed");
+                setImage_user(userData_profile["profile_picture"]);
+            }
+        }
+        else if (userData_profile_admin !== null && userData_profile_admin !== "User not found" && userData_profile_admin !== "wrong type"){ //admin info
+            //console.log("hi");
+            //console.log(userData_profile_admin);
+            setExist(true);
+            set_acc_type("admin");
+            if (userData_profile_admin["profile_picture"] === "" ){ // placeholder image
+                setImage(placeholder);
+                userData_profile_admin["profile_picture"] = placeholder;
+                
+            }
+            else{
+                setImage(userData_profile_admin["profile_picture"]);
+            }
+        }
+    
+    },[userData_profile, userData_profile_admin,exist])
+    
+    
+    
+    const LoginUserProfile = () =>  {  // list of buttons made available solely for login user ---- this is some horrible horrible code!!!!!
+        
+        if (params.id ===auth.token ){
+        
+            return (
+                
+          
+            <div className="styled">
+                    <Link to = '/update_profile'>  {/* update profile */}
+                        <button className="button">Update Profile</button>
+                    </Link>
+                    <Link to = '/login'> {/* logout */}
+                        <button className="button2" onClick={logout_auth}>logout</button>
+                    </Link>
+                </div>
+        )
+        }
+    }
+
+    const follow_option = () => {
+        if (params.id !==auth.token && auth.token!== null && acc_type !== "admin" ){
+            return (
+                <div>
+                    <button onClick={handleFollow}>
+                        {followed}
+                    </button>
+                </div>
+            )
+        }
+    }
+
+    const handleFollow = () => {
+        //console.log("Button clicked!");
+        if (followed == "Click to Follow!"){
+            HandleFollowUser(userData_profile["username"], auth.token , setFollowed,  auth,  userData,set_user_detail);
+
+        }
+        else{
+            alert("You have followed this person!");
+        }
+            
+        
+      };
+
+    const renderInterest = () => {
+        return (
+            acc_type === "user" && userData_profile !== "User not found" && userData_profile !== undefined &&
+            <>
+                <span>Interests</span> {/*The part showing the interest of this player. Need styling */}
+                <ul className="interest">
+                    {userData_profile["interests"].map((fav) => (
+                        <li key={fav}>{fav}</li>
+                    ))}
+                </ul>
+            </>
+        )
+    }
+
+    const renderEventInterested = () => {
+        return (
+            acc_type === "user" && userData_profile !== "User not found" &&
+            <>
+                <span>Events interested</span> {/*The part showing the interested event of this player. Need styling */}
+                {console.log("events_interested: ", events_interested)}
+                <ul className="events_interested">
+                
+                    {events_interested.map((id,name) => (
+                        <Link to={'/home#'+ id.name}>
+                            <button key={id}>{id.name}</button>
+                        </Link>
+                    ))}
+                </ul>
+            </>
+        )
+    }
+
+    const renderEventOrganise = () => {
+        try{
+            return (
+                
+                acc_type === "admin" && userData_profile_admin !== "User not found" &&
+                <>
+                    <span>Events Organised</span> {/*The part showing the interested event of this player. Need styling */}
+                    {console.log("events_interested: ", userData_profile_admin["events_created"])}
+                    <ul className="events_interested">
+                        {console.log(userData_profile_admin["events_created"])}
+                        {userData_profile_admin["events_created"].map((id) => (
+                            <Link to={'/home#'+ id}>
+                                <button key={id}>{id}</button>
+                            </Link>
+                        ))}
+                    </ul>
+                </>
+            
+            )
+        }
+        catch(err){
+            console.error("error: ", err);
+        }
+    }
+
+    const renderSpotify = () => {
+        return (
+            acc_type === "user" &&
+            /* Spotify Playlist Integration */
+            <div className="spotify-embed">
+            <h2 className="centered-title">Recommended Playlist:</h2>            
+            <iframe
+                title="Spotify Embed: Recommendation Playlist"
+                src={`https://open.spotify.com/embed/playlist/6ApWSZHI5Bn86iWZXw9utu?utm_source=generator&theme=0`}
+                width="100%"
+                height="360"
+                style={{ minHeight: "360px" }}
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                ></iframe>
+            </div>
+        )
+    }
+
+    const displayName = () => {
+        if (acc_type === "user"){
+            return(
+                <>
+                    <h1>{userData_profile["username"]}</h1> {/*displaying username*/}
+                    <span> {userData_profile["name"]}</span>  {/*displaying name*/}
+                </>
+        )
+        }
+        else if ((acc_type === "admin")){
+            return(
+                <>
+                    <h1>{userData_profile_admin["organisation"]}</h1> {/*displaying username*/}
+                    <span> {userData_profile_admin["name"]}</span>  {/*displaying name*/}
+                </>
+            )
+        }
+    }
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    try{
+        return(
+            exist &&
+            // if user exist, display the following
+            <div className="profile"> 
+            <div className="profileimages">
+                {console.log("userData_profile: ", userData_profile)}
+                {console.log("userData_profile: ", userData_profile_admin)}
+                <img src="" alt="" className="background" />
+                
+                { acc_type ==="user" && <img src={userData_profile["profile_picture"]} alt="" className="profile" />}
+                { acc_type ==="admin" && <img src={image} alt="" className="profile" />}
+            </div>
+            <div className="personalinformation">
+                {displayName()}
+                {LoginUserProfile()}
+                {follow_option()}
+                {acc_type ==="user" && <Friend_list list = {friends} />} {/*displaying firend list in a pop up manner with basic styling. Tho need amendment on display later on*/}
+                <div className="bio">
+                    { acc_type ==="user" && <p>{userData_profile["bio"]}</p> }
+                    { acc_type ==="admin" && <p>{userData_profile_admin["bio"]}</p> }
+                </div>
+
+                {renderEventInterested()}
+
+                {renderEventOrganise()}
+            
+                {renderInterest()}
+
+                {renderSpotify()}
+
+                <button> <a href="https://accounts.spotify.com/en-GB/login?continue=https%3A%2F%2Faccounts.spotify.com%2Foauth2%2Fv2%2Fauth%3Fresponse_type%3Dnone%26client_id%3D6cf79a93be894c2086b8cbf737e0796b%26scope%3Duser-read-email%2Buser-read-private%2Bugc-image-upload%26redirect_uri%3Dhttps%253A%252F%252Fartists.spotify.com%252Fc%26acr_values%3Durn%253Aspotify%253Asso%253Aacr%253Aartist%253A2fa">Spotify</a> </button>
+            </div>
+            </div>
+        )
+    }
+    catch(err){
+        console.log("error: ", err);
+    }
+}
+
+export default Profile
+
