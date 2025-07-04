@@ -2,6 +2,7 @@
   import Header from '../components/layout/Header';
   import Footer from '../components/layout/Footer';
   import ScrollToAnchor from '../utils/ScrollToAnchor';
+  import Search_bar from '../components/sections/Search_bar';
   //import "./globals.css"
   import "../assets/scss/style.scss";
   import "../assets/scss/style_2.scss";
@@ -29,6 +30,7 @@
       <html lang="en">
         <body className={`antialiased`} >
           <Header className="invert-color" navPosition="right" />
+          <Search_bar />
           <main className="site-content">
             {children}
           </main>
