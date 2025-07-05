@@ -13,26 +13,35 @@ export const CartProvider = ({children}) => {
     const [currency, setCurrency] = useState("$");
     // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
 
+    useEffect(() => {
+        setCurrency("$");
+    },[])
+
     const addCart = (id) => {
-        
+        const item = product.get("id");
+        if (item!== undefined){
+            setCart(cart.push(item));
+        }
+        else{
+            console.error("item not found.");
+        }
 
     }
 
     const removeCart = (id) => {
-        for (let i = 0; i <= cart.length; i++){
-            
-        }
+        setCart(setCart(cart.filter(item=> item.id !== id)));
     }
 
     const clearCart = () => {
         setCart([]);
+        
     }
 
     const listCart = () => {
-        
+        return(cart)
     }
     return (
-        <CartContext.Provider value={cart}>
+        <CartContext.Provider value={{cart, currency, addCart, removeCart, clearCart, listCart}}>
             {children}
         </CartContext.Provider>
     );
