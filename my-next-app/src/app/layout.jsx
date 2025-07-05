@@ -6,6 +6,8 @@
   //import "./globals.css"
   import "../assets/scss/style.scss";
   import "../assets/scss/style_2.scss";
+  import {CartProvider} from "../global_quantity/CartContext";
+  import {ProductProvider} from "../global_quantity/ProductContext";
 
   import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -32,7 +34,11 @@
           <Header className="invert-color" navPosition="right" />
           <Search_bar />
           <main className="site-content">
-            {children}
+            <ProductProvider>
+              <CartProvider>
+                 {children}
+              </CartProvider>
+            </ProductProvider>
           </main>
           <Footer />
           <ScrollToAnchor />

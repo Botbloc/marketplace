@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 import React from "react";
 import {createContext, useState, useEffect} from "react";
 import placeholder from "../assets/images/placeholder.jpg" 
@@ -11,7 +11,8 @@ export const CartProvider = ({children}) => {
     const [currency, setCurrency] = useState("$");
     // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
 
-    const addCart = () => {
+    const addCart = (id) => {
+
 
     }
 
@@ -28,6 +29,11 @@ export const CartProvider = ({children}) => {
     const listCart = () => {
         
     }
+    return (
+        <CartContext.Provider value={cart}>
+            {children}
+        </CartContext.Provider>
+    );
 }
 
 
