@@ -1,18 +1,20 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import {createContext, useState, useEffect} from "react";
-import placeholder from "../assets/images/placeholder.jpg" 
+import placeholder from "../assets/images/placeholder.jpg" ;
+import ProductContext from "./ProductContext";
 
 // context storing the cart details that can be used later on
 const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
+    const {product} = useContext(ProductContext); // map object for fast retrival
     const [cart, setCart] = useState([]);
     const [currency, setCurrency] = useState("$");
     // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
 
     const addCart = (id) => {
-
+        
 
     }
 
