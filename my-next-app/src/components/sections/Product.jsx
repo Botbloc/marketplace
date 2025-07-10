@@ -3,7 +3,9 @@ import React from "react";
 import {useEffect, useState} from "react";
 import image1 from "../../assets/images/placeholder.jpg";
 import image2 from "../../assets/images/landscape-placeholder.svg";
-import Button from "../elements/Button"
+import Button from "../elements/Button";
+import product_logic from "../../global_quantity/ProductContext";
+import cart_logic from "../../global_quantity/CartContext";
 
 // we need image, price, product detail
 

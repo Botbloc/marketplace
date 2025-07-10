@@ -32,7 +32,7 @@
       <html lang="en">
         <body className={`antialiased`} >
           <Header className="invert-color" navPosition="right" />
-          <Search_bar />
+          
           <main className="site-content">
             <ProductProvider>
               <CartProvider>

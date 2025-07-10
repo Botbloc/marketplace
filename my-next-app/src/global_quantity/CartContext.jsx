@@ -9,7 +9,7 @@ const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
     const {product} = useContext(ProductContext); // map object for fast retrival
-    const [cart, setCart] = useState([]);
+    const [product_in_cart, setCart] = useState([]);
     const [currency, setCurrency] = useState("$");
     // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
 
@@ -20,7 +20,7 @@ export const CartProvider = ({children}) => {
     const addCart = (id) => {
         const item = product.get("id");
         if (item!== undefined){
-            setCart(cart.push(item));
+            setCart(product_in_cart.push(item));
         }
         else{
             console.error("item not found.");
@@ -29,7 +29,7 @@ export const CartProvider = ({children}) => {
     }
 
     const removeCart = (id) => {
-        setCart(setCart(cart.filter(item=> item.id !== id)));
+        setCart(setCart(product_in_cart.filter(item=> item.id !== id)));
     }
 
     const clearCart = () => {
@@ -38,10 +38,10 @@ export const CartProvider = ({children}) => {
     }
 
     const listCart = () => {
-        return(cart)
+        return(product_in_cart)
     }
     return (
-        <CartContext.Provider value={{cart, currency, addCart, removeCart, clearCart, listCart}}>
+        <CartContext.Provider value={{product_in_cart, currency, addCart, removeCart, clearCart, listCart}}>
             {children}
         </CartContext.Provider>
     );

@@ -2,6 +2,7 @@
 //import React from "react";
 import {useState, useEffect, useContext} from "react";
 import cart_logic from "../../global_quantity/CartContext";
+import product_logic from "../../global_quantity/ProductContext";
 import Link from "next/link";
 
 const template_product = [
@@ -29,7 +30,9 @@ const template_product = [
 const cart = () =>{
 
     
-    const [product, setProduct] = useState([]);
+    const [product_in_cart, setProduct] = useState([]);
+    const {product} = useContext(product_logic);
+    //const {product_in_cart, addCart} = useContext(cart_logic);
     const [currency, setCurrency] = useState("$");
     const [total, setTotal] = useState("0");
 
@@ -37,14 +40,15 @@ const cart = () =>{
     // get data from context
     useEffect(() => {
         setProduct(template_product);
+        
     },[])
 
     const generateProductEntity = (e) => {
         const href = "product/"
         return(
             <div className="product_container">
-                {console.log("product: ",product)}
-                {product.map((item) => {
+                {console.log("product from context: ", product)}
+                {product_in_cart.map((item) => {
                     return(
                         <Link href={href+item.id}>
                             <div className="product_in_cart" key={item.id}>
@@ -64,12 +68,12 @@ const cart = () =>{
     const displayCalculation = () => {
         return(
             <div className="calculation_display">
-                {product.map((item)=>{
-                    if (item.id === product.at(-1)?.id){
+                {product_in_cart.map((item)=>{
+                    if (item.id === product_in_cart.at(-1)?.id){
                         return (
                             <div className="display_item" key={item.id}>
                                 <span>+</span>
-                                <span>{item.product}</span>
+                                <span>{item.product_in_cart}</span>
                                 <span>{item.currency + " " + item.price}</span>
                             </div>
                         )
@@ -77,7 +81,7 @@ const cart = () =>{
                     else{
                         return(            
                         <div className="display_item" key={item.id}>
-                            <span>{item.product}</span>
+                            <span>{item.product_in_cart}</span>
                             <span>{item.currency + " " + item.price}</span>
                         </div>
                     )
@@ -95,7 +99,7 @@ const cart = () =>{
     }
 
     return(
-        product != undefined
+        product_in_cart != undefined
         && <div className="cart_window">
             <div>
                 <h4>Shopping Cart</h4>
@@ -103,7 +107,7 @@ const cart = () =>{
             <div className="row">
                 <div className="col-md-6 left_pane">
                     
-                    {generateProductEntity(product)}
+                    {generateProductEntity(product_in_cart)}
                 </div>
                 <div className="col-md-6 right_pane">
                     <div>

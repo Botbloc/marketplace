@@ -8,7 +8,7 @@ import Brief from '../components/sections/Brief';
 export default function Home() {
   return (
     <>
-      
+      <Search_bar />
       <Hero />
       <MultiWindowDisplay />
       <Brief/>
