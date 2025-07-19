@@ -17,13 +17,19 @@ export const CartProvider = ({children}) => {
         setCurrency("$");
     },[])
 
-    const addCart = (id) => {
+    const addCart = (id, amount) => {
         const item = product.get("id");
+        
         if (item!== undefined){
-            setCart(product_in_cart.push(item));
+            const item_with_quan = 
+                {   "id" : id, 
+                    "quantity" : amount
+                }
+            setCart(product_in_cart.push(item_with_quan));
         }
         else{
             console.error("item not found.");
+            window.alert("Item not found.");
         }
 
     }
