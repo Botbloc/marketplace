@@ -6,6 +6,7 @@
     import Button from "../elements/Button";
     import product_logic from "../../global_quantity/ProductContext";
     import cart_logic from "../../global_quantity/CartContext";
+    import SidebarContext from "../../global_quantity/SidebarContext";
 
     // we need image, price, product detail
 
@@ -54,6 +55,8 @@
 
         const {addCart} = useContext(cart_logic);
 
+        const {isOpen, openSidebar, sidebarContent} = useContext(SidebarContext);
+
         const setQuan = (type, quan) =>{
         if (type === "+"){
             setQuantity(quantity+1);
@@ -78,7 +81,7 @@
         // switch between Detail, Statistics, and review
         const [TextType, setTextType] = useState("Detail");
         const [quantity, setQuantity] = useState(0);
-        const [sidebarOpen, setSidebarOpen] = useState(false);
+        
 
         const confirmToCart = (e) => {
             addCart(productID, quantity);
@@ -141,27 +144,7 @@
 
         }
 
-        const SidebarOVerlay = () => {
-            return(
-                <div
-                    className={`sidebar-overlay ${sidebarOpen ? 'open' : ''}`}
-                    onClick={() => setSidebarOpen(false)}
-                ></div>
-            )
-        }
-
-        const SidebarForOptions = () => {
-            console.log("hi");
-            return(
-                <div className={`sidebar-panel ${sidebarOpen ? 'open' : ''}`}>
-                    <div className="sidebar-content">
-                    <h2>Your Cart</h2>
-                    <p>Here are the items in your cart.</p>
-                    <button onClick={() => setSidebarOpen(false)}>Close</button>
-                    </div>
-                </div>
-            )
-        }
+        
 
         return(
             
@@ -198,7 +181,7 @@
                                 <h4>{product_detail.product_name}</h4>
                                 <h4>{product_detail.currency + " " + product_detail.price}</h4>
                             </div>
-                            <div className="spec_module" onClick={() => setSidebarOpen(true)}>
+                            <div className="spec_module" onClick={() => openSidebar()}>
                                 <h6>Product spec choices:</h6>
                             </div>
                             <div className="buy-module">  
@@ -250,8 +233,7 @@
                 
                 {//set it to layout and add a context for it
                 }
-                <SidebarOVerlay/>
-                <SidebarForOptions/>
+                
             </>
         )
     }

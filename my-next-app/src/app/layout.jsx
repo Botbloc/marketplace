@@ -8,7 +8,8 @@
   import "../assets/scss/style_2.scss";
   import {CartProvider} from "../global_quantity/CartContext";
   import {ProductProvider} from "../global_quantity/ProductContext";
-
+  import {SidebarProvider} from "../global_quantity/SidebarContext";
+  import SidebarLayer from "../components/sections/partials/SidebarOverlay"
   import 'bootstrap/dist/css/bootstrap.min.css';
 
   const geistSans = Geist({
@@ -30,18 +31,22 @@
   export default function RootLayout({ children }) {
     return (
       <html lang="en">
-        <body className={`antialiased`} >
+        <body >
           <Header className="invert-color" navPosition="right" />
-          
-          <main className="site-content">
-            <ProductProvider>
-              <CartProvider>
-                 {children}
-              </CartProvider>
-            </ProductProvider>
-          </main>
-          <Footer />
-          <ScrollToAnchor />
+          <SidebarProvider>
+            <SidebarLayer/>
+            <main className="site-content">
+              <ProductProvider>
+                <CartProvider>
+                  
+                    {children}
+                  
+                </CartProvider>
+              </ProductProvider>
+            </main>
+            <Footer />
+            <ScrollToAnchor />
+          </SidebarProvider>
         </body>
       </html>
     );
