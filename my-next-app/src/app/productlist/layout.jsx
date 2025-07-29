@@ -1,6 +1,5 @@
 // app/layout.tsx
-import '../globals.css';
-import Sidebar from '../../components/layout/Sidebar';
+import SubHeader from "../../components/layout/SubHeader";
 
 export const metadata = {
   title: 'Next.js App with Sidebar',
@@ -9,12 +8,14 @@ export const metadata = {
 
 export default function layout({ children }) {
   return (
-    <div className="body-container">
-    
-      <Sidebar />
-      <main className="product_list">
-        {children}
-      </main>
+    <div className="">
+      <SubHeader/>
+      <div className="body-container">      
+        <main className="product_list_window">
+          {children}
+        </main>
+      </div>
     </div>
+    
   );
 }

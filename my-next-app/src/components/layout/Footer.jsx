@@ -6,41 +6,105 @@ import classNames from 'classnames';
 import Logo from './partials/Logo';
 import FooterNav from './partials/FooterNav';
 import FooterSocial from './partials/FooterSocial';
+import Link from 'next/link';
 
-const Footer = ({
-  className,
-  topOuterDivider,
-  topDivider,
-  ...props
-}) => {
-  const classes = classNames(
-    'site-footer invert-color center-content-mobile',
-    topOuterDivider && 'has-top-divider',
-    className
-  );
+const Footer = () => {
 
   return (
-    <footer {...props} className={classes}>
-      <div className="container">
-        <div
-          className={classNames(
-            'site-footer-inner',
-            topDivider && 'has-top-divider'
-          )}
-        >
-          <div className="footer-top space-between text-xxs">
-            <Logo />
-            <FooterSocial />
+    <div className='site-footer'>
+      <div className='division_bar'></div>
+      <footer className="site-footer-inner">
+         
+          <div className='footer-social'>
+                <FooterSocial />
+                <copy>Copyright @ 2025 BotBloc Ltd.<br/> All rights reserved</copy>
+                <ul className='terms_and_condition'>
+                {[
+                  { label: 'Terms of use', href: '/' },
+                  { label: 'Privacy Policy', href: '/' },
+                  { label: 'Cookies Policy', href: '/' }
+                ].map(({ label, href }) => (  
+                  <li key={label}>
+                    <Link href={href}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            
           </div>
-          <div className="footer-bottom space-between text-xxs invert-order-desktop">
-            <FooterNav />
-            <div className="footer-copyright">
-              &copy; 2024 BotBloc, all rights reserved
-            </div>
+          <div className='footer-shop'> 
+            <h6>Shop</h6>
+            <ul>
+              {[
+                { label: 'R-Cores', href: '/' },
+                { label: 'Actuators', href: '/' },
+                { label: 'End effectors', href: '/' },
+                { label: 'Sensors', href: '/' },
+                { label: 'Applications', href: '/' },
+                { label: 'Accessories', href: '/' },
+                { label: 'Bundles', href: '/' }
+              ].map(({ label, href }) => (  
+                <li key={label}>
+                  <Link href={href}>
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
           </div>
-        </div>
-      </div>
-    </footer>
+          <div className='footer-business-dev'>
+            <h6>Businesses</h6>
+              <ul>
+                {[
+                  { label: 'Use cases', href: '/' },
+                  { label: 'Book a demo', href: '/' },
+                ].map(({ label, href }) => (  
+                  <li key={label}>
+                    <Link href={href}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <h6>Developers</h6>
+              <ul>
+                {[
+                  { label: 'Documentation', href: '/' },
+                  { label: 'Learning', href: '/' },
+                  { label: 'Community', href: '/' }
+                ].map(({ label, href }) => (  
+                  <li key={label}>
+                    <Link href={href}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+          </div>
+          <div className='footer-about'>
+            <h6>About</h6>
+              <ul>
+                {[
+                  { label: 'About us', href: '/' },
+                  { label: 'Press and release', href: '/' },
+                  { label: 'Investors', href: '/' },
+                  { label: 'Sustainability', href: '/' },
+                  { label: 'Careers', href: '/' },
+                  { label: 'Contact us', href: '/' }
+                ].map(({ label, href }) => (  
+                  <li key={label}>
+                    <Link href={href}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+          </div>
+        
+      </footer>
+    </div>
   );
 };
 

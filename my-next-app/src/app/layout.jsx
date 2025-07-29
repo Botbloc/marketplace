@@ -4,7 +4,7 @@
   import ScrollToAnchor from '../utils/ScrollToAnchor';
   import Search_bar from '../components/sections/Search_bar';
   //import "./globals.css"
-  import "../assets/scss/style.scss";
+  //import "../assets/scss/style.scss";
   import "../assets/scss/style_2.scss";
   import {CartProvider} from "../global_quantity/CartContext";
   import {ProductProvider} from "../global_quantity/ProductContext";

@@ -84,9 +84,9 @@ const Header = ({
       <div className="container">
         <div className={innerClasses}>
           <Logo />
-          <h3>BotBloc</h3>
+          
 
-          {!hideNav && (
+          { (
             <>
               <button
                 ref={hamburgerRef}
@@ -108,35 +108,69 @@ const Header = ({
                     )}
                   >
                     {[
-                      { label: 'Products', href: '/#hero-section' },
-                      //{ label: 'Solutions', href: '/#feature-section' },
-                      //{ label: 'Community', href: '/#roadmap-section' },
-                      { label: 'Shopping Cart', href: 'cart' },
-                      //{ label: 'Contact', href: '#roadmap-section' },
-                    ].map(({ label, href }) => (
-                      <li key={label}>
-                        <Link href={href} onClick={closeMenu}>
-                          {label}
-                        </Link>
-                      </li>
-                    ))}
+                      { id: 0,label: 'R-Cores', href: '/' },
+                      {id: 1, label: 'Components', href: '/' },
+                      {id: 2, label: 'Apps', href: '/' },
+                      {id: 3, label: 'Business',  subLabel: [
+                          {id: 0, label: 'Uses cases', href: '/uses_cases'},
+                          {id: 1, label: 'Book a demo', href: '/book_demo'}, 
+                      ] , className : "dropdown" },
+                      {id: 4, label: 'Developers', subLabel: [
+                          {id: 0, label: 'Documentation', href: '/Docs'},
+                          {id: 1, label: 'Learning', href: '/learning'}, 
+                          {id: 2, label: 'Community', href: '/community'}
+                      ]  ,className : "dropdown" },
+                      {id: 5, label: 'About',  subLabel: [
+                          {id: 0, label: 'About us', href: '/abt_us'},
+                          {id: 1, label: 'Press and release', href: '/press_and_release'}, 
+                          {id: 2,label: 'Investors', href: '/investors'},
+                          {id: 3, label: 'sustainability', href: '/sustainability'},
+                          {id: 4, label: 'careers', href: '/careers'},
+                          {id: 5, label: 'contact us', href: '/contact_us'}
+                      ] ,className : "dropdown"},
+                      {id: 6, label: 'Shopping Cart', href: '/cart' }
+                    ].map(({ id,label, href, className, subLabel }) => {  
+                      if (className !== "dropdown"){
+                        return(
+                          <li key={id}>
+                            <Link href={href} onClick={closeMenu}>
+                              {label}
+                            </Link>
+                          </li>
+                        )
+                        
+                      }
+                      else{
+                        return(
+                          <li key={id} className='dropdown'>
+                            {label}
+                            <ul className="dropdown-menu">
+                              
+                              {subLabel.map(({id,label, href}) => (
+                                <li key={id}>
+                                  <Link href={href} onClick={closeMenu} className={className}>
+                                    {label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        )
+                      }
+                      
+                    })}
                   </ul>
 
                   {!hideSignin && (
                     <ul className="list-reset header-nav-right">
                       <li>                        
-                        <Link href="login" onClick={closeMenu} className="button button-primary button-wide-mobile button-sm button_2">
+                        <Link href="login" onClick={closeMenu} className="button_2">
                           Sign in
                           
                         </Link>
 
                       </li>
-                      <li>
-                        <Link href="register" onClick={closeMenu} className="button button-primary button-wide-mobile button-sm button_2">
-                          Register
-                          
-                        </Link>
-                      </li>
+                      
                     </ul>
                   )}
                 </div>

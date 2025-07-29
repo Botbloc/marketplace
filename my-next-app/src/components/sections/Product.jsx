@@ -20,7 +20,7 @@
         "price" : 0,
         "currency" : "$",
         "description": "Template Description",
-        "Statistics" : {
+        "Specs" : {
             "spec 1" : 0,
             "spec 2" : 0,
             "spec 3" : 0,
@@ -79,7 +79,7 @@
         },[])
 
         // switch between Detail, Statistics, and review
-        const [TextType, setTextType] = useState("Detail");
+        const [TextType, setTextType] = useState("Overview");
         const [quantity, setQuantity] = useState(0);
         
 
@@ -95,20 +95,20 @@
         }
 
         const setDetailTextDisplay = () => {
-            if (TextType == "Detail"){
+            if (TextType == "Overview"){
                 return(
                     <div>
-                        <h1>Detail</h1>
+                        <h1>Overview</h1>
                         <p>{product_detail.description}</p>
                     </div>
                 )
             }
-            else if (TextType == "Statistics"){
+            else if (TextType == "Specs"){
                 return(
                     <div>
-                        <h1>Statistics</h1>
+                        <h1>Specs</h1>
                         <ul>
-                            {Object.entries(product_detail.Statistics).map(([id, value])=> {
+                            {Object.entries(product_detail.Specs).map(([id, value])=> {
                                 <li>{id} : {value}</li>
                             })}
                         </ul>
@@ -133,6 +133,15 @@
                         </ul>
                     </div>
                 )
+            }
+            else if (TextType === "Compatability"){
+                return(
+                    <div>
+                        <h1>Compatability</h1>
+                            
+                    </div>
+                )
+                
             }
             else{
                 return(
@@ -182,7 +191,7 @@
                                 <h4>{product_detail.currency + " " + product_detail.price}</h4>
                             </div>
                             <div className="spec_module" onClick={() => openSidebar()}>
-                                <h6>Product spec choices:</h6>
+                                <h6>Product spec options</h6>
                             </div>
                             <div className="buy-module">  
                                 <div className="buy-module-button">
@@ -205,21 +214,27 @@
                     <div className="Product_detail">
                         <ul className="detail_buttons">
                             <li>
-                                <button onClick={() =>setTextType("Detail")} className={`px-4 py-2 rounded ${
-                                    TextType == "Detail" ? 'background-color: blue' : 'bg-gray-300'}`}>
-                                        Detail
+                                <button onClick={() =>setTextType("Overview")} className={`px-4 py-2 rounded ${
+                                    TextType == "Overview" ? 'background-color: blue' : 'bg-gray-300'}`}>
+                                        Overview
                                 </button>
                             </li>
                             <li>
-                                <button onClick={() =>setTextType("Statistics")} className={`px-4 py-2 rounded ${
-                                    TextType == "Statistics" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                                        Statistics
+                                <button onClick={() =>setTextType("Specs")} className={`px-4 py-2 rounded ${
+                                    TextType == "Specs" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                                        Specs
                                 </button>
                             </li>
                             <li>
                                 <button onClick={() => setTextType("Review")} className={`px-4 py-2 rounded ${
                                     TextType == "Review" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
                                         Review
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={() => setTextType("Compatability")} className={`px-4 py-2 rounded ${
+                                    TextType == "Compatability" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                                        Compatability
                                 </button>
                             </li>
                         </ul>

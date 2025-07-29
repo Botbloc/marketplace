@@ -61,24 +61,13 @@ const Header = ({
     };
   }, [active, isActive]);
 
-  const headerClasses = classNames(
-    'site-header',
-    bottomOuterDivider && 'has-bottom-divider',
-    className
-  );
-
-  const innerClasses = classNames(
-    'site-header-inner',
-    bottomDivider && 'has-bottom-divider'
-  );
-
   const navClasses = classNames('header-nav', isActive && 'is-active');
 
   return (
-    <header {...props} className={headerClasses}>
+    <div {...props} className="subHeader">
       <div className="container">
-        <div className={innerClasses}>
-          {!hideNav && (
+        <div className="subHeader-inner">
+          { (
             <>
               <button
                 ref={hamburgerRef}
@@ -92,36 +81,58 @@ const Header = ({
               </button>
 
               <nav ref={navRef} className={navClasses}>
-                <div className="header-nav-inner">
+                <div className="subHeader-nav-inner">
                   <ul
                     className={classNames(
-                      'list-reset text-xs',
                       navPosition && `header-nav-${navPosition}`
                     )}
                   >
                     {[
-                      { label: 'Products', href: '/#hero-section' },
-                      //{ label: 'Solutions', href: '/#feature-section' },
-                      //{ label: 'Community', href: '/#roadmap-section' },
-                      { label: 'Shopping Cart', href: 'cart' },
-                      //{ label: 'Contact', href: '#roadmap-section' },
-                    ].map(({ label, href }) => (
-                      <li key={label}>
-                        <Link href={href} onClick={closeMenu}>
-                          {label}
-                        </Link>
-                      </li>
-                    ))}
+                      { id: 0,label: 'R-Cores', href: '/' },
+                      {id: 1, label: 'Actuators', href: '/' },
+                      {id: 2, label: 'End effectors', href: '/' },
+                      {id: 3, label: 'Sensors', href: '/' }, 
+                      {id: 4, label: 'Applications', href: '/' },
+                      {id: 5, label: 'Accessories', href: '/' },
+                      {id: 6, label: 'Shopping Cart', href: '/cart' }
+                    ].map(({ id,label, href, className, subLabel }) => {  
+                      if (className !== "dropdown"){
+                        return(
+                          <li key={id}>
+                            <Link href={href} onClick={closeMenu}>
+                              {label}
+                            </Link>
+                          </li>
+                        )
+                        
+                      }
+                      else{
+                        return(
+                          <li key={id} className='dropdown'>
+                            {label}
+                            <ul className="dropdown-menu">
+                              
+                              {subLabel.map(({id,label, href}) => (
+                                <li key={id}>
+                                  <Link href={href} onClick={closeMenu} className={className}>
+                                    {label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        )
+                      }
+                      
+                    })}
                   </ul>
-
-                  
                 </div>
               </nav>
             </>
           )}
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 

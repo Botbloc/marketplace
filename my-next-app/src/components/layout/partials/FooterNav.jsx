@@ -14,11 +14,7 @@ const FooterNav = ({
   );
 
   return (
-    <nav
-      {...props}
-      className={classes}
-    >
-      <ul className="list-reset">
+      <ul className="social">
         <li>
           <a href="mailto:business@botbloc.com">Email: business@botbloc.com</a>
         </li>
@@ -37,7 +33,6 @@ const FooterNav = ({
           <Link href="/support/">Support</Link>
         </li>*/}
       </ul>
-    </nav>
   );
 }
 
