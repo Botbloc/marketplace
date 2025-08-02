@@ -26,10 +26,12 @@ export const CartProvider = ({children}) => {
                     "quantity" : amount
                 }
             setCart(product_in_cart.push(item_with_quan));
+            return "Item added to cart!"
         }
         else{
             console.error("item not found.");
-            window.alert("Item not found.");
+            //window.alert("Item not found.");
+            return "item not found.";
         }
 
     }

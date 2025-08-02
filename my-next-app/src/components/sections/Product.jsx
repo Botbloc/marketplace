@@ -7,6 +7,7 @@
     import product_logic from "../../global_quantity/ProductContext";
     import cart_logic from "../../global_quantity/CartContext";
     import SidebarContext from "../../global_quantity/SidebarContext";
+    import Notification from "../../components/elements/Notification";
 
     // we need image, price, product detail
 
@@ -51,9 +52,13 @@
 
     const Product = ({productID,...prop})=>{
 
+        const [toastVisible, setToastVisible] = useState(false);
+
         const [Display, setDisplay] = useState();
 
         const {addCart} = useContext(cart_logic);
+
+        const [noti_msg, setNoti_msg] = useState("");
 
         const {isOpen, openSidebar, sidebarContent} = useContext(SidebarContext);
 
@@ -84,7 +89,11 @@
         
 
         const confirmToCart = (e) => {
-            addCart(productID, quantity);
+            const reply = addCart(productID, quantity);
+            setToastVisible(true);
+            setNoti_msg(reply);
+            
+            
         }
 
         const onQuanChange = (value)=>{
@@ -159,6 +168,11 @@
             
             
             <> 
+            <Notification
+                    message={noti_msg}
+                    visible={toastVisible}
+                    onClose={() => setToastVisible(false)}
+                />
                 {
                     Display && <div className="product">
 

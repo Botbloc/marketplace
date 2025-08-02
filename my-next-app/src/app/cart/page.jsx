@@ -4,6 +4,8 @@ import {useState, useEffect, useContext} from "react";
 import cart_logic from "../../global_quantity/CartContext";
 import product_logic from "../../global_quantity/ProductContext";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
+import image2 from "../../assets/images/landscape-placeholder.svg";
 
 const template_product = [
     {
@@ -66,40 +68,67 @@ const template_product = [
 
 
 const cart = () =>{
-
-    
     const [product_in_cart, setProduct] = useState([]);
     const {product} = useContext(product_logic);
     //const {product_in_cart, addCart} = useContext(cart_logic);
     const [currency, setCurrency] = useState("$");
     const [total, setTotal] = useState("0");
-
+    const router = useRouter();
+    const [selectedItem, setSelectedItem] = useState();
+    const [display,setDisplay] = useState();
 
     // get data from context
     useEffect(() => {
         setProduct(template_product);
-        
+        setDisplay(image2);
     },[])
 
+
+
     const generateProductEntity = (e) => {
-        const href = "product/"
+        const href = "product/";
         return(
             <div className="product_container">
                 {console.log("product from context: ", product)}
                 {product_in_cart.map((item) => {
                     return(
-                        <Link href={href+item.id}>
-                            <div className="product_in_cart" key={item.id}>
-                                <div className="item_name_module">
+                        
+                        <div className=
+                            "product_in_cart" 
+                            key={item.id}
+                            onClick={()=> router.push(href + item.id)}
+                            >
+                            <div className="item_name_module">
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        onClick={(e)=> e.stopPropagation()}
+                                        className="item_checkbox"
+                                    >
+
+                                    </input>
+                                </div>
+                                <div className="cell">
+                                    <div className=" product_img">
+                                    
+                                            <img src={display.src} className="large_img_config"/>
+                                            
+                                    </div>
+                                </div>
+
+                                <div className="cell">
+                                    
                                     <h4>{item.product_name}</h4>
                                 </div>
-                                <div className="item_price_module">
-                                    <div className="cell">{item.currency + " " + item.price}</div>
-                                    <div className="cell">{item.quantity}</div>
-                                    <div className="cell">{item.currency + " " + item.price * item.quantity}</div>
-                                </div>
+                                
                             </div>
-                        </Link>
+                            <div className="item_price_module">
+                                <div className="cell">{item.currency + " " + item.price}</div>
+                                <div className="cell">{item.quantity}</div>
+                                <div className="cell">{item.currency + " " + item.price * item.quantity}</div>
+                            </div>
+                        </div>
+                        
                         
                     )                 
                 })}
@@ -158,9 +187,15 @@ const cart = () =>{
             
             <div className="left_pane">
                 <div className="product_header">
-                    <div>
+                    <div className="item_detail_module_header">
+                        <div>
+                            <input className="header_checkbox"
+                                type="checkbox"
+                            >
+                            </input>
+                        </div>
                         <div className="cell">
-                            product
+                            Product
                         </div>
                     </div>
                         

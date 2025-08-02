@@ -121,18 +121,19 @@ const Header = ({
                           {id: 2, label: 'Community', href: '/community'}
                       ]  ,className : "dropdown" },
                       {id: 5, label: 'About',  subLabel: [
-                          {id: 0, label: 'About us', href: '/abt_us'},
+                          {id: 0, label: 'About us', href: '/about'},
                           {id: 1, label: 'Press and release', href: '/press_and_release'}, 
                           {id: 2,label: 'Investors', href: '/investors'},
                           {id: 3, label: 'sustainability', href: '/sustainability'},
                           {id: 4, label: 'careers', href: '/careers'},
                           {id: 5, label: 'contact us', href: '/contact_us'}
                       ] ,className : "dropdown"},
-                      {id: 6, label: 'Shopping Cart', href: '/cart' }
+                      {id: 6, label: 'Shop', href: '/productlist' },
+                      {id: 7, label: 'Shopping Cart', href: '/cart' }
                     ].map(({ id,label, href, className, subLabel }) => {  
                       if (className !== "dropdown"){
                         return(
-                          <li key={id}>
+                          <li key={id} className="header_item">
                             <Link href={href} onClick={closeMenu}>
                               {label}
                             </Link>

@@ -10,7 +10,7 @@ let array1 = [
 const productlist = () => {
     return(
         <div>
-            <Search_bar />
+            
             
             <div className="product_list">
                 <Sidebar />
