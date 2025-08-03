@@ -9,7 +9,7 @@ const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
     const {product} = useContext(ProductContext); // map object for fast retrival
-    const [product_in_cart, setCart] = useState([]);
+    const [product_in_cart_Context, setCart] = useState([]);
     const [currency, setCurrency] = useState("$");
     // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
 
@@ -18,26 +18,28 @@ export const CartProvider = ({children}) => {
     },[])
 
     const addCart = (id, amount) => {
-        const item = product.get("id");
+        console.log(product);
+        const item = product.get(id);
+        console.log(item);
         
         if (item!== undefined){
             const item_with_quan = 
                 {   "id" : id, 
                     "quantity" : amount
                 }
-            setCart(product_in_cart.push(item_with_quan));
+            setCart(product_in_cart_Context.push(item_with_quan));
+            console.log("product in cart: \n",product_in_cart_Context);
             return "Item added to cart!"
         }
         else{
             console.error("item not found.");
-            //window.alert("Item not found.");
             return "item not found.";
         }
 
     }
 
     const removeCart = (id) => {
-        setCart(setCart(product_in_cart.filter(item=> item.id !== id)));
+        setCart(setCart(product_in_cart_Context.filter(item=> item.id !== id)));
     }
 
     const clearCart = () => {
@@ -46,16 +48,13 @@ export const CartProvider = ({children}) => {
     }
 
     const listCart = () => {
-        return(product_in_cart)
+        return(product_in_cart_Context)
     }
     return (
-        <CartContext.Provider value={{product_in_cart, currency, addCart, removeCart, clearCart, listCart}}>
+        <CartContext.Provider value={{product_in_cart_Context, currency, addCart, removeCart, clearCart, listCart}}>
             {children}
         </CartContext.Provider>
     );
 }
-
-
-
 
 export default CartContext;

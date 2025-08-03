@@ -8,15 +8,16 @@
     import cart_logic from "../../global_quantity/CartContext";
     import SidebarContext from "../../global_quantity/SidebarContext";
     import Notification from "../../components/elements/Notification";
+    import {useRouter,notFound} from "next/navigation";
 
     // we need image, price, product detail
 
     // api call, now load with preloaded iamges
-    const loadImage = async () =>{  
+    //const loadImage = async () =>{  
 
-    }
+    //}
 
-    const product_detail = {
+    const product_detail_template = {
         "product_name": "Product 1",
         "price" : 0,
         "currency" : "$",
@@ -52,6 +53,8 @@
 
     const Product = ({productID,...prop})=>{
 
+        const router = useRouter();
+
         const [toastVisible, setToastVisible] = useState(false);
 
         const [Display, setDisplay] = useState();
@@ -61,6 +64,31 @@
         const [noti_msg, setNoti_msg] = useState("");
 
         const {isOpen, openSidebar, sidebarContent} = useContext(SidebarContext);
+
+        const {product, findProductByID} = useContext(product_logic);
+
+        const [product_detail, setProduct_detail] = useState({
+            "product_name": "Product 1",
+            "price" : 0,
+            "currency" : "$",
+            "description": "Template Description",
+            "Specs" : {
+                "spec 1" : 0,
+                "spec 2" : 0,
+                "spec 3" : 0,
+                "spec 4" : 0,
+            },
+            "review" : {
+                "user 1" : {
+                    "stars" : 5,
+                    "remark" : "Template Remark"
+                },
+                "user 2" : {
+                    "stars" : 5,
+                    "remark" : "Template Remark"
+                }
+            }
+        });
 
         const setQuan = (type, quan) =>{
         if (type === "+"){
@@ -86,9 +114,11 @@
         // switch between Detail, Statistics, and review
         const [TextType, setTextType] = useState("Overview");
         const [quantity, setQuantity] = useState(0);
+        const [isValid, setIsValid] = useState(true);
         
 
         const confirmToCart = (e) => {
+           
             const reply = addCart(productID, quantity);
             setToastVisible(true);
             setNoti_msg(reply);
@@ -162,109 +192,137 @@
 
         }
 
-        
+        const verifyEntry = () => {
+            const product_entity = findProductByID(productID);
+            console.log(product_entity);
+            if (product_entity.exist === true){
+                setProduct_detail({
+                    "id" : product_entity.id,
+                    "price" : product_entity.price,
+                    "product_name" : product_entity.product_name,
+                    "currency" : "$",
+                });
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
 
-        return(
+        useEffect(() => {
+            if (product && product.size > 0){
+                if (!verifyEntry()){
+                    setIsValid(false);
+                    router.push("/product");
+            }
+            }
             
-            
+        },[product])
+
+        if (isValid){
+            return(   
             <> 
-            <Notification
-                    message={noti_msg}
-                    visible={toastVisible}
-                    onClose={() => setToastVisible(false)}
-                />
-                {
-                    Display && <div className="product">
+                <Notification
+                        message={noti_msg}
+                        visible={toastVisible}
+                        onClose={() => setToastVisible(false)}
+                    />
+                    {
+                        Display && <div className="product">
 
-                    
+                        
 
-                <div className="row">
-                        <div className="col-md-6 left-pane" >
-                            <div className="Big_Img">
-                                
-                                {//console.log("DIsplay: ",Display)
-                                }
-                                <img src={Display.src} className="large_img_config"/>
-                            </div>
-                            <ul className="small_Imgs">
-                                {(product_iamges).map((img_src) => (
-                                    <li className="small_img_icon" key={img_src}>
-                                        {//console.log("image src: ", img_src)
-                                        }
-                                        
-                                        <img src={img_src.src} className="small_img_config"/>
-                                    </li>
-                                ))}
-                            </ul>
-                            
-                        </div>
-
-                        <div className="col-md-6 right-pane">
-                            <div className="price_tag">
-                                <h4>{product_detail.product_name}</h4>
-                                <h4>{product_detail.currency + " " + product_detail.price}</h4>
-                            </div>
-                            <div className="spec_module" onClick={() => openSidebar()}>
-                                <h6>Product spec options</h6>
-                            </div>
-                            <div className="buy-module">  
-                                <div className="buy-module-button">
-                                    <div className="buy-module-container">
-                                
-                                    <div className="buy_quantity">
-                                        <button onClick={()=> setQuan("-")}>-</button>
-                                        <input type="text" onChange={(e)=> {onQuanChange(e.target.value)}} value={quantity}></input>
-                                        <button onClick={()=> setQuan("+")}>+</button>  
-
-                                    </div>
-                                    <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to shopping cart</button>
-                                </div>             
+                    <div className="row">
+                            <div className="col-md-6 left-pane" >
+                                <div className="Big_Img">
+                                    
+                                    {//console.log("DIsplay: ",Display)
+                                    }
+                                    <img src={Display.src} className="large_img_config"/>
                                 </div>
+                                <ul className="small_Imgs">
+                                    {(product_iamges).map((img_src) => (
+                                        <li className="small_img_icon" key={img_src}>
+                                            {//console.log("image src: ", img_src)
+                                            }
+                                            
+                                            <img src={img_src.src} className="small_img_config"/>
+                                        </li>
+                                    ))}
+                                </ul>
+                                
                             </div>
-                            
-                        </div>
-                </div>
-                <div className="borderline"></div>
-                    <div className="Product_detail">
-                        <ul className="detail_buttons">
-                            <li>
-                                <button onClick={() =>setTextType("Overview")} className={`px-4 py-2 rounded ${
-                                    TextType == "Overview" ? 'background-color: blue' : 'bg-gray-300'}`}>
-                                        Overview
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() =>setTextType("Specs")} className={`px-4 py-2 rounded ${
-                                    TextType == "Specs" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                                        Specs
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => setTextType("Review")} className={`px-4 py-2 rounded ${
-                                    TextType == "Review" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                                        Review
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => setTextType("Compatability")} className={`px-4 py-2 rounded ${
-                                    TextType == "Compatability" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                                        Compatability
-                                </button>
-                            </li>
-                        </ul>
-                        <div className="Detail_Text">
-                            {setDetailTextDisplay()}
-                        </div>
+
+                            <div className="col-md-6 right-pane">
+                                <div className="price_tag">
+                                    <h4>{product_detail.product_name}</h4>
+                                    <h4>{product_detail.currency + " " + product_detail.price}</h4>
+                                </div>
+                                <div className="spec_module" onClick={() => openSidebar()}>
+                                    <h6>Product spec options</h6>
+                                </div>
+                                <div className="buy-module">  
+                                    <div className="buy-module-button">
+                                        <div className="buy-module-container">
+                                    
+                                        <div className="buy_quantity">
+                                            <button onClick={()=> setQuan("-")}>-</button>
+                                            <input type="text" onChange={(e)=> {onQuanChange(e.target.value)}} value={quantity}></input>
+                                            <button onClick={()=> setQuan("+")}>+</button>  
+
+                                        </div>
+                                        <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to shopping cart</button>
+                                    </div>             
+                                    </div>
+                                </div>
+                                
+                            </div>
                     </div>
-                
-                </div>
-                }
-                
-                {//set it to layout and add a context for it
-                }
+                    <div className="borderline"></div>
+                        <div className="Product_detail">
+                            <ul className="detail_buttons">
+                                <li>
+                                    <button onClick={() =>setTextType("Overview")} className={`px-4 py-2 rounded ${
+                                        TextType == "Overview" ? 'background-color: blue' : 'bg-gray-300'}`}>
+                                            Overview
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onClick={() =>setTextType("Specs")} className={`px-4 py-2 rounded ${
+                                        TextType == "Specs" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                                            Specs
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onClick={() => setTextType("Review")} className={`px-4 py-2 rounded ${
+                                        TextType == "Review" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                                            Review
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onClick={() => setTextType("Compatability")} className={`px-4 py-2 rounded ${
+                                        TextType == "Compatability" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                                            Compatability
+                                    </button>
+                                </li>
+                            </ul>
+                            <div className="Detail_Text">
+                                {setDetailTextDisplay()}
+                            </div>
+                        </div>
+                    
+                    </div>
+                    }
+                    
+                    {//set it to layout and add a context for it
+                    }
                 
             </>
         )
+        }
+        
+
+        
     }
 
     export default Product;

@@ -7,28 +7,28 @@ import placeholder from "../assets/images/placeholder.jpg" ;
 const ProductContext = createContext();
 
 const items =[
-  { id: 'a1', product_name: 'Apple', price: 200 },
-  { id: 'b2', product_name: 'Banana', price: 100 },
-  { id: 'c3', product_name: 'Cherry', price: 200  },
+  { id: '1', product_name: 'Apple', price: 200 },
+  { id: '2', product_name: 'Banana', price: 100 },
+  { id: '3', product_name: 'Cherry', price: 200  },
 ];
 
 export const ProductProvider = ({children}) => {
     
-    const [product, setProduct] = useState();
+    const [product, setProduct] = useState(new Map());
 
 
     useEffect(() => {
         const map = new Map(items.map(item => [item.id, item]));
         setProduct(map);
-    }, [items]);    
+    }, []);    
     
     const findProductByID = (id) => {
+        console.log(product);
         const item = product.get(id);
         
-        if (item === undefined){
+        if (item !== undefined){
             return (
-                {"exist" : true, "product_name" : item.product_name, "price": item.price}
-                
+                {"exist" : true, "product_name" : item.product_name, "price": item.price} 
             )
         }
         return(

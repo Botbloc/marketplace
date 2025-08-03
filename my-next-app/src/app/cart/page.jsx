@@ -70,18 +70,23 @@ const template_product = [
 const cart = () =>{
     const [product_in_cart, setProduct] = useState([]);
     const {product} = useContext(product_logic);
-    //const {product_in_cart, addCart} = useContext(cart_logic);
+    const {product_in_cart_Context, addCart} = useContext(cart_logic);
     const [currency, setCurrency] = useState("$");
     const [total, setTotal] = useState("0");
     const router = useRouter();
     const [selectedItem, setSelectedItem] = useState();
     const [display,setDisplay] = useState();
+    
 
     // get data from context
     useEffect(() => {
-        setProduct(template_product);
-        setDisplay(image2);
-    },[])
+        if (product_in_cart_Context && product_in_cart_Context > 0){
+            console.log("hi ",product_in_cart_Context);
+            const productArray = Array.from(product_in_cart_Context.values());
+            setProduct(productArray);
+            setDisplay(image2);
+        }
+    },[product_in_cart_Context])
 
 
 
