@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Link from 'next/link';
 import Logo from './partials/Logo';
+import cart_logic from "../../global_quantity/CartContext";
 
 const Header = ({
   className,
@@ -19,7 +20,8 @@ const Header = ({
   const [isActive, setIsActive] = useState(false);
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
-
+  const {product_in_cart_Context, addCart} = useContext(cart_logic);
+ 
   const openMenu = () => {
     document.body.classList.add('off-nav-is-active');
     if (navRef.current) {
@@ -108,7 +110,7 @@ const Header = ({
                     )}
                   >
                     {[
-                      { id: 0,label: 'R-Cores', href: '/' },
+                      { id: 0,label: 'R-Cores', href: '/r-cores' },
                       {id: 1, label: 'Components', href: '/' },
                       {id: 2, label: 'Apps', href: '/' },
                       {id: 3, label: 'Business',  subLabel: [
@@ -129,7 +131,7 @@ const Header = ({
                           {id: 5, label: 'contact us', href: '/contact_us'}
                       ] ,className : "dropdown"},
                       {id: 6, label: 'Shop', href: '/productlist' },
-                      {id: 7, label: 'Shopping Cart', href: '/cart' }
+                      
                     ].map(({ id,label, href, className, subLabel }) => {  
                       if (className !== "dropdown"){
                         return(
@@ -170,6 +172,14 @@ const Header = ({
                           
                         </Link>
 
+                      </li>
+                      <li>
+                        <Link href="cart" onClick={closeMenu} className="shopping_cart">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className='shopping_cart_link'>
+                          <path d="M351.9 329.506H206.81l-3.072-12.56H368.16l26.63-116.019-217.23-26.04-9.952-58.09h-50.4v21.946h31.894l35.233 191.246a32.927 32.927 0 1 0 36.363 21.462h100.244a32.825 32.825 0 1 0 30.957-21.945zM181.427 197.45l186.51 22.358-17.258 75.195H198.917z" data-name="Shopping Cart"/></svg>
+                          <div className={ product_in_cart_Context.length>0 ? "box-show": "box-hide"}>
+                              {product_in_cart_Context.length}</div>
+                        </Link>
                       </li>
                       
                     </ul>

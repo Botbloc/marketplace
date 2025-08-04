@@ -32,21 +32,25 @@
     return (
       <html lang="en">
         <body >
-          <Header className="invert-color" navPosition="right" />
-          <SidebarProvider>
-            <SidebarLayer/>
-            <main className="site-content">
-              <ProductProvider>
-                <CartProvider>
+          <ProductProvider>
+            <CartProvider>
+            <Header className="invert-color" navPosition="right" />
+            <SidebarProvider>
+              <SidebarLayer/>
+              <main className="site-content">
+                
                   
-                    {children}
+                    
+                      {children}
+                    
                   
-                </CartProvider>
-              </ProductProvider>
-            </main>
-            <Footer />
-            <ScrollToAnchor />
-          </SidebarProvider>
+                
+              </main>
+              <Footer />
+              <ScrollToAnchor />
+            </SidebarProvider>
+            </CartProvider>
+          </ProductProvider>
         </body>
       </html>
     );

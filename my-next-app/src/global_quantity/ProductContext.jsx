@@ -10,6 +10,8 @@ const items =[
   { id: '1', product_name: 'Apple', price: 200, currency:"$" },
   { id: '2', product_name: 'Banana', price: 100 , currency:"$"},
   { id: '3', product_name: 'Cherry', price: 200 , currency:"$" },
+  { id: '4', product_name: 'Component 1', price: 1200 , currency:"$" },
+  { id: '5', product_name: 'component 2', price: 3000 , currency:"$" }
 ];
 
 export const ProductProvider = ({children}) => {

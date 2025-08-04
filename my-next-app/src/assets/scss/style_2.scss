@@ -2,7 +2,7 @@
 	position: fixed !important;
 	top: 0;
 	width: 100%;
-	opacity: 90%;
+	opacity: 100%;
 	z-index: 10 !important;
 	background: get-color(dark, 1);
     background-color: #0F2243;
@@ -70,7 +70,7 @@
         list-style: none;
         min-width: 150px;
         border-radius: 5px;
-        z-index: 102;
+        z-index: 1000;
         }
 
     .dropdown-menu li {
@@ -161,6 +161,45 @@
 	+ .header-nav-right {
 		flex-grow: 0;
 	}
+    .shopping_cart{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .shopping_cart_link{
+            width: 50px;
+            height: 50px;
+            fill: #ffffff;
+            stroke: rgb(255, 255, 255);
+            transition: fill 0.3s ease;
+        }
+        .shopping_cart_link:hover{
+            fill: #4483e2;
+        }
+        .box-show{
+            position: relative;
+            left: -20px;
+            top: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: visible;
+            opacity: 1;
+            border-radius: 50%;
+            width:20px;
+            height: 20px;
+            background-color: white;
+            color: blue;
+            transition: visibility 0s linear 0.3s, opacity 0.3s;
+        }
+       
+        .box-hide{
+            visibility: hidden;
+            opacity: 0;
+            transition-delay: 0s;
+        }
+    }
+    
 }
 
 .header-nav-toggle {
@@ -302,7 +341,7 @@
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 9999;
+  z-index: 100;
 }
 
 .custom-toast.show {
@@ -311,6 +350,16 @@
 }
 
 
+.rcore{
+    position: relative;
+    height: 100vh;
+    margin-top: 100px;
+    padding: 100px;
+    p{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
 
 
 .home{
@@ -886,7 +935,7 @@
                         //justify-content: space-between;
                         align-items: center;
                         .cell {
-                            width: 120px; /* Set a fixed width for consistent alignment */
+                            width: 150px; /* Set a fixed width for consistent alignment */
                             text-align: right; /* Center the content inside each cell */
                             font-family: monospace; /* Optional: better alignment for numbers */
                             display: flex;
@@ -960,6 +1009,7 @@
         .product_container::-webkit-scrollbar-thumb{
             background-color: #888;
             border-radius: 10px;
+            z-index: 10;
         }
 
         .product_container::-webkit-scrollbar-thumb:hover{
