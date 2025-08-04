@@ -72,7 +72,7 @@ const cart = () =>{
     const {product} = useContext(product_logic);
     const {product_in_cart_Context, addCart} = useContext(cart_logic);
     const [currency, setCurrency] = useState("$");
-    const [total, setTotal] = useState("0");
+    const [total, setTotal] = useState(0);
     const router = useRouter();
     const [selectedItem, setSelectedItem] = useState();
     const [display,setDisplay] = useState();
@@ -80,21 +80,27 @@ const cart = () =>{
 
     // get data from context
     useEffect(() => {
-        if (product_in_cart_Context && product_in_cart_Context > 0){
-            console.log("hi ",product_in_cart_Context);
-            const productArray = Array.from(product_in_cart_Context.values());
-            setProduct(productArray);
+        if (product_in_cart_Context.length > 0){
+            setProduct(product_in_cart_Context);
             setDisplay(image2);
+            calculateTotal();
         }
     },[product_in_cart_Context])
 
-
+    const calculateTotal = () => {
+        let temp = 0;
+        product_in_cart_Context.map(({quantity, price}) => {
+            temp += quantity * price;
+        })
+        setTotal(temp);
+    }
 
     const generateProductEntity = (e) => {
         const href = "product/";
         return(
             <div className="product_container">
-                {console.log("product from context: ", product)}
+                {//console.log("product from context: ", product)
+                }
                 {product_in_cart.map((item) => {
                     return(
                         
@@ -184,7 +190,7 @@ const cart = () =>{
                     <h4>Your Shopping Cart</h4>
                 
                 <div className="heading_purchase">
-                    <h4>Total: ${dummy.toFixed(2)}</h4>
+                    <h4>Total: ${total.toFixed(2)}</h4>
                     <button>Proceed to checkout</button>
                 </div>
                 

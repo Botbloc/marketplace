@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import {createContext, useState, useEffect} from "react";
 import placeholder from "../assets/images/placeholder.jpg" ;
 import ProductContext from "./ProductContext";
+import cart from "@/app/cart/page";
 
 // context storing the cart details that can be used later on
 const CartContext = createContext();
@@ -15,21 +16,62 @@ export const CartProvider = ({children}) => {
 
     useEffect(() => {
         setCurrency("$");
+        const storedCart = localStorage.getItem("cart");
+        console.log("cart from context: ", storedCart);
+        if (storedCart !== undefined && storedCart !== null){
+            
+            setCart(JSON.parse(storedCart));
+        }
     },[])
+
+    useEffect(() => {
+        if (product_in_cart_Context !== undefined && product_in_cart_Context !== null ){
+             if(product_in_cart_Context.length > 0){
+                localStorage.setItem("cart", JSON.stringify(product_in_cart_Context));
+            }
+        }
+       
+        
+    },[product_in_cart_Context])
 
     const addCart = (id, amount) => {
         console.log(product);
         const item = product.get(id);
         console.log(item);
         
-        if (item!== undefined){
-            const item_with_quan = 
+        if (item!== undefined && amount >0){
+            const find_exist = product_in_cart_Context.find(item => item.id === id);
+            if (find_exist === undefined){
+                const item_with_quan = 
                 {   "id" : id, 
-                    "quantity" : amount
+                    "quantity" : amount,
+                    "currency" : item.currency,
+                    "price" : item.price,
+                    "product_name" : item.product_name
                 }
-            setCart(product_in_cart_Context.push(item_with_quan));
-            console.log("product in cart: \n",product_in_cart_Context);
-            return "Item added to cart!"
+            
+                const new_context = [...product_in_cart_Context, item_with_quan];
+                //let new_context = product_in_cart_Context;
+                //new_context.push(item_with_quan);
+                console.log("new context: ", new_context);
+                setCart(new_context);
+                
+
+                return "Item added to cart!"
+            }
+            else{
+                const updated_context = product_in_cart_Context.map(
+                    item => item.id === id? {...item, quantity : item.quantity + amount} : item
+                );
+                console.log("new context: ", updated_context);
+                setCart(updated_context)
+                return "Item added to cart!"
+            }
+            
+        }
+        else if(amount === 0){
+            console.error("quantity is zero.");
+            return "Quantity cannot be zero.";
         }
         else{
             console.error("item not found.");
@@ -39,7 +81,7 @@ export const CartProvider = ({children}) => {
     }
 
     const removeCart = (id) => {
-        setCart(setCart(product_in_cart_Context.filter(item=> item.id !== id)));
+        setCart(product_in_cart_Context.filter(item=> item.id !== id));
     }
 
     const clearCart = () => {

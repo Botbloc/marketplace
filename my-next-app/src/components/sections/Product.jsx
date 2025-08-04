@@ -44,10 +44,10 @@
 
     // storing iamges for rotation
     let product_iamges = [
-        image1,
-        image1,
-        image1,
-        image1
+        {"id" : 0 ,"img_src" : image1},
+        {"id" : 1 ,"img_src" : image1},
+        {"id" : 2 ,"img_src" : image1},
+        {"id" : 3 ,"img_src" : image1}
     ]
 
 
@@ -241,8 +241,8 @@
                                     <img src={Display.src} className="large_img_config"/>
                                 </div>
                                 <ul className="small_Imgs">
-                                    {(product_iamges).map((img_src) => (
-                                        <li className="small_img_icon" key={img_src}>
+                                    {(product_iamges).map(({id,img_src}) => (
+                                        <li className="small_img_icon" key={id}>
                                             {//console.log("image src: ", img_src)
                                             }
                                             

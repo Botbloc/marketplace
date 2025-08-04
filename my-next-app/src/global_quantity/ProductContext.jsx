@@ -7,9 +7,9 @@ import placeholder from "../assets/images/placeholder.jpg" ;
 const ProductContext = createContext();
 
 const items =[
-  { id: '1', product_name: 'Apple', price: 200 },
-  { id: '2', product_name: 'Banana', price: 100 },
-  { id: '3', product_name: 'Cherry', price: 200  },
+  { id: '1', product_name: 'Apple', price: 200, currency:"$" },
+  { id: '2', product_name: 'Banana', price: 100 , currency:"$"},
+  { id: '3', product_name: 'Cherry', price: 200 , currency:"$" },
 ];
 
 export const ProductProvider = ({children}) => {
@@ -28,7 +28,7 @@ export const ProductProvider = ({children}) => {
         
         if (item !== undefined){
             return (
-                {"exist" : true, "product_name" : item.product_name, "price": item.price} 
+                {"exist" : true, "product_name" : item.product_name, "price": item.price,  currency:"$"} 
             )
         }
         return(
@@ -37,7 +37,7 @@ export const ProductProvider = ({children}) => {
     }
 
     const addProduct = (id,product_name,price ) => {
-        const newItem = {"id" : id, "product_name" : product_name, "price" : price};
+        const newItem = {"id" : id, "product_name" : product_name, "price" : price,  currency:"$"};
         const newMap = new Map(product);
         newMap.set(id, newItem);
         // maybe some verification here
