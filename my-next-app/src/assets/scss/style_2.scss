@@ -763,43 +763,63 @@
                 background-color: #868686;
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center ;
-                padding-left: 50px;
-                padding-right: 50px;
-                
-                .item_detail_module_header{
-                    width: 400px;
-                    display: flex;
-                    flex-direction: row;
-                    //justify-content: space-between;
-
-                    .header_checkbox{
-                        accent-color: #ff5100;
-                        cursor: pointer;
-                    }
-
-
+                padding-left: 10px;
+                padding-right: 10px;
+                .header_checkbox{
+                    accent-color: #ff5100;
+                    cursor: pointer;
                     
-                    .cell {
-                    width: 100px; /* Set a fixed width for consistent alignment */
-                    text-align: right; /* Center the content inside each cell */
-                    font-family: monospace; /* Optional: better alignment for numbers */
-                    }
                 }
-                
-                .item_price_module_header{
-                    width: 400px;
+                .header_center_module{
+                    width: 95%;
                     display: flex;
-                    flex-direction: row;
                     justify-content: space-between;
+                    .item_detail_module_header{
+                        width: 400px;
+                        display: flex;
+                        flex-direction: row;
+                        //justify-content: space-between;
+
+                        
+
+
+                        
+                        .cell {
+                        width: 100px; /* Set a fixed width for consistent alignment */
+                        text-align: right; /* Center the content inside each cell */
+                        font-family: monospace; /* Optional: better alignment for numbers */
+                        }
+                    }
                     
-                    .cell {
-                    width: 160px; /* Set a fixed width for consistent alignment */
-                    text-align: right; /* Center the content inside each cell */
-                    font-family: monospace; /* Optional: better alignment for numbers */
+                    .item_price_module_header{
+                        width: 400px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        
+                        .cell {
+                        width: 160px; /* Set a fixed width for consistent alignment */
+                        text-align: right; /* Center the content inside each cell */
+                        font-family: monospace; /* Optional: better alignment for numbers */
+                        }
                     }
                 }
+                .delete_module{
+                    width: 100px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    .delete_button_img{
+                        width: 25px;
+                        height: 25px;
+                    }
+
+                }
+
+                
             }
 
         .product_container{
@@ -816,9 +836,9 @@
             
 
             a{
-                    text-decoration: none;
-                    color: black;
-                }
+                text-decoration: none;
+                color: black;
+            }
             
             
             .product_in_cart{
@@ -835,82 +855,96 @@
 
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
+                justify-content: center;
                 //ustify-content: center; /* horizontal center */
                 align-items: center; 
 
-                padding-left: 50px;
-                padding-right: 50px;
+                padding-left: 10px;
+                padding-right: 10px;
                 transition: opacity 0.4s ease;
 
                 cursor: pointer;
                 z-index: 100;
                 text-align: center;
 
-                
-                
-
-                .item_name_module{
-                    width: 400px;
-                    display: flex;
-                    flex-direction: row;
-                    z-index: 101;
+                .item_checkbox{
+                    accent-color: #ff5100;
                     cursor: pointer;
-                    //justify-content: space-between;
+                }
+                
+                .item_center_module{
+                    width: 95%;
+                    display: flex;
+                    justify-content: space-between;
                     align-items: center;
-
-                    .item_checkbox{
-                        accent-color: #ff5100;
-                        cursor: pointer;
-                    }
-
-                    .cell {
-
-
-                        width: 120px; /* Set a fixed width for consistent alignment */
-                        text-align: right; /* Center the content inside each cell */
-                        font-family: monospace; /* Optional: better alignment for numbers */
+                    .item_name_module{
+                        width: 400px;
                         display: flex;
+                        flex-direction: row;
+                        z-index: 101;
+                        cursor: pointer;
+                        //justify-content: space-between;
                         align-items: center;
-
-                        .product_img{
-                    
-                            width: 80px;
-                            height : 80px;
-                            //border: 2px solid red;
-                            background-color: #868d92;
-                            
-                            
+                        .cell {
+                            width: 120px; /* Set a fixed width for consistent alignment */
+                            text-align: right; /* Center the content inside each cell */
+                            font-family: monospace; /* Optional: better alignment for numbers */
                             display: flex;
-                            flex-direction: column;
-                            justify-content: center;
                             align-items: center;
-                            margin-left: 20px;
-                            
-                            .large_img_config{
-                                border: 2px solid rgb(31, 31, 31);
+
+                            .product_img{
+                        
                                 width: 80px;
-                                height: 80px;
-                                border-radius: 20px;
-                                cursor: pointer;                    
+                                height : 80px;
+                                //border: 2px solid red;
+                                background-color: #868d92;
+                                
+                                
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                margin-left: 20px;
+                                
+                                .large_img_config{
+                                    border: 2px solid rgb(31, 31, 31);
+                                    width: 80px;
+                                    height: 80px;
+                                    border-radius: 20px;
+                                    cursor: pointer;                    
+                                }
+                                
                             }
                             
                         }
+                        
                     }
-                }
 
-                .item_price_module{
-                    width: 400px;
+                    .item_price_module{
+                        width: 400px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        //align-items: center;
+                        .cell {
+                        width: 160px; /* Set a fixed width for consistent alignment */
+                        text-align: right; /* Center the content inside each cell */
+                        font-family: monospace; /* Optional: better alignment for numbers */
+                        }
+                    }
+
+                }
+                .delete_module{
+                    width: 100px;
                     display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    //align-items: center;
-                    .cell {
-                    width: 160px; /* Set a fixed width for consistent alignment */
-                    text-align: right; /* Center the content inside each cell */
-                    font-family: monospace; /* Optional: better alignment for numbers */
+                    justify-content: center;
+                    align-items: center;
+                    .delete_button_img{
+                        width: 25px;
+                        height: 25px;
                     }
                 }
+                
                 
             }
             .product_in_cart:hover{

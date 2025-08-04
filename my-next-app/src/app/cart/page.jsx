@@ -6,6 +6,7 @@ import product_logic from "../../global_quantity/ProductContext";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import image2 from "../../assets/images/landscape-placeholder.svg";
+import trash_bin from "../../assets/images/trash_can.svg";
 
 const template_product = [
     {
@@ -95,6 +96,47 @@ const cart = () =>{
         setTotal(temp);
     }
 
+    const generateHeader = (e) => {
+        return(
+            <div className="product_header">
+                <div>
+                    <input className="header_checkbox"
+                        type="checkbox"
+                    >
+                    </input>
+                </div>
+                <div className="header_center_module">
+                    <div className="item_detail_module_header">
+                        <div className="cell">
+                            Product
+                        </div>
+                    </div>
+                        
+                    <div className="item_price_module_header">
+                        <div className="cell">
+                            Unit Price
+                        </div>
+                        <div className="cell">
+                            Qty
+                        </div>
+                        <div className="cell">
+                            Subtotal
+                        </div>
+                    </div>
+                </div>
+                <div className="delete_module">
+                    <img 
+                        src={trash_bin.src} 
+                        alt="Logo" 
+                        className="delete_button_img"
+                        onClick={(e)=> e.stopPropagation()}
+                        />
+                </div>
+                
+            </div>
+        )
+    }
+
     const generateProductEntity = (e) => {
         const href = "product/";
         return(
@@ -109,44 +151,50 @@ const cart = () =>{
                             key={item.id}
                             onClick={()=> router.push(href + item.id)}
                             >
-                            <div className="item_name_module">
-                                <div>
+                                 <div>
                                     <input
                                         type="checkbox"
                                         onClick={(e)=> e.stopPropagation()}
                                         className="item_checkbox"
                                     >
-
                                     </input>
                                 </div>
-                                <div className="cell">
-                                    <div className=" product_img">
+                                <div className="item_center_module">
+                                    <div className="item_name_module">
                                     
-                                            <img src={display.src} className="large_img_config"/>
+                                        <div className="cell">
+                                            <div className=" product_img">
                                             
+                                                    <img src={display.src} className="large_img_config"/>
+                                                    
+                                            </div>
+                                        </div>
+
+                                        <div className="cell">
+                                            
+                                            <h4>{item.product_name}</h4>
+                                        </div>
+                                        
+                                    </div>
+                                    <div className="item_price_module">
+                                        <div className="cell">{item.currency + " " + item.price}</div>
+                                        <div className="cell">{item.quantity}</div>
+                                        <div className="cell">{item.currency + " " + item.price * item.quantity}</div>
                                     </div>
                                 </div>
-
-                                <div className="cell">
-                                    
-                                    <h4>{item.product_name}</h4>
+                                <div className="delete_module">
+                                    <img 
+                                        src={trash_bin.src} 
+                                        alt="Logo" 
+                                        className="delete_button_img"
+                                        onClick={(e)=> e.stopPropagation()}
+                                        />
                                 </div>
-                                
-                            </div>
-                            <div className="item_price_module">
-                                <div className="cell">{item.currency + " " + item.price}</div>
-                                <div className="cell">{item.quantity}</div>
-                                <div className="cell">{item.currency + " " + item.price * item.quantity}</div>
-                            </div>
-                        </div>
-                        
-                        
+                        </div>      
                     )                 
                 })}
             </div>
         )
-        
-        
     }
 
     const displayCalculation = () => {
@@ -196,32 +244,8 @@ const cart = () =>{
                 
             </div>
             
-            <div className="left_pane">
-                <div className="product_header">
-                    <div className="item_detail_module_header">
-                        <div>
-                            <input className="header_checkbox"
-                                type="checkbox"
-                            >
-                            </input>
-                        </div>
-                        <div className="cell">
-                            Product
-                        </div>
-                    </div>
-                        
-                    <div className="item_price_module_header">
-                        <div className="cell">
-                            Unit Price
-                        </div>
-                        <div className="cell">
-                            Qty
-                        </div>
-                        <div className="cell">
-                            Subtotal
-                        </div>
-                    </div>
-                </div>
+            <div className="left_pane">             
+                {generateHeader()}
                 {generateProductEntity(product_in_cart)}
             </div>
                 
