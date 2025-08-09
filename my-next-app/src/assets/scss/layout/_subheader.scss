@@ -1,0 +1,34 @@
+.subHeader{
+    position: fixed !important;
+	top: 80px;
+	width: 100%;
+	opacity: 90%;
+	z-index: 1 !important;
+    background-color: #ffffff;
+    
+}
+
+.subHeader-inner{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+	height: 80px;
+	position: sticky;
+	top: 0;
+    font-size: 15px;    
+   .header-nav{
+        .subHeader-nav-inner{
+        li{
+            color: black;
+            padding: 8px;
+        }
+        
+        a{
+            color: black;   
+        }
+        li:hover{
+        background-color: #b9b9b9;
+    }
+    }
+   }
+}

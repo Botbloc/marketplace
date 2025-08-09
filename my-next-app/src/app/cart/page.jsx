@@ -68,7 +68,7 @@ const template_product = [
 ]
 
 
-const cart = () =>{
+const Cart = () =>{
     const [product_in_cart, setProduct] = useState([]);
     const {product} = useContext(product_logic);
     const {product_in_cart_Context, addCart} = useContext(cart_logic);
@@ -255,4 +255,4 @@ const cart = () =>{
     )
 } 
 
-export default cart;
+export default Cart;

@@ -7,7 +7,7 @@ let array1 = [
     {},{},{},{},{},{},{},{},{},{},{},{}
 ]
 
-const productlist = () => {
+const Productlist = () => {
     return(
         <div>
             
@@ -31,4 +31,4 @@ const productlist = () => {
     )
 }
 
-export default productlist;
+export default Productlist;

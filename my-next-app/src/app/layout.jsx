@@ -5,7 +5,7 @@
   import Search_bar from '../components/sections/Search_bar';
   //import "./globals.css"
   //import "../assets/scss/style.scss";
-  import "../assets/scss/style_2.scss";
+  import "../assets/scss/main_old.scss";
   import {CartProvider} from "../global_quantity/CartContext";
   import {ProductProvider} from "../global_quantity/ProductContext";
   import {SidebarProvider} from "../global_quantity/SidebarContext";
