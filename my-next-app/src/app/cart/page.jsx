@@ -71,7 +71,7 @@ const template_product = [
 const Cart = () =>{
     const [product_in_cart, setProduct] = useState([]);
     const {product} = useContext(product_logic);
-    const {product_in_cart_Context, addCart} = useContext(cart_logic);
+    const {product_in_cart_Context, addCart, removeCart} = useContext(cart_logic);
     const [currency, setCurrency] = useState("$");
     const [total, setTotal] = useState(0);
     const router = useRouter();
@@ -187,7 +187,10 @@ const Cart = () =>{
                                         src={trash_bin.src} 
                                         alt="Logo" 
                                         className="delete_button_img"
-                                        onClick={(e)=> e.stopPropagation()}
+                                        onClick={(e)=> {
+                                            e.stopPropagation();
+                                            removeCart(item.id);
+                                        }}
                                         />
                                 </div>
                         </div>      
