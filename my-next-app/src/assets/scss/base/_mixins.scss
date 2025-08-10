@@ -1,12 +1,15 @@
-@mixin flex-center {
+@mixin flex-center($gap: 0) {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: $gap;
 }
 
-@mixin responsive($breakpoint) {
-  @if $breakpoint == md {
-    @media (max-width: 800px) {
+// mixin controlling responsiveness
+@mixin respond-to($size) {
+  $value: map-get($breakpoints, $size);
+  @if $value {
+    @media (max-width: $value) {
       @content;
     }
   }

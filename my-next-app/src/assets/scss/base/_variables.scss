@@ -1,6 +1,12 @@
 $primary-color: #0F2243;
 $accent-color: #a7cdf5;
 $text-color: white;
-$border-radius: 20px;
 
-$break-md: 800px;
+$border-radius-button: 20px;
+
+$breakpoints : (
+    sm: 480px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px
+);
