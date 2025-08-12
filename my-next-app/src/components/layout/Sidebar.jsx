@@ -138,7 +138,7 @@ export default function Sidebar({value, onChange}) {
             <button
               type="button"
               onClick={() => onChange({ minRating: undefined })}
-              className="ml-2 text-sm underline"
+              className="ml-3 text-sm underline "
               style={{ color: "white" }}
             >
               Clear

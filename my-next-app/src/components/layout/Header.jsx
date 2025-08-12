@@ -115,7 +115,7 @@ const Header = ({
                       {id: 2, label: 'Apps', href: '/' },
                       {id: 3, label: 'Business',  subLabel: [
                           {id: 0, label: 'Uses cases', href: '/uses_cases'},
-                          {id: 1, label: 'Book a demo', href: '/book_demo'}, 
+                          {id: 1, label: 'Book a demo', href: '/book-a-demo'}, 
                       ] , className : "dropdown" },
                       {id: 4, label: 'Developers', subLabel: [
                           {id: 0, label: 'Documentation', href: '/Docs'},
