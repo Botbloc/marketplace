@@ -1,3 +1,5 @@
+@use '../base/mixins' as *;
+
 .body-container{
     //flex: 1;
     display: flex;
@@ -84,10 +86,16 @@
                     margin: auto;
                     margin-bottom: 20px;
                     cursor: pointer;
-                    transition: width 0.5s ease;
+                    opacity: 0.5;
+                    transition: opacity 0.5s ease;
                 }
+                .product_card{
+                    @include product_card(250px, 250px, #fff, 20px);
+                }
+                
                 .product_in_grid:hover{
-                    width: scale(1.2);
+                    //width: scale(1.2);
+                    opacity: 1;
                 }
                 
             }

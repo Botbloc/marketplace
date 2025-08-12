@@ -16,41 +16,66 @@ const items =[
 
 export const ProductProvider = ({children}) => {
     
-    const [product, setProduct] = useState(new Map());
+    const [products, setProducts] = useState(items);
+
+    // NEW: derive a Map index for O(1) lookups by id (internal)
+    const idIndex = useMemo(() => new Map(products.map(p => [p.id, p])), [products]);
 
 
-    useEffect(() => {
-        const map = new Map(items.map(item => [item.id, item]));
-        setProduct(map);
-    }, []);    
+       
     
+    // UPDATED: use the index; return same shape as before
     const findProductByID = (id) => {
-        console.log(product);
-        const item = product.get(id);
-        
-        if (item !== undefined){
-            return (
-                {"exist" : true, "product_name" : item.product_name, "price": item.price,  currency:"$"} 
-            )
+        const item = idIndex.get(id);
+        if (item) {
+        return {
+            exist: true,
+            product_name: item.product_name,
+            price: item.price,
+            currency: item.currency ?? "$",
+        };
         }
-        return(
-            {"exist" : false}
-        )
-    }
+        return { exist: false };
+    };
 
-    const addProduct = (id,product_name,price ) => {
-        const newItem = {"id" : id, "product_name" : product_name, "price" : price,  currency:"$"};
-        const newMap = new Map(product);
-        newMap.set(id, newItem);
-        // maybe some verification here
-        setProduct(newMap);
+    // UPDATED: immutably add/update in ARRAY
+  const addProduct = (id, product_name, price) => {
+    const nextItem = { id, product_name, price, currency: "$" };
+    setProducts(prev => {
+      const i = prev.findIndex(p => p.id === id);
+      if (i !== -1) {
+        const copy = [...prev];
+        copy[i] = { ...copy[i], ...nextItem };
+        return copy;
+      }
+      return [...prev, nextItem];
+    });
+  };
 
-    }
-
+    // NEW: normalized array your page/filter expects
+     const allProducts = useMemo(() => (
+        products.map((p, idx) => ({
+        id: p.id,
+        name: p.product_name,                // alias for UI
+        product_name: p.product_name,
+        price: Number(p.price) || 0,
+        currency: p.currency ?? "$",
+        // safe defaults for filters
+        brand: p.brand ?? "Generic",
+        category: p.category ?? "",
+        stock: typeof p.stock === "number" ? p.stock : 10,
+        preorder: Boolean(p.preorder) || false,
+        condition: p.condition ?? "new",
+        rating: typeof p.rating === "number" ? p.rating : 4,
+        shipping: Array.isArray(p.shipping) ? p.shipping : ["uk","international"],
+        createdAt: p.createdAt ?? new Date(Date.now() - idx * 86400000).toISOString(),
+        thumbnail: p.thumbnail ?? placeholder.src,
+        }))
+    ), [products]);
     
 
     return (
-        <ProductContext.Provider value={{product, findProductByID, addProduct}}>
+        <ProductContext.Provider value={{allProducts, products,idIndex, findProductByID, addProduct}}>
             {children} 
         </ProductContext.Provider>
     );

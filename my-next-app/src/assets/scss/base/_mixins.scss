@@ -1,8 +1,9 @@
-@mixin flex-center($gap: 0) {
+@mixin flex-center($gap: 0, $flex-dir: column) {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: $gap;
+  flex-direction: $flex-dir;
 }
 
 // mixin controlling responsiveness
@@ -13,4 +14,29 @@
       @content;
     }
   }
+}
+
+@mixin product_card($height : 150px, $width: 150px, $bg : #fff, $border-radius: 20px){
+  @include flex-center(0,column);
+  height: $height;
+  width: $width;
+  background-color: $bg;
+  border-radius: $border-radius;
+
+  img{
+    max-width: 100%;
+    border-radius: $border-radius - 2px;;
+  }
+  
+  .card-title {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .card-price {
+    font-weight: bold;
+    margin-top: 4px;
+  }
+
+
 }

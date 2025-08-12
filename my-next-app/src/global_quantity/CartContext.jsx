@@ -9,7 +9,7 @@ import cart from "@/app/cart/page";
 const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
-    const {product} = useContext(ProductContext); // map object for fast retrival
+    const {idIndex} = useContext(ProductContext); // map object for fast retrival
     const [product_in_cart_Context, setCart] = useState([]);
     const [currency, setCurrency] = useState("$");
     // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
@@ -35,8 +35,8 @@ export const CartProvider = ({children}) => {
     },[product_in_cart_Context])
 
     const addCart = (id, amount) => {
-        console.log(product);
-        const item = product.get(id);
+        console.log(idIndex);
+        const item = idIndex.get(id);
         console.log(item);
         
         if (item!== undefined && amount >0){
