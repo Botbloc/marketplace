@@ -5,16 +5,19 @@
     display: flex;
     flex-direction: column;
     background-color: white;
+    align-items: center;
 
 
     
 
     .product_list_window{
-        padding-top: 150px;
+        padding-top: 120px;
         height: 100vh;
         //background-color: white;
         width: 100%;
         flex: 1;
+        //display: flex;
+        //align-items: center;
         
         background-color: #f9fafb;
         .hero{  
@@ -25,23 +28,23 @@
             
             height: 100vh;
             padding: 50px;
-            display: flex;
-            flex-direction: row;
+            @include flex-center($flex-dir: row);
         
 
             .sidebar {
                     
                     width: 240px;
                     height: 80vh;
-                    background-color: #6a6a6a;
-                    color: white;
+                    background-color: #ffffff;
+                    color: rgb(0, 0, 0);
+                    border: #afafaf 2px solid;
                     padding: 20px;
                     //position: fixed;
                     
                     bottom: 100px;
                
-                    border-radius: 20px;
-                    box-shadow: -2px 10px 10px rgba(0, 0, 0, 0.7);
+                    border-radius: 10px;
+                    box-shadow: -1px 5px 5px rgba(0, 0, 0, 0.5);
             
 
                     ul {
@@ -81,6 +84,48 @@
 
                 .product_in_grid{
                     width: 250px;
+                    height: 320px;
+                    background-color: #ffffff;
+                    border: #000000 1px solid;
+                    border-radius: 10px;
+                    margin: auto;
+                    margin-bottom: 20px;
+                    cursor: pointer;
+                    opacity: 0.5;
+                    transition: opacity 0.5s ease;
+                    display: flex;
+                    flex-direction: column;
+                    //gap:12px;
+                    justify-content: flex-start;
+                     box-shadow: -1px 5px 5px rgba(0, 0, 0, 0.5);;
+                    .image_module{
+                        //width: 100%;
+                        //height: 100%;
+                        padding-top: 5px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        img{
+                            width: 95%;
+                            height: 95%;
+                            
+                        }
+                    }
+                    .product_detail_module{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: end;
+                        margin: 10px;
+                        height: 100%;
+                        
+                        span{
+                            font-size: 15px;
+                        }
+                    }
+
+                }
+                .product_in_grid_empty{
+                    width: 250px;
                     height: 250px;
                     background-color: #c0c0c0;
                     margin: auto;
@@ -93,8 +138,8 @@
                     @include product_card(250px, 250px, #fff, 20px);
                 }
                 
-                .product_in_grid:hover{
-                    //width: scale(1.2);
+                .product_in_grid_empty:hover{
+                    
                     opacity: 1;
                 }
                 

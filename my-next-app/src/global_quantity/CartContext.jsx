@@ -81,7 +81,12 @@ export const CartProvider = ({children}) => {
     }
 
     const removeCart = (id) => {
-        setCart(product_in_cart_Context.filter(item=> item.id !== id));
+        console.log("id: ",id);
+        console.log("product_in_cart_Context: \n", product_in_cart_Context);
+        const newCart = product_in_cart_Context.filter(item=> item.id !== id);
+        localStorage.setItem("cart",JSON.stringify(newCart) );
+        setCart(newCart);
+
     }
 
     const clearCart = () => {

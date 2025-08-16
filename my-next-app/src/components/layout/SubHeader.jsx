@@ -6,35 +6,12 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import Logo from './partials/Logo';
 
-const Header = ({
-  className,
-  active = false,
-  navPosition = '',
-  hideNav = false,
-  hideSignin = false,
-  bottomOuterDivider = false,
-  bottomDivider = false,
-  ...props
-}) => {
+const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
   const [isActive, setIsActive] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); // mobile: which dropdown is open
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  const openMenu = () => {
-    document.body.classList.add('off-nav-is-active');
-    if (navRef.current) {
-      navRef.current.style.maxHeight = navRef.current.scrollHeight + 'px';
-    }
-    setIsActive(true);
-  };
-
-  const closeMenu = () => {
-    document.body.classList.remove('off-nav-is-active');
-    if (navRef.current) {
-      navRef.current.style.maxHeight = null;
-    }
-    setIsActive(false);
-  };
 
   const handleEscape = (e) => e.key === 'Escape' && isActive && closeMenu();
 
@@ -48,9 +25,12 @@ const Header = ({
     closeMenu();
   };
 
-  useEffect(() => {
-    if (active) openMenu();
+  const closeMenu = () => { // used after clicking any link: it collapses the mobile menu and any open dropdowns.
+    setIsActive(false);
+    setOpenDropdown(null); 
+  };
 
+  useEffect(() => {
     document.addEventListener('keydown', handleEscape);
     document.addEventListener('click', handleClickOutside);
 
@@ -59,12 +39,12 @@ const Header = ({
       document.removeEventListener('click', handleClickOutside);
       closeMenu();
     };
-  }, [active, isActive]);
+  }, []);
 
-  const navClasses = classNames('header-nav', isActive && 'is-active');
+  const navClasses = classNames('subHeader-nav', isActive && 'is-active');
 
   return (
-    <div {...props} className="subHeader">
+    <div className="subHeader">
       <div className="container">
         <div className="subHeader-inner">
           { (
@@ -72,11 +52,9 @@ const Header = ({
               <button
                 ref={hamburgerRef}
                 className="header-nav-toggle"
-                onClick={isActive ? closeMenu : openMenu}
+                //onClick={isActive ? closeMenu : openMenu}
               >
-                <span className="screen-reader">Menu</span>
                 <span className="hamburger">
-                  <span className="hamburger-inner">5</span>
                 </span>
               </button>
 
@@ -84,7 +62,7 @@ const Header = ({
                 <div className="subHeader-nav-inner">
                   <ul
                     className={classNames(
-                      navPosition && `header-nav-${navPosition}`
+                      `subHeader-nav`
                     )}
                   >
                     {[
@@ -93,10 +71,9 @@ const Header = ({
                       {id: 2, label: 'End effectors', href: '/' },
                       {id: 3, label: 'Sensors', href: '/' }, 
                       {id: 4, label: 'Applications', href: '/' },
-                      {id: 5, label: 'Accessories', href: '/' },
-                      {id: 6, label: 'Shopping Cart', href: '/cart' }
+                      {id: 5, label: 'Accessories', href: '/' }
                     ].map(({ id,label, href, className, subLabel }) => {  
-                      if (className !== "dropdown"){
+                      
                         return(
                           <li key={id}>
                             <Link href={href} onClick={closeMenu}>
@@ -105,24 +82,7 @@ const Header = ({
                           </li>
                         )
                         
-                      }
-                      else{
-                        return(
-                          <li key={id} className='dropdown'>
-                            {label}
-                            <ul className="dropdown-menu">
-                              
-                              {subLabel.map(({id,label, href}) => (
-                                <li key={id}>
-                                  <Link href={href} onClick={closeMenu} className={className}>
-                                    {label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </li>
-                        )
-                      }
+                      
                       
                     })}
                   </ul>
@@ -136,14 +96,5 @@ const Header = ({
   );
 };
 
-Header.propTypes = {
-  active: PropTypes.bool,
-  navPosition: PropTypes.string,
-  hideNav: PropTypes.bool,
-  hideSignin: PropTypes.bool,
-  bottomOuterDivider: PropTypes.bool,
-  bottomDivider: PropTypes.bool,
-  className: PropTypes.string,
-};
 
 export default Header;

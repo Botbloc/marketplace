@@ -123,10 +123,11 @@ export default function Sidebar({value, onChange}) {
                 className="text-2xl leading-none"
                 style={{
                   background: "transparent",
-                  color: active ? "gold" : "white",
+                  color: active ? "gold" : "black",
                   border: "none",
                   cursor: "pointer",
-                  padding: "2px 4px",
+                  padding: "2px 2px",
+                  fontSize: "30px"
                 }}
               >
                 {active ? "★" : "☆"}

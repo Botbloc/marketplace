@@ -4,9 +4,11 @@ import Sidebar from '../../components/layout/Sidebar';
 import Search_bar from '../../components/sections/Search_bar';
 import product_logic from "../../global_quantity/ProductContext";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import SubHeader from "../../components/layout/SubHeader";
+import placeholder from "../../assets/images/landscape-placeholder.svg";
 
 let array1 = [
-    {},{},{},{},{},{},{},{},{},{},{},{}
+    
 ]
 
 const parseFilters = (searchParams) => {
@@ -31,7 +33,7 @@ const parseFilters = (searchParams) => {
 // filter: price, availability, condition, rating, shipping location
 
 const Productlist = () => {
-    const { product: allProducts = [] } = useContext(product_logic);
+    const { allProducts = [] } = useContext(product_logic);
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -94,30 +96,53 @@ const Productlist = () => {
     // 4) Pagination
     const pageSize = 24;
     const start = (filters.page - 1) * pageSize;
-    //const pageItems = filteredProducts.slice(start, start + pageSize);
-    
+    const pageItems = filteredProducts.slice(start, start + pageSize);
+
+    useEffect(()=>{
+        console.log("all product: \n", allProducts);
+    },[allProducts])
+    const href = "product/";
 
     return(
-        <div>          
-            <div className="product_list">
-                <Sidebar 
-                    value = {filters}
-                    onChange = {updateUrl}
-                />
-                <ul className="product_grid" >
-                    {array1.map((item)=>(
-                        <li className="product_in_grid">
-                            
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="hero">
+        <>
+            <SubHeader
+                value = {filters}
+                onChange = {updateUrl}
+            />
+            <div className="body-container">      
+                <main className="product_list_window">          
+                <div className="product_list">
+                    <Sidebar 
+                        value = {filters}
+                        onChange = {updateUrl}
+                    />
+                    <ul className="product_grid" >
 
+                        {pageItems.map((item)=>(
+                            <li className="product_in_grid"
+                                onClick={()=> router.push(href + item.id)}
+                                >
+                                <div className="image_module">
+                                    <img src={placeholder.src}/>
+                                </div>
+                                <div className="product_detail_module">
+                                    <span className="text-sm" >{item.name}</span>
+                                    <span className="text-sm">{item.currency+" "+item.price}</span>
+                                </div>
+                            </li>
+                        ))}
+                        {array1.map((item)=>(
+                            <li className="product_in_grid_empty">
+                                
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+               
+                
+                </main>
             </div>
-            
-
-        </div>
+        </>
     )
 }
 

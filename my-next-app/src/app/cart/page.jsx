@@ -81,9 +81,10 @@ const Cart = () =>{
 
     // get data from context
     useEffect(() => {
-        if (product_in_cart_Context.length > 0){
+        console.log("hi");
+        setDisplay(image2);
+        if (product_in_cart_Context.length >= 0){
             setProduct(product_in_cart_Context);
-            setDisplay(image2);
             calculateTotal();
         }
     },[product_in_cart_Context])
@@ -189,6 +190,7 @@ const Cart = () =>{
                                         className="delete_button_img"
                                         onClick={(e)=> {
                                             e.stopPropagation();
+                                            console.log("clicked");
                                             removeCart(item.id);
                                         }}
                                         />

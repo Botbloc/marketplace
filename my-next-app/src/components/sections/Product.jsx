@@ -10,7 +10,7 @@
     import Notification from "../../components/elements/Notification";
     import {useRouter,notFound} from "next/navigation";
 
-    // we need image, price, product detail
+    // we need image, price, products detail
 
     // api call, now load with preloaded iamges
     //const loadImage = async () =>{  
@@ -65,7 +65,7 @@
 
         const {isOpen, openSidebar, sidebarContent} = useContext(SidebarContext);
 
-        const {product, findProductByID} = useContext(product_logic);
+        const {products, findProductByID} = useContext(product_logic);
 
         const [product_detail, setProduct_detail] = useState({
             "product_name": "Product 1",
@@ -194,7 +194,7 @@
 
         const verifyEntry = () => {
             const product_entity = findProductByID(productID);
-            console.log(product_entity);
+            console.log("verify entry: \n",product_entity);
             if (product_entity.exist === true){
                 setProduct_detail({
                     "id" : product_entity.id,
@@ -210,14 +210,14 @@
         }
 
         useEffect(() => {
-            if (product && product.size > 0){
+            if (products && products.length > 0){
                 if (!verifyEntry()){
                     setIsValid(false);
                     router.push("/product");
             }
             }
             
-        },[product])
+        },[products])
 
         if (isValid){
             return(   
