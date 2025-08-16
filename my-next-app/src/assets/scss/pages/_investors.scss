@@ -1,0 +1,31 @@
+.investors{
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    justify-content: center;
+    .hero{
+        padding-top: 75px;
+        display: flex;
+        height: 50vh;   
+        width: 100%;
+        background-color: #afafaf;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .introduction{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40vh;
+        width: 80%;
+        a{
+            text-decoration: none;
+            color: rgb(103, 103, 103);
+        }
+        p{
+           text-align: center; 
+        }
+    }
+}

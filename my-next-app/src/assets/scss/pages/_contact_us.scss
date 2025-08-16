@@ -1,0 +1,47 @@
+.Contacts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    justify-content: center;
+    a{
+        text-decoration: none;
+        color: rgb(103, 103, 103);
+    }
+    .hero{
+        margin-top: 0;
+        padding-top: 75px;
+        display: flex;
+        height: 50vh;   
+        width: 100%;
+        background-color: #afafaf;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .introduction{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10vh;
+        
+        width: 80%;
+        
+        p{
+           text-align: center; 
+        }
+    }
+    .email_list{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .email{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px;
+
+        }
+    }
+
+}

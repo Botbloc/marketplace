@@ -1,10 +1,36 @@
 .rcore{
     position: relative;
     height: 100vh;
-    margin-top: 100px;
-    padding: 100px;
-    p{
-        margin-top: 20px;
-        margin-bottom: 20px;
+    padding: 150px;
+    //padding-top: 20vh;
+    .image-module{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        .r-core-image{
+            width: 300px;
+            height: 300px;
+            margin: auto;
+        }
     }
+    .discription-module{
+        display: flex;
+        flex-direction: column;
+        //align-items: center;
+        justify-content: center;
+        .discription{
+            h1{
+                font-size: 50px;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: bold;
+            }
+            p{
+                margin-top: 40px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+    
+    
 }
