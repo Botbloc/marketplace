@@ -2,7 +2,7 @@
     width: 100vw;
     height: 130vh;
     padding: 100px;
-    padding-top: 130px;
+    padding-top: 10vh;
     padding-left: 15vw;
     padding-right: 15vw;
     //overflow: visible;
@@ -16,7 +16,7 @@
         .Big_Img{
             width: 300px;
             height : 300px;
-            background-color: #868d92;
+            background-color: #c1c1c1;
 
             display: flex;
             flex-direction: column;
@@ -24,10 +24,11 @@
             align-items: center;
             
                 .large_img_config{
-                    border: 2px solid rgb(31, 31, 31);
+                    //border: 2px solid rgb(31, 31, 31);
                     width: 90%;
                     height: 90%;
                     border-radius: 20px;
+                    opacity: 40%;
                     cursor: pointer;                    
                 }
         }
@@ -66,6 +67,21 @@
             width: 80%;
             text-align: left;
             align-items: start;
+            h3{
+                font-size: 30px;
+            }
+            h4{
+                font-size: 20px;
+            }
+            h5{
+                font-size: 15px;
+                &.status_text{
+                    color: grey;
+                }
+                &.id_text{
+                    color: rgb(0, 145, 255);
+                }
+            }
         }
 
         .spec_module{
@@ -97,14 +113,11 @@
             align-items: flex-start;
             margin-top: 50px;
 
-            .buy-module-button{
-                display: flex;  
-                flex-direction: column;
-                flex-grow: 1;
-                flex-shrink: 1;
+            
 
                 .buy-module-container{
-                    display: flex;  
+                    display: flex; 
+                    width: 30vw; 
                     @media (max-width: 800px) {
                         flex-direction: column;
                         align-items: stretch; // optional: make buttons full width
@@ -112,8 +125,8 @@
 
                     .buy_quantity{  
 
-                        width: 100%;
-                        height: 50px;
+                        width: 35%;
+                        height: 45px;
                         border-radius: 15px;
                         background-color: #ffffff;
                         border: 2px rgb(109, 109, 109) solid;
@@ -140,7 +153,7 @@
                         input{
                             width: 50px;
                             border: 0px;
-                            height: 45px;
+                            height: 40px;
                             text-align: center;
                         }
                     }
@@ -151,8 +164,8 @@
                         justify-content: center;
                         background-color: #343e46;
                         color: white;
-                        width: 100%;
-                        height: 50px;
+                        width: 50%;
+                        height: 45px;
                         border-radius: 20px;
                     }
                     .confirm_button:hover{
@@ -160,40 +173,73 @@
                         color: #465d70;
                     }
                 }
-            }
+            
         }
 
         
     }
 
-        .borderline{
-            background-color: #232c38;
-            width: 100%;
-            height: 2px;
-            border-radius: 2px;
-        }
-        .Product_detail{
+    
+    .Product_detail{
 
-            .detail_buttons{
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                max-width: calc(4 * 160px);
-                gap: 10px; /* Optional: spacing between items */
-                list-style-type: none; /* Remove bullets */
-                padding: 0; /* Remove padding */
-                margin: 10px; /* Remove margin */
-                margin-bottom: 30px;
+        .detail_buttons{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(12vw, 1fr));
+            max-width: calc(4 * 12vw);
+            //gap: 10px; /* Optional: spacing between items */
+            list-style-type: none; /* Remove bullets */
+            padding: 0; /* Remove padding */
+            //margin: 10px; /* Remove margin */
+            margin-bottom: 0px;
+            margin-top: 10px;
 
-                button{
-                    width: 150px;
-                    background-color: #232c38;
-                    color: white;   
-                }
-                button:hover{
-                    background-color: white;
-                    color: black;
+            button{
+                width: 12vw;
+                color: #000000;
+                padding: 0;
+                height: 40px;
+                background-color: white;
+                
+                border-radius: 0px;
+                border: 0px;
+                font-size: 20px;
+                
+                transition: font-size .2s ease;
+                text-align: center;
+                &.selected{
+                    background-color: rgb(135, 193, 229);   
                 }
             }
             
-        } 
+            button:hover{
+                //color: white;
+                font-size: 22px;
+                
+            }
+        }
+        .borderline{
+            background-color: rgb(135, 193, 229);
+            width: 70vw;
+            height: 3px;
+            border-radius: 2px;
+        }
+        .detail_text{
+            margin: 0;
+            margin-top: 00px;
+
+            ul{
+                list-style: none;
+                margin: 0px;
+                padding: 0px;
+                li{
+                    padding: 30px;
+                    padding-bottom: 40px;
+                    width: 70vw;
+                    border: rgb(207, 207, 207) 3px solid;
+                    border-width: 0 0 2px 0;
+                }
+            }
+        }
+        
+    } 
 }

@@ -12,10 +12,9 @@ const ProductContext = createContext();
 // rating: 1 to 5 stars
 // shipping: uk, hk
 const items = [
-  // R-cores (3)
   {
-    id: "1",
-    product_name: "R-Core 100W Transformer",
+    id: "AB-1234",
+    product_name: "R25 4Ah Lithium-ion Battery",
     price: 120,
     currency: "$",
     category: "R-cores",
@@ -23,9 +22,18 @@ const items = [
     condition: "new",
     rating: 5,
     shipping: ["uk", "hk"],
+    description : "Official robot battery for high performance",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
+    specs: 
+      {
+        input: "3.3V 3-5A",
+        Dimensions : "Length 420mm x Width 300mm x Height 48mm"
+      }
+    
   },
   {
-    id: "2",
+    id: "AB-1000",
     product_name: "R-Core 50W Compact",
     price: 85,
     currency: "$",
@@ -34,9 +42,12 @@ const items = [
     condition: "second-hand",
     rating: 3,
     shipping: ["uk"],
+    description : "Compact 50W transformer, refurbished condition.",
+    status: "Out of stock",
+    delivery_status: "Ships when restocked",
   },
   {
-    id: "3",
+    id: "AB-1001",
     product_name: "R-Core 200W High Efficiency",
     price: 210,
     currency: "$",
@@ -45,11 +56,14 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["hk"],
+    description : "200W high-efficiency R-Core for industrial use.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
 
-  // Actuators (4)
+  // Actuators
   {
-    id: "4",
+    id: "AB-1002",
     product_name: "Linear Actuator 150mm Stroke",
     price: 180,
     currency: "$",
@@ -58,9 +72,12 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["uk", "hk"],
+    description : "Precision linear actuator with 150mm stroke length.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "5",
+    id: "AB-1003",
     product_name: "Servo Actuator Pro 20kg·cm",
     price: 75,
     currency: "$",
@@ -69,9 +86,12 @@ const items = [
     condition: "new",
     rating: 5,
     shipping: ["uk"],
+    description : "High-torque servo actuator, 20kg·cm load capacity.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "6",
+    id: "AB-1004",
     product_name: "Pneumatic Actuator Compact",
     price: 140,
     currency: "$",
@@ -80,9 +100,12 @@ const items = [
     condition: "second-hand",
     rating: 3,
     shipping: ["hk"],
+    description : "Compact pneumatic actuator, lightly used.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "7",
+    id: "AB-1005",
     product_name: "BLDC Actuator Module",
     price: 220,
     currency: "$",
@@ -91,11 +114,14 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["uk", "hk"],
+    description : "Brushless DC actuator module for robotics projects.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
 
-  // End effectors (4)
+  // End effectors
   {
-    id: "8",
+    id: "AB-1006",
     product_name: "Two-Finger Parallel Gripper",
     price: 260,
     currency: "$",
@@ -104,9 +130,12 @@ const items = [
     condition: "new",
     rating: 5,
     shipping: ["uk", "hk"],
+    description : "Durable two-finger gripper for industrial robots.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "9",
+    id: "AB-1007",
     product_name: "Vacuum Suction Cup Kit",
     price: 95,
     currency: "$",
@@ -115,9 +144,12 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["uk"],
+    description : "Suction cup kit for material handling applications.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "10",
+    id: "AB-1008",
     product_name: "Magnetic Gripper Heavy-Duty",
     price: 180,
     currency: "$",
@@ -126,9 +158,12 @@ const items = [
     condition: "second-hand",
     rating: 2,
     shipping: ["hk"],
+    description : "Heavy-duty magnetic gripper, second-hand condition.",
+    status: "Out of stock",
+    delivery_status: "Ships when restocked",
   },
   {
-    id: "11",
+    id: "AB-1009",
     product_name: "Soft Gripper Food-Grade",
     price: 310,
     currency: "$",
@@ -137,11 +172,14 @@ const items = [
     condition: "new",
     rating: 5,
     shipping: ["uk", "hk"],
+    description : "Food-grade compliant soft gripper for delicate items.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
 
-  // Sensors (4)
+  // Sensors
   {
-    id: "12",
+    id: "AB-1010",
     product_name: "Lidar Distance Sensor 12m",
     price: 150,
     currency: "$",
@@ -150,9 +188,12 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["uk"],
+    description : "Lidar sensor with 12m range for mapping and safety.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "13",
+    id: "AB-1011",
     product_name: "Industrial IMU 9-Axis",
     price: 130,
     currency: "$",
@@ -161,9 +202,12 @@ const items = [
     condition: "second-hand",
     rating: 3,
     shipping: ["hk"],
+    description : "9-axis industrial IMU for motion tracking, refurbished.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "14",
+    id: "AB-1012",
     product_name: "Force/Torque Sensor 6-Axis",
     price: 480,
     currency: "$",
@@ -172,9 +216,12 @@ const items = [
     condition: "new",
     rating: 5,
     shipping: ["uk", "hk"],
+    description : "6-axis force/torque sensor for precision applications.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "15",
+    id: "AB-1013",
     product_name: "Optical Encoder 1024 PPR",
     price: 60,
     currency: "$",
@@ -183,11 +230,14 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["uk"],
+    description : "Optical encoder with 1024 pulses per revolution.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
 
-  // applications (3)
+  // Applications
   {
-    id: "16",
+    id: "AB-1014",
     product_name: "Quality Inspection Kit (Vision)",
     price: 890,
     currency: "$",
@@ -196,9 +246,12 @@ const items = [
     condition: "new",
     rating: 5,
     shipping: ["uk", "hk"],
+    description : "Vision system starter kit for automated inspection.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "17",
+    id: "AB-1015",
     product_name: "Assembly Line Starter Pack",
     price: 1250,
     currency: "$",
@@ -207,9 +260,12 @@ const items = [
     condition: "second-hand",
     rating: 4,
     shipping: ["hk"],
+    description : "Refurbished assembly line starter kit with core tools.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "18",
+    id: "AB-1016",
     product_name: "Material Transport Bundle",
     price: 990,
     currency: "$",
@@ -218,11 +274,14 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["uk"],
+    description : "Bundle for automated material transport solutions.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
 
-  // accessories (2)
+  // Accessories
   {
-    id: "19",
+    id: "AB-1017",
     product_name: "Cable Management Kit",
     price: 35,
     currency: "$",
@@ -231,9 +290,12 @@ const items = [
     condition: "new",
     rating: 4,
     shipping: ["uk", "hk"],
+    description : "Organize and protect cables with this management kit.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
   {
-    id: "20",
+    id: "AB-1018",
     product_name: "Mounting Bracket Universal",
     price: 28,
     currency: "$",
@@ -242,8 +304,12 @@ const items = [
     condition: "second-hand",
     rating: 3,
     shipping: ["uk"],
+    description : "Universal mounting bracket, refurbished quality.",
+    status: "In stock",
+    delivery_status: "Delivery in 2 days",
   },
 ];
+
 
 
 export const ProductProvider = ({children}) => {
@@ -262,9 +328,7 @@ export const ProductProvider = ({children}) => {
         if (item) {
         return {
             exist: true,
-            product_name: item.product_name,
-            price: item.price,
-            currency: item.currency ?? "$",
+            data: item
         };
         }
         return { exist: false };

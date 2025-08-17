@@ -10,7 +10,7 @@
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .custom-toast.show {

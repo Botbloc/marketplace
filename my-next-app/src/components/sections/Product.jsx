@@ -144,22 +144,25 @@
             }
             else if (TextType == "Specs"){
                 return(
-                    <div>
-                        <h1>Specs</h1>
-                        <ul>
-                            {Object.entries(product_detail.Specs).map(([id, value])=> {
-                                <li>{id} : {value}</li>
-                            })}
-                        </ul>
-                    </div>
+                    <ul>
+                        {   product_detail.specs &&
+                            Object.entries(product_detail.specs).map(([key, value])=> (
+                                <li key={key}>
+                                    {key}: {value}
+                                    
+                                </li>
+                            ))
+                        }
+                        
+                        
+                    </ul>
                 )
             }
             else if (TextType == "Review"){
                 return(
-                    <div>
-                        <h1>Review</h1>
                         <ul>
-                            {Object.entries(product_detail.review).map((id, {stars, remark})=> {
+                            { product_detail.review &&
+                            Object.entries(product_detail.review).map((id, {stars, remark})=> {
                                 <div>
                                     <h3>id</h3>
                                     <ul>
@@ -170,13 +173,12 @@
                                 
                             })}
                         </ul>
-                    </div>
                 )
             }
-            else if (TextType === "Compatability"){
+            else if (TextType === "Compatibility"){
                 return(
                     <div>
-                        <h1>Compatability</h1>
+                        <h1>Compatibility</h1>
                             
                     </div>
                 )
@@ -193,15 +195,12 @@
         }
 
         const verifyEntry = () => {
+            // find product by id to confirm entry exists
             const product_entity = findProductByID(productID);
             console.log("verify entry: \n",product_entity);
             if (product_entity.exist === true){
-                setProduct_detail({
-                    "id" : product_entity.id,
-                    "price" : product_entity.price,
-                    "product_name" : product_entity.product_name,
-                    "currency" : "$",
-                });
+                setProduct_detail(product_entity.data);
+                
                 return true;
             }
             else{
@@ -255,14 +254,17 @@
 
                             <div className="col-md-6 right-pane">
                                 <div className="price_tag">
+                                    <h5 className="id_text" >{product_detail.id}</h5>
                                     <h4>{product_detail.product_name}</h4>
-                                    <h4>{product_detail.currency + " " + product_detail.price}</h4>
+                                    <h5>{product_detail.description}</h5>
+                                    <h5 className="status_text">{product_detail.status + " | " + product_detail.delivery_status }</h5>
+                                    <h3>{product_detail.currency + " " + product_detail.price}</h3>
                                 </div>
                                 <div className="spec_module" onClick={() => openSidebar()}>
                                     <h6>Product spec options</h6>
                                 </div>
                                 <div className="buy-module">  
-                                    <div className="buy-module-button">
+                                    
                                         <div className="buy-module-container">
                                     
                                         <div className="buy_quantity">
@@ -272,44 +274,45 @@
 
                                         </div>
                                         <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to cart</button>
-                                    </div>             
-                                    </div>
+                                        </div>             
+                                    
                                 </div>
                                 
                             </div>
                     </div>
-                    <div className="borderline"></div>
-                        <div className="Product_detail">
-                            <ul className="detail_buttons">
-                                <li>
-                                    <button onClick={() =>setTextType("Overview")} className={`px-4 py-2 rounded ${
-                                        TextType == "Overview" ? 'background-color: blue' : 'bg-gray-300'}`}>
-                                            Overview
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() =>setTextType("Specs")} className={`px-4 py-2 rounded ${
-                                        TextType == "Specs" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                                            Specs
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() => setTextType("Review")} className={`px-4 py-2 rounded ${
-                                        TextType == "Review" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                                            Review
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() => setTextType("Compatability")} className={`px-4 py-2 rounded ${
-                                        TextType == "Compatability" ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                                            Compatability
-                                    </button>
-                                </li>
-                            </ul>
-                            <div className="Detail_Text">
-                                {setDetailTextDisplay()}
-                            </div>
+                    
+                    <div className="Product_detail">
+                        <ul className="detail_buttons">
+                            <li>
+                                <button onClick={() =>setTextType("Overview")} className={
+                                    TextType == "Overview" ? 'selected' : ''}>
+                                        Overview
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={() =>setTextType("Specs")} className={
+                                    TextType == "Specs" ? 'selected' : ''}>
+                                        Specs
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={() => setTextType("Review")} className={
+                                    TextType == "Review" ? 'selected' : ''}>
+                                        Review
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={() => setTextType("Compatibility")} className={
+                                    TextType == "Compatibility" ? 'selected' : ''}>
+                                        Compatibility
+                                </button>
+                            </li>
+                            <div className="borderline"></div>
+                        </ul>
+                        <div className="detail_text">
+                            {setDetailTextDisplay()}
                         </div>
+                    </div>
                     
                     </div>
                     }
