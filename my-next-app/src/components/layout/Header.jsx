@@ -139,7 +139,7 @@ export default function Header({ className = '', hideSignin = false, navPosition
                     </Link>
                      <div className={product_in_cart_Context?.length > 0 ? 'box-show' : 'box-hide'}>
                         
-                        <span class="cart-count">{product_in_cart_Context?.length ?? 0}</span>
+                        <span className="cart-count">{product_in_cart_Context?.length ?? 0}</span>
                     </div>
                   </li>
                 </ul>

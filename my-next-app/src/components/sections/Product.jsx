@@ -271,7 +271,7 @@
                                             <button onClick={()=> setQuan("+")}>+</button>  
 
                                         </div>
-                                        <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to shopping cart</button>
+                                        <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to cart</button>
                                     </div>             
                                     </div>
                                 </div>

@@ -1,6 +1,6 @@
 "use client";
 //import React from "react";
-import {useState, useEffect, useContext} from "react";
+import {useState, useEffect, useContext, useRef} from "react";
 import cart_logic from "../../global_quantity/CartContext";
 import product_logic from "../../global_quantity/ProductContext";
 import Link from "next/link";
@@ -77,7 +77,44 @@ const Cart = () =>{
     const router = useRouter();
     const [selectedItem, setSelectedItem] = useState();
     const [display,setDisplay] = useState();
-    
+    const boxRef = useRef(null);
+
+
+    useEffect(() => {
+        const box = boxRef.current;
+        if (!box) return; // guard
+
+        let leaveTimer, idleTimer;
+
+        const handleMouseOver = () => {
+            clearTimeout(leaveTimer);
+            box.classList.add("show-scrollbar");
+        };
+
+        const handleMouseOut = () => {
+            leaveTimer = setTimeout(() => {
+                box.classList.remove("show-scrollbar");
+            }, 120);
+        };
+
+        const handleScroll = () => {
+            box.classList.add("show-scrollbar");
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(() => {
+                box.classList.remove("show-scrollbar");
+            }, 600);
+        };
+
+        box.addEventListener("mouseover", handleMouseOver);
+        box.addEventListener("mouseout", handleMouseOut);
+        box.addEventListener("scroll", handleScroll);
+
+        return () => {
+            box.removeEventListener("mouseover", handleMouseOver);
+            box.removeEventListener("mouseout", handleMouseOut);
+            box.removeEventListener("scroll", handleScroll);
+        };
+    },[]);
 
     // get data from context
     useEffect(() => {
@@ -100,7 +137,7 @@ const Cart = () =>{
     const generateHeader = (e) => {
         return(
             <div className="product_header">
-                <div>
+                <div className="checkbox_wrapper">
                     <input className="header_checkbox"
                         type="checkbox"
                     >
@@ -141,7 +178,7 @@ const Cart = () =>{
     const generateProductEntity = (e) => {
         const href = "product/";
         return(
-            <div className="product_container">
+            <div ref={boxRef} className="product_container">
                 {//console.log("product from context: ", product)
                 }
                 {product_in_cart.map((item) => {
@@ -152,7 +189,7 @@ const Cart = () =>{
                             key={item.id}
                             onClick={()=> router.push(href + item.id)}
                             >
-                                 <div>
+                                 <div className="checkbox_wrapper">
                                     <input
                                         type="checkbox"
                                         onClick={(e)=> e.stopPropagation()}
@@ -173,7 +210,7 @@ const Cart = () =>{
 
                                         <div className="cell">
                                             
-                                            <h4>{item.product_name}</h4>
+                                            <span>{item.product_name}</span>
                                         </div>
                                         
                                     </div>
@@ -202,38 +239,8 @@ const Cart = () =>{
         )
     }
 
-    const displayCalculation = () => {
-        return(
-            <div className="calculation_display">
-                {product_in_cart.map((item)=>{
-                    if (item.id === product_in_cart.at(-1)?.id){
-                        return (
-                            <div className="display_item" key={item.id}>
-                                <span>+</span>
-                                <span>{item.product_in_cart}</span>
-                                <span>{item.currency + " " + item.price}</span>
-                            </div>
-                        )
-                    }
-                    else{
-                        return(            
-                        <div className="display_item" key={item.id}>
-                            <span>{item.product_in_cart}</span>
-                            <span>{item.currency + " " + item.price}</span>
-                        </div>
-                    )
-                    }
-                })}
-                <div className="borderline">
-                </div>
-                <div className="display_item">
-                    <span>total: </span>
-                    <span>{currency+" "+total}</span>
-                </div>
-                
-            </div>
-        )
-    }
+
+
     const dummy = 120;
     return(
         product_in_cart != undefined
