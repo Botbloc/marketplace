@@ -24,10 +24,11 @@ const items = [
     shipping: ["uk", "hk"],
     description : "Official robot battery for high performance",
     status: "In stock",
+    review: [{},{},{}],
     delivery_status: "Delivery in 2 days",
     specs: 
       {
-        input: "3.3V 3-5A",
+        Input: "3.3V 3-5A",
         Dimensions : "Length 420mm x Width 300mm x Height 48mm"
       }
     

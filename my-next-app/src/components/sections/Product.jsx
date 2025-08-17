@@ -9,6 +9,7 @@
     import SidebarContext from "../../global_quantity/SidebarContext";
     import Notification from "../../components/elements/Notification";
     import {useRouter,notFound} from "next/navigation";
+    import SidebarLayer from "../../components/sections/partials/SidebarLayer";
 
     // we need image, price, products detail
 
@@ -66,6 +67,8 @@
         const {isOpen, openSidebar, sidebarContent} = useContext(SidebarContext);
 
         const {products, findProductByID} = useContext(product_logic);
+
+        const option = [{},{},{},{}];
 
         const [product_detail, setProduct_detail] = useState({
             "product_name": "Product 1",
@@ -148,7 +151,8 @@
                         {   product_detail.specs &&
                             Object.entries(product_detail.specs).map(([key, value])=> (
                                 <li key={key}>
-                                    {key}: {value}
+                                    <span className="key">{key}</span>
+                                    <span className="value">{value}</span>
                                     
                                 </li>
                             ))
@@ -220,7 +224,8 @@
 
         if (isValid){
             return(   
-            <> 
+            <>  
+                <SidebarLayer />
                 <Notification
                         message={noti_msg}
                         visible={toastVisible}
@@ -258,10 +263,38 @@
                                     <h4>{product_detail.product_name}</h4>
                                     <h5>{product_detail.description}</h5>
                                     <h5 className="status_text">{product_detail.status + " | " + product_detail.delivery_status }</h5>
+                                    <div className="review">
+                                        {Array.from({ length : Math.round(product_detail.rating)}, (_,i)=>(
+                                            <span key={"full-" + i} className="star">★</span>
+                                        ))}
+                                        {/* Empty stars */}
+                                        {Array.from({ length: 5 - Math.round(product_detail.rating) }, (_, i) => (
+                                            <span key={"empty-" + i} className="star">☆</span>
+                                        ))}
+                                        <span>({(product_detail.rating.toFixed(1))})</span>
+                                        <span>({product_detail.review? product_detail.review.length : 0 })</span>
+                                    </div>
                                     <h3>{product_detail.currency + " " + product_detail.price}</h3>
                                 </div>
                                 <div className="spec_module" onClick={() => openSidebar()}>
-                                    <h6>Product spec options</h6>
+                                    <div className="spec_text">
+                                        <h5>Options</h5>
+                                        <span>{"View All >>"}</span>
+                                    </div>
+                                    <div className="Option_buttons">
+                                        {option.map((item)=>(
+                                            <button
+                                                onClick={(e)=>{
+                                                    e.stopPropagation();
+                                                }}
+                                            >
+                                                {<img src={image2.src}/>
+                                                }
+                                            </button>
+                                        ))}
+                                    </div>
+                                    
+                                    
                                 </div>
                                 <div className="buy-module">  
                                     

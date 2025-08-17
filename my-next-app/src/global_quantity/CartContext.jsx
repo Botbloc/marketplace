@@ -34,7 +34,7 @@ export const CartProvider = ({children}) => {
         
     },[product_in_cart_Context])
 
-    const addCart = (id, amount) => {
+    const addCart = (id, amount, option = null) => {
         console.log(idIndex);
         const item = idIndex.get(id);
         console.log(item);
