@@ -49,7 +49,7 @@ export default function BusinessPage() {
       {/* Social proof */}
       <section className="trust">
         <div className="container">
-          <p>Trusted by 20+ businesses worldwide</p>
+          <h2>Trusted by 20+ businesses worldwide</h2>
         </div>
       </section>
 
