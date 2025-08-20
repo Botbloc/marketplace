@@ -16,6 +16,7 @@ $screen_width: 100vw;
   padding-top: 10px;
   padding-left: 10vw;
   padding-right: 10vw;
+  transition: transform 0.4s ease-in-out, opacity 0.3s ease; // <-- smooth animation
   a{
     text-decoration: none;  
     color: inherit;  
@@ -29,9 +30,26 @@ $screen_width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    //height: 80px;
+    height: 40px;
     font-size: 15px;
     z-index: 900;
+  }
+
+  /* ====== NEW STATES ====== */
+
+  &.hidden {
+    transform: translateY(-100%); // slide out of view
+    opacity: 0.95;               // optional, slight fade
+  }
+
+  &.visible {
+    transform: translateY(0); // fully visible
+    opacity: 1;
+  }
+
+  &.force-visible {
+    transform: translateY(0) !important; // override hidden when menu is open
+    opacity: 1 !important;
   }
 
 
@@ -154,6 +172,11 @@ $screen_width: 100vw;
               transform: translateY(0px);
               pointer-events: auto;
               background-color: rgba($bg, 0.99);
+              .link{
+                display: block;
+                width: 100%;
+                text-align: left;
+              }
             }
             
           }
@@ -168,6 +191,7 @@ $screen_width: 100vw;
         display: flex;
         list-style: none;
         flex-direction: row;
+        align-items: center;
         margin: 0 ;
         
 
@@ -177,7 +201,8 @@ $screen_width: 100vw;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 100px;
+          width: 90px;
+          height: 40px;
           padding: 10px 20px;
           border-radius: 15px;
           background: #fff;

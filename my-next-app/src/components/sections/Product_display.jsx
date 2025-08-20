@@ -1,13 +1,13 @@
 import React from "react";
 import Carousel from "../elements/Carousel";
 
-const ProductList = ()=>{
+const Product_display = ()=>{
 
     return(
-        <div className="productList">
+        <div className="Product_display">
            <Carousel/> 
         </div>
     )
 }
 
-export default ProductList;
+export default Product_display;

@@ -1,3 +1,4 @@
+ 
   import { Geist, Geist_Mono } from "next/font/google";
   import Header from '../components/layout/Header';
   import Footer from '../components/layout/Footer';
@@ -36,15 +37,8 @@
             <CartProvider>
             <Header className="invert-color" navPosition="right" />
             <SidebarProvider>
-              
-              <main className="site-content">
-                
-                  
-                    
-                      {children}
-                    
-                  
-                
+              <main>
+                {children}      
               </main>
               <Footer />
               <ScrollToAnchor />

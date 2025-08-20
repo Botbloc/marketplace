@@ -1,0 +1,119 @@
+@use "sass:math";
+
+.sell-page {
+  --bg-light: #f5f7fb;
+  --ink: #0f2243;
+  --muted: #5b6a85;
+  --primary: #0f2243;
+  --accent: #dbe9ff;
+  --benefit-bg: #e6f0ff;
+
+  color: var(--ink);
+  display: grid;
+  gap: 40px;
+  padding: 48px 16px 80px;
+  background: #ffffff;
+
+  .hero,
+  .how,
+  .cta { max-width: 980px; margin: 0 auto; }
+
+  h1 {
+    text-align: center;
+    font-size: clamp(28px, 4vw, 34px);
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+
+  .lede {
+    max-width: 920px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: clamp(14px, 2.2vw, 15px);
+    line-height: 1.6;
+    color: var(--muted);
+    background: var(--bg-light);
+    padding: 18px 22px;
+    border-radius: 14px;
+  }
+
+  .note { text-align: center; margin-top: 10px; font-size: 12px; color: var(--muted); }
+
+  /* Benefits strip */
+  .benefits {
+    background: var(--benefit-bg);
+    padding: 18px 0;
+    border-radius: 12px;
+
+    &__list {
+      max-width: 980px; margin: 0 auto; padding: 0 12px;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      li {
+        display: flex; gap: 12px; align-items: flex-start;
+        background: transparent;
+
+        .dot {
+          flex: 0 0 16px; height: 16px; border-radius: 50%;
+          background: radial-gradient(circle at 30% 30%, #c4d7ff, #9ebcff);
+          box-shadow: inset 0 0 0 4px #f1f6ff;
+          margin-top: 4px;
+        }
+
+        h3 { margin: 0; font-size: 15px; font-weight: 700; }
+        p  { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+      }
+    }
+  }
+
+  /* How it works */
+  .how {
+    h2 { text-align: center; font-size: 18px; margin-bottom: 14px; }
+
+    .steps {
+      list-style: none; counter-reset: step; max-width: 720px; margin: 0 auto; padding: 0;
+      display: grid; gap: 8px;
+
+      li {
+        position: relative; padding: 10px 12px 10px 46px; background: #fff;
+        border-radius: 12px; box-shadow: 0 1px 0 #e7eaf3;
+        color: var(--ink); font-size: 14px; line-height: 1.5;
+
+        &::before {
+          counter-increment: step;
+          content: counter(step);
+          position: absolute; left: 12px; top: 10px;
+          width: 24px; height: 24px; border-radius: 999px;
+          display: grid; place-items: center; font-weight: 700; font-size: 12px;
+          color: var(--primary); background: #eef3ff; border: 1px solid #d7e4ff;
+        }
+      }
+    }
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+
+    h3 { font-size: 16px; margin-bottom: 12px; }
+
+    .btn-primary {
+      appearance: none; border: none; cursor: pointer;
+      padding: 10px 18px; border-radius: 999px; font-weight: 600;
+      background: #e6f0ff; color: var(--primary);
+      transition: transform .15s ease, box-shadow .15s ease, background-color .2s ease;
+      box-shadow: 0 2px 0 #cddcff;
+
+      &:hover { transform: translateY(-1px); box-shadow: 0 4px 0 #c0d2ff; }
+      &:active { transform: translateY(0); box-shadow: 0 1px 0 #cddcff; }
+    }
+  }
+}
+

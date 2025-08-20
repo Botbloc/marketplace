@@ -10,9 +10,10 @@
 
 @use 'components/notification';
 @use 'components/grid';
+@use 'components/product_display';
 
 @use 'pages/home';
-
+@use 'pages/selling-with-us';
 @use 'pages/login';
 @use 'pages/register';
 @use 'pages/product';
@@ -52,8 +53,8 @@
 }
 .Hero_bar_section{
     width: 100vmax;
-    height: 30vmax;
-    min-height: 150px;
+    height: 100vh;
+    min-height: 80vh;
     background-color: rgb(222, 228, 241);
     color: black;
     display: flex;
