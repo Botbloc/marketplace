@@ -3,6 +3,108 @@
     height: 100vmax;
     background-color: white;
 }
+
+:root {
+  --drift-distance: 9%;     /* how far it moves */
+  --drift-scale: 1.4;      /* how much it grows */
+  --drift-speed-1: 8s;     /* faster = clearer motion */
+  --drift-speed-2: 14s;     /* different speed for parallax */
+  --blob-opacity-1: .95;     /* stronger blobs */
+  --blob-opacity-2: .75;
+}
+
+/* keyframes */
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bgDrift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    100% { transform: translate3d(2%, -2%, 0) scale(1.03); }
+}
+.Hero_bar_section{
+    width: 100vw;
+    height: 100vh;
+    min-height: 80vh;
+    background-color: rgb(222, 228, 241);
+
+    color: #0f2243;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-inline: 8vw;
+    position: relative;
+    text-align: center;
+    isolation: isolate;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute; inset: -20% -12% -12% -12%;
+        z-index: -2;
+        background:
+        radial-gradient(60% 60% at 20% 25%, rgba(255,255,255,var(--blob-opacity-1)), transparent 62%),
+        radial-gradient(55% 55% at 80% 30%, rgba(160,185,255,var(--blob-opacity-1)), transparent 62%),
+        linear-gradient(120deg, #eef4ff, #f3efff);
+        filter: saturate(1.15) contrast(1.05);
+        animation: bgDriftA var(--drift-speed-1) ease-in-out infinite alternate;
+        will-change: transform;
+    }
+
+    /* Layer 2 (parallax, offset hue) */
+    &::after {
+        content: '';
+        position: absolute; inset: -25% -15% -15% -15%;
+        z-index: -3;
+        background:
+        radial-gradient(50% 50% at 25% 70%, rgba(255,220,200,var(--blob-opacity-2)), transparent 60%),
+        radial-gradient(45% 45% at 70% 75%, rgba(200,240,255,var(--blob-opacity-2)), transparent 60%);
+        mix-blend-mode: multiply;       /* boosts contrast without overpowering text */
+        filter: blur(2px) saturate(1.1);
+        animation: bgDriftB var(--drift-speed-2) ease-in-out infinite alternate;
+        will-change: transform;
+    }
+
+    .heading{
+        padding : 0px;
+        margin: 10px;
+        font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; letter-spacing: -0.02em;
+
+        /* initial state for animation */
+        opacity: 0;
+        transform: translateY(18px);
+        will-change: opacity, transform;
+        
+    }
+    .subHeading{
+        padding : 0px;
+        margin: 10px;
+        font-size: clamp(1rem, 2vw, 1.25rem); color: #2f3950; line-height: 1.6; max-width: 60ch; 
+        /* initial state for animation */
+        opacity: 0;
+        transform: translateY(22px);
+        will-change: opacity, transform;
+
+    }
+
+    /* when React adds .is-visible, play the staggered fade-up */
+    &.is-visible {
+        .heading {
+        animation: fadeUp 1200ms cubic-bezier(.2,.8,.2,1) forwards 1220ms;
+        }
+        .subHeading {
+        animation: fadeUp 1200ms cubic-bezier(.2,.8,.2,1) forwards 1300ms;
+        }
+    }
+
+    /* Accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+        &::before { animation: none; }
+        .heading, .subHeading { opacity: 1; transform: none; animation: none; }
+    }
+    
+}
+
 .grid{
     display: flex;
     flex-direction: column;
