@@ -1,0 +1,52 @@
+.product_display{
+    //height: 60vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h3{
+        text-align: center;
+        margin: 2vmax;
+    }
+    
+    .product_display_inner{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        overflow-x: auto;
+        width: 83vw;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        scroll-snap-type: x mandatory;  // nice snapping effect
+        padding: 20px;
+        gap: 2vw;
+
+        &::-webkit-scrollbar {
+            display: none;          // hide scrollbar for cleaner UI
+        }
+        
+
+        .card{
+            cursor: pointer;
+            flex: 0 0 19vw;       // fixed width for each card
+            min-height: 50vh;
+            background: #d8d8d8;
+            border-radius: 30px;
+            padding: 16px;
+            border: 0px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;  // top info & bottom link
+            scroll-snap-align: start;        // snap to left edge
+            transition: transform 0.2s ease;
+
+            &:hover{
+                transform: scale(1.05);
+            }
+        }
+
+    }
+
+}

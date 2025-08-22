@@ -3,6 +3,84 @@
     height: 100vmax;
     background-color: white;
 }
+.grid{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    height: 100vh;
+    padding: 0px;
+    background-color: white;
+
+    .card_container{
+        
+        width: clamp(320px, 90vw, 85vw);
+        margin: 0 auto;
+
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;  // left column bigger
+        grid-auto-rows: 40vh;              // base height for cards
+        gap: 16px;
+        
+        
+        .box {
+            /* approx color from image */
+            color: rgb(0, 0, 0);
+            background-color: #5e81ae;
+            font-weight: bold;
+            padding: 20px;
+            padding-top: 30px;
+            height: 100%;
+            //border-color: #232c38;
+            border-radius: 20px;
+
+            display: flex;
+            flex-direction: column;    // stack top-to-bottom
+            justify-content: space-between;
+            cursor: pointer;
+
+            .span_header{
+                display: block;
+                font-size: 25px;
+                color: white;
+            }
+            .learn_more{
+                display: block;
+            }
+
+        }
+        .box:hover{
+            background-color: #232c38;
+            
+        }
+
+        .tall{
+            grid-row: span 2;
+        }
+
+        .wide{
+            grid-column: span 2;
+        }
+        
+
+        
+        .grid_display_mid{
+            height: 50%;
+        }
+    }
+
+    @media (max-width: 768px) {
+    .card_container {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 20vh;
+    }
+    .tall, .wide { grid-column: auto; grid-row: auto; }
+}
+}
+
+
+
 
 
 

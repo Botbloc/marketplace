@@ -11,8 +11,8 @@ export default function Home() {
      
       <Hero />
       <MultiWindowDisplay />
-      <Brief/>
-      <Product_display/>
+      <Product_display theme="Trending" />
+      <Product_display theme="Suggestion" />
       
       {//<Carousel_new/>
       }

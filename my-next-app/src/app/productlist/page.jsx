@@ -6,6 +6,7 @@ import product_logic from "../../global_quantity/ProductContext";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import SubHeader from "../../components/layout/SubHeader";
 import placeholder from "../../assets/images/landscape-placeholder.svg";
+import Product_display from '../../components/sections/Product_display';
 
 let array1 = [
     
@@ -141,6 +142,7 @@ const Productlist = () => {
                
                 
                 </main>
+                <Product_display theme="Suggestion" />
             </div>
         </>
     )

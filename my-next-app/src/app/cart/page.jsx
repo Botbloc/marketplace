@@ -7,6 +7,7 @@ import Link from "next/link";
 import {useRouter} from "next/navigation";
 import image2 from "../../assets/images/landscape-placeholder.svg";
 import trash_bin from "../../assets/images/trash_can.svg";
+import Product_display from '../../components/sections/Product_display';
 
 const template_product = [
     {
@@ -261,9 +262,10 @@ const Cart = () =>{
                 {generateProductEntity(product_in_cart)}
             </div>
                 
-
+            <Product_display theme="Suggestion" />   
             
-        </div>        
+        </div>     
+        
     )
 } 
 
