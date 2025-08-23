@@ -21,10 +21,16 @@
     0%   { transform: translate3d(0,0,0) scale(1); }
     100% { transform: translate3d(2%, -2%, 0) scale(1.03); }
 }
-.Hero_bar_section{
+.wrapper{
     width: 100vw;
     height: 100vh;
     min-height: 80vh;
+    perspective: 10px;
+    overflow: hidden;
+    background:rgb(0, 0, 0);
+}
+.Hero_bar_section{
+    height: 100%;
     background-color: rgb(222, 228, 241);
 
     color: #0f2243;
@@ -36,66 +42,87 @@
     position: relative;
     text-align: center;
     isolation: isolate;
-    overflow: hidden;
 
+    /* one ::before only */
     &::before {
         content: '';
         position: absolute; inset: -20% -12% -12% -12%;
-        z-index: -2;
+        
+        /*
         background:
-        radial-gradient(60% 60% at 20% 25%, rgba(255,255,255,var(--blob-opacity-1)), transparent 62%),
-        radial-gradient(55% 55% at 80% 30%, rgba(160,185,255,var(--blob-opacity-1)), transparent 62%),
-        linear-gradient(120deg, #eef4ff, #f3efff);
-        filter: saturate(1.15) contrast(1.05);
-        animation: bgDriftA var(--drift-speed-1) ease-in-out infinite alternate;
-        will-change: transform;
+            radial-gradient(60% 60% at 20% 25%, rgba(255,255,255,var(--blob-opacity-1, .9)), transparent 62%),
+            radial-gradient(55% 55% at 80% 30%, rgba(160,185,255,var(--blob-opacity-1, .9)), transparent 62%),
+            linear-gradient(120deg, #eef4ff, #d9cefa);
+        filter: saturate(1.15) contrast(1.05);*/            
     }
-
-    /* Layer 2 (parallax, offset hue) */
-    &::after {
-        content: '';
-        position: absolute; inset: -25% -15% -15% -15%;
+    .background{   
+        position: absolute;
+        top: -5vh;             /* add */
+        left: 0;             /* add */
+        width: 100%;
+        height: calc(100% + 30vh );
+        object-fit: cover;   /* keep aspect correct */
         z-index: -3;
-        background:
-        radial-gradient(50% 50% at 25% 70%, rgba(255,220,200,var(--blob-opacity-2)), transparent 60%),
-        radial-gradient(45% 45% at 70% 75%, rgba(200,240,255,var(--blob-opacity-2)), transparent 60%);
-        mix-blend-mode: multiply;       /* boosts contrast without overpowering text */
-        filter: blur(2px) saturate(1.1);
-        animation: bgDriftB var(--drift-speed-2) ease-in-out infinite alternate;
+        opacity: 1 ;
+        transform: translate3d(0, var(--hero-parallax, 0), 0) ; /* move the VISIBLE layer */
         will-change: transform;
-    }
-
-    .heading{
-        padding : 0px;
-        margin: 10px;
-        font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; letter-spacing: -0.02em;
-
-        /* initial state for animation */
-        opacity: 0;
-        transform: translateY(18px);
-        will-change: opacity, transform;
+        pointer-events: none; /* prevent hover hit-testing issues */
         
     }
-    .subHeading{
-        padding : 0px;
-        margin: 10px;
-        font-size: clamp(1rem, 2vw, 1.25rem); color: #2f3950; line-height: 1.6; max-width: 60ch; 
-        /* initial state for animation */
-        opacity: 0;
-        transform: translateY(22px);
-        will-change: opacity, transform;
+    .hero_bar_inner{
+       
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        
 
+        /* Shrinking logic: maps --hero-shrink (0 → 1) */
+        height: calc(100vh - (40vh * var(--hero-shrink, 0)));
+        transform: scale(calc(1 - 0.2 * var(--hero-shrink, 0)));
+        opacity: calc(1 - 0.6 * var(--hero-shrink, 0));
+        transform-origin: top center;
+        //transition: height 0.2s linear, transform 0.2s linear, opacity 0.2s ease;
+
+        
+        
+
+        .heading{
+            padding : 0px;
+            margin: 10px;
+            font-size: clamp(2rem, 5vw, 4vw); line-height: 1.05; letter-spacing: -0.02em;
+            text-shadow: 0 0 5px rgb(161, 161, 161);
+            /* initial state for animation */
+            opacity: 0;
+            transform: translateY(40px);
+            will-change: opacity, transform;
+            color: white;
+            
+        }
+        .subHeading{
+            padding : 0px;
+            margin: 10px;
+            font-size: clamp(1rem, 2vw, 2vw); color: #ffffff; line-height: 1.6; max-width: 60ch; 
+            text-shadow: 0 0 5px rgb(161, 161, 161);
+            /* initial state for animation */
+            opacity: 0;
+            transform: translateY(22px);
+            will-change: opacity, transform;
+
+        }
+
+        /* when React adds .is-visible, play the staggered fade-up */
+        &.is-visible {
+            .heading {
+            animation: fadeUp 1200ms cubic-bezier(.2,.8,.2,1) forwards 1220ms;
+            }
+            .subHeading {
+            animation: fadeUp 1600ms cubic-bezier(.2,.8,.2,1) forwards 2300ms;
+            }
+        }
     }
 
-    /* when React adds .is-visible, play the staggered fade-up */
-    &.is-visible {
-        .heading {
-        animation: fadeUp 1200ms cubic-bezier(.2,.8,.2,1) forwards 1220ms;
-        }
-        .subHeading {
-        animation: fadeUp 1200ms cubic-bezier(.2,.8,.2,1) forwards 1300ms;
-        }
-    }
+   
 
     /* Accessibility: reduce motion */
     @media (prefers-reduced-motion: reduce) {
@@ -110,10 +137,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
     min-height: 100vh;
     height: 100vh;
     padding: 0px;
     background-color: white;
+    z-index: 100;
 
     .card_container{
         

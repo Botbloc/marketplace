@@ -37,9 +37,11 @@
             <CartProvider>
             <Header className="invert-color" navPosition="right" />
             <SidebarProvider>
-              <main>
-                {children}      
-              </main>
+              
+                <main>
+                  {children}      
+                </main>
+              
               <Footer />
               <ScrollToAnchor />
             </SidebarProvider>
