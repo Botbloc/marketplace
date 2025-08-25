@@ -18,7 +18,8 @@ const Hero = () => {
 
     const hero = outerRef.current;
 
-    const onScroll = ({ scroll }) => {
+    const onScroll = () => {
+      const scroll = window.scrollY;
       const rect = hero.getBoundingClientRect();
       const heroH = rect.height || 1;
 
@@ -30,15 +31,18 @@ const Hero = () => {
       const shrink = progress;
 
       // parallax: slower than content
-      const speed = 0.5; // adjust 0.3–0.6 to taste
+      const speed = 0.7; // adjust 0.3–0.6 to taste
       const parallaxPx = rect.top * speed;
 
-      hero.style.setProperty("--hero-parallax", `${parallaxPx}px`);
+      hero.style.setProperty("--hero-parallax", `${-parallaxPx}px`);
       hero.style.setProperty("--hero-shrink", String(shrink));
     };
 
+    window.addEventListener("scroll", onScroll);
+
     return () => {
       clearTimeout(t);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 

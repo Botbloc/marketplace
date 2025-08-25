@@ -7,6 +7,7 @@
 @use 'layout/footer';
 @use 'layout/subheader';
 @use 'layout/sidebar';
+@use 'layout/grid';
 
 @use 'components/notification';
 @use 'components/carosel';
@@ -25,6 +26,16 @@
 @use 'pages/productlist';
 @use 'pages/uses_cases';
 
+
+/* keyframes */
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bgDrift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    100% { transform: translate3d(2%, -2%, 0) scale(1.03); }
+}
 
 // Sample File: _variables.scss
 

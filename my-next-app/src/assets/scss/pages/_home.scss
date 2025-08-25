@@ -13,17 +13,10 @@
   --blob-opacity-2: .75;
 }
 
-/* keyframes */
-@keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-}
-@keyframes bgDrift {
-    0%   { transform: translate3d(0,0,0) scale(1); }
-    100% { transform: translate3d(2%, -2%, 0) scale(1.03); }
-}
+
 .wrapper{
     width: 100vw;
-    height: 100vh;
+    height: 110vh;
     min-height: 80vh;
     perspective: 10px;
     overflow: hidden;
@@ -57,12 +50,12 @@
     }
     .background{   
         position: absolute;
-        top: -5vh;             /* add */
+        top: -10vh;             /* add */
         left: 0;             /* add */
         width: 100%;
-        height: calc(100% + 30vh );
+        height: calc(100% + 40vh );
         object-fit: cover;   /* keep aspect correct */
-        z-index: -3;
+        z-index: 8;
         opacity: 1 ;
         transform: translate3d(0, var(--hero-parallax, 0), 0) ; /* move the VISIBLE layer */
         will-change: transform;
@@ -75,6 +68,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        z-index: 10;
         
 
         /* Shrinking logic: maps --hero-shrink (0 → 1) */
@@ -82,10 +76,6 @@
         transform: scale(calc(1 - 0.2 * var(--hero-shrink, 0)));
         opacity: calc(1 - 0.6 * var(--hero-shrink, 0));
         transform-origin: top center;
-        //transition: height 0.2s linear, transform 0.2s linear, opacity 0.2s ease;
-
-        
-        
 
         .heading{
             padding : 0px;
@@ -132,83 +122,6 @@
     
 }
 
-.grid{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    min-height: 100vh;
-    height: 100vh;
-    padding: 0px;
-    background-color: white;
-    z-index: 100;
-
-    .card_container{
-        
-        width: clamp(320px, 90vw, 85vw);
-        margin: 0 auto;
-
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr;  // left column bigger
-        grid-auto-rows: 40vh;              // base height for cards
-        gap: 16px;
-        
-        
-        .box {
-            /* approx color from image */
-            color: rgb(0, 0, 0);
-            background-color: #5e81ae;
-            font-weight: bold;
-            padding: 20px;
-            padding-top: 30px;
-            height: 100%;
-            //border-color: #232c38;
-            border-radius: 20px;
-
-            display: flex;
-            flex-direction: column;    // stack top-to-bottom
-            justify-content: space-between;
-            cursor: pointer;
-
-            .span_header{
-                display: block;
-                font-size: 25px;
-                color: white;
-            }
-            .learn_more{
-                display: block;
-            }
-
-        }
-        .box:hover{
-            background-color: #232c38;
-            
-        }
-
-        .tall{
-            grid-row: span 2;
-        }
-
-        .wide{
-            grid-column: span 2;
-        }
-        
-
-        
-        .grid_display_mid{
-            height: 50%;
-        }
-    }
-
-    @media (max-width: 768px) {
-    .card_container {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 20vh;
-    }
-    .tall, .wide { grid-column: auto; grid-row: auto; }
-}
-}
 
 
 

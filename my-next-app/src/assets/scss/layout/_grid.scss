@@ -1,0 +1,111 @@
+@keyframes fadeUp_2 {
+     from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.grid{
+    
+    margin-top: clamp(-10vh, -12vh, -16vh); 
+    border-radius: 72px 72px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    padding: 0px;
+    background-color: white;
+    z-index: 100;
+
+    .card_container{
+        
+        width: clamp(320px, 90vw, 85vw);
+        margin: 0 auto;
+
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;  // left column bigger
+        grid-auto-rows: 40vh;              // base height for cards
+        gap: 16px;
+        
+        .box {
+            /* approx color from image */
+            color: rgb(0, 0, 0);
+            background-color: #5e81ae;
+            font-weight: bold;
+            padding: 20px;
+            padding-top: 30px;
+            height: 100%;
+            //border-color: #232c38;
+            border-radius: 20px;
+
+            display: flex;
+            flex-direction: column;    // stack top-to-bottom
+            justify-content: space-between;
+            cursor: pointer;
+
+            opacity: 0;
+            transform: translateY(0px);
+            //transition: transform 0.25s ease, box-shadow 0.25s ease, opacity .25s ease;
+            //transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+            transition: transform .25s ease, box-shadow .25s ease, background-color .2s ease, color .25s ease; 
+
+            &:hover{
+                transform: translateY(-20px);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.42);
+                background-color: #3c5371;
+                > .learn_more{
+                    color: rgb(203, 203, 203);
+                    text-shadow: 0 0 5px rgb(161, 161, 161);
+                    font-size: larger;
+                }
+                
+            }
+            &.visible{
+                animation: fadeUp_2 .6s ease forwards; /* both = forwards + backwards safety */
+            }
+
+           
+    
+
+            .span_header{
+                display: block;
+                font-size: 25px;
+                color: white;
+            }
+            .learn_more{
+                display: block;
+                margin-top: auto;
+                align-self: flex-end;
+            }
+            
+
+        }
+        
+        
+
+ 
+
+        .tall{
+            grid-row: span 2;
+        }
+
+        .wide{
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 768px) {
+    .card_container {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 20vh;
+    }
+    .tall, .wide { grid-column: auto; grid-row: auto; }
+}
+}
