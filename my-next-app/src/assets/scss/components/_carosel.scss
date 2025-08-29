@@ -2,6 +2,7 @@
     //height: 60vh;
     background-color: #ffffff;
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -11,6 +12,7 @@
     }
     
     .product_display_inner{
+        position: relative;
         display: flex;
         flex-direction: row;
         align-items: center;

@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
 import Carousel from "../elements/Carousel";
-import {useContext} from "react";
+import {useContext, useRef, useCallback} from "react";
 import ProductContext from "../../global_quantity/ProductContext";
 import { useRouter } from "next/navigation";
+import SlideButton from "../elements/SlideButton";
+
 
 const Product_display = ({theme})=>{
+    const listRef = useRef(null);
     const router = useRouter();
     let header = "";
     const {allProducts} = useContext(ProductContext); 
@@ -27,6 +30,24 @@ const Product_display = ({theme})=>{
             header = "Suggested for you";
             break;
     }
+
+    const swipe = useCallback((dir) => {
+        const el = listRef.current;
+        if (!el) return;
+
+        // Try to move by one card (width + gap). Fallback to 300px.
+        //const firstCard = el.querySelector(".card");
+        //const gap =
+        //parseFloat(getComputedStyle(el).gap || getComputedStyle(el).columnGap || 24) || 24;
+        //const amount = firstCard ? firstCard.offsetWidth + gap : 300;
+        const amount = 100;
+        el.scrollBy({
+        left: dir === "left" ? -amount : amount,
+        behavior: "smooth",
+        });
+    }, []);
+
+
     const generateDisplayCard = (item) =>{
         console.log(item);
         return(
@@ -41,11 +62,13 @@ const Product_display = ({theme})=>{
     return(
         <div className="product_display">
             <h3>{header}</h3>
-            <div className="product_display_inner">
+            <SlideButton dir="left" onClick={() => swipe("left")} />
+            <div className="product_display_inner" ref={listRef}>
                 {display_entity.map((item)=>(
                     generateDisplayCard(item)
                 ))}
             </div>
+            <SlideButton dir="right" onClick={() => swipe("right")} />
         </div>
         
     )

@@ -1,0 +1,42 @@
+.left_button{
+    position: absolute;
+    top: 50%;
+    left: 7%;
+    background-color: black;
+    color: white;
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    display: flex;               /* enable flexbox */
+    align-items: center;         /* vertical center */
+    justify-content: center;     /* horizontal center */
+    font-size: 24px;             /* adjust arrow size */
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 50%;
+    transition: transform .2s ease ,opacity .2s ease;
+    
+}
+.right_button{
+    position: absolute;
+    top: 50%;
+    right: 7%;
+    background-color: black;
+    color: white;
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    display: flex;               /* enable flexbox */
+    align-items: center;         /* vertical center */
+    justify-content: center;     /* horizontal center */
+    font-size: 24px;             /* adjust arrow size */
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 50%;
+    transition: transform .2s ease ,opacity .2s ease;
+}
+
+.left_button:hover, .right_button:hover{
+    transform: scale(1.2);
+    opacity: .7;
+}
