@@ -80,14 +80,24 @@ export const CartProvider = ({children}) => {
 
     }
 
-    const removeCart = (id) => {
-        console.log("id: ",id);
-        console.log("product_in_cart_Context: \n", product_in_cart_Context);
-        const newCart = product_in_cart_Context.filter(item=> item.id !== id);
-        localStorage.setItem("cart",JSON.stringify(newCart) );
-        setCart(newCart);
+    const removeCart = (ids) => {
+        // normalize ids to an array
+        const idArray = Array.isArray(ids) ? ids : [ids];
 
-    }
+        console.log("Removing ids: ", idArray);
+        console.log("Current cart: ", product_in_cart_Context);
+
+        // filter out all items whose id is in idArray
+        const newCart = product_in_cart_Context.filter(
+            item => !idArray.includes(item.id)
+        );
+
+        // persist to localStorage
+        localStorage.setItem("cart", JSON.stringify(newCart));
+
+        // update state
+        setCart(newCart);
+    };
 
     const clearCart = () => {
         setCart([]);

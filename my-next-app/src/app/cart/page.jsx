@@ -76,7 +76,7 @@ const Cart = () =>{
     const [currency, setCurrency] = useState("$");
     const [total, setTotal] = useState(0);
     const router = useRouter();
-    const [selectedItem, setSelectedItem] = useState();
+    const [selectedItem, setSelectedItem] = useState([]);
     const [display,setDisplay] = useState();
     const boxRef = useRef(null);
 
@@ -139,8 +139,23 @@ const Cart = () =>{
         return(
             <div className="product_header">
                 <div className="checkbox_wrapper">
-                    <input className="header_checkbox"
+                    <input 
+                        className="header_checkbox"
                         type="checkbox"
+                        checked={selectedItem.length === product_in_cart.length && selectedItem.length>0}
+                        onClick={
+                            (e)=> {
+                                e.stopPropagation();
+                                if (e.target.checked) {
+                                // select all
+                                    setSelectedItem(product_in_cart.map(item => item.id));
+                                } else {
+                                // clear all
+                                    setSelectedItem([]);
+                                }
+                                console.log("selected item id list: ", selectedItem);
+                            }
+                        }
                     >
                     </input>
                 </div>
@@ -168,7 +183,12 @@ const Cart = () =>{
                         src={trash_bin.src} 
                         alt="Logo" 
                         className="delete_button_img"
-                        onClick={(e)=> e.stopPropagation()}
+                        onClick={(e)=> {
+                            e.stopPropagation();
+                            console.log("selectedItem: ", selectedItem);
+                            removeCart(selectedItem);
+                            
+                        }}
                         />
                 </div>
                 
@@ -193,8 +213,19 @@ const Cart = () =>{
                                  <div className="checkbox_wrapper">
                                     <input
                                         type="checkbox"
-                                        onClick={(e)=> e.stopPropagation()}
-                                        className="item_checkbox"
+                                        checked={selectedItem.includes(item.id)}
+                                        onClick={
+                                            (e)=> {
+                                                e.stopPropagation();
+                                                if (e.target.checked) {
+                                                    setSelectedItem([...selectedItem, item.id]);
+                                                }
+                                                else{
+                                                    setSelectedItem(prev => prev.filter(id => id !== item.id));
+                                                }
+                                            }
+                                        }   
+                                        className= "item_checkbox"
                                     >
                                     </input>
                                 </div>

@@ -13,7 +13,7 @@
     .product_list_window{
         padding-top: 120px;
         height: 100vh;
-        //background-color: white;
+        //background-color: rgb(44, 44, 44);
         width: 100%;
         flex: 1;
         //display: flex;
@@ -72,7 +72,7 @@
                 overflow: scroll;
                 height: 80vh;
                 border-radius: 20px;
-                background-color: #ffffff;
+                background-color: #f0f0f0;
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                 max-width: calc(4 * 300px);

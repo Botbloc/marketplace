@@ -46,10 +46,16 @@ const Product_display = ({theme})=>{
             const containerWidth = el.clientWidth;
             const cardWidth = cards[0].offsetWidth;
             const gap = parseFloat(getComputedStyle(el).gap || 0);
+            const padding = parseFloat(getComputedStyle(el).padding || 0);
             visibleCount = Math.max(
             1,
-            Math.floor(containerWidth / (cardWidth + gap))
+            Math.floor(containerWidth / (cardWidth + gap-padding*2))
             );
+            console.log("containerWidth: ", containerWidth);
+            console.log("cardWidth: ", cardWidth);
+            console.log("gap: ", gap);
+            console.log("divider: ", cardWidth + gap+padding*2);
+
         }
 
         let lastScrollLeft = 0;
