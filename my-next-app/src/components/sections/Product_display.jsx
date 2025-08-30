@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import Carousel from "../elements/Carousel";
-import {useContext, useRef, useCallback} from "react";
+import {useContext, useRef, useCallback, useEffect,useState} from "react";
 import ProductContext from "../../global_quantity/ProductContext";
 import { useRouter } from "next/navigation";
 import SlideButton from "../elements/SlideButton";
+import Carosel_indicator from "../elements/Carousel_indicator";
 
 
 const Product_display = ({theme})=>{
@@ -12,6 +13,7 @@ const Product_display = ({theme})=>{
     const router = useRouter();
     let header = "";
     const {allProducts} = useContext(ProductContext); 
+    const [activeIndex, setActiveIndex] = useState([]);
     let display_entity = [];
     const href = "/product/";
     switch (theme) {
@@ -31,15 +33,79 @@ const Product_display = ({theme})=>{
             break;
     }
 
-    const swipe = useCallback((dir) => {
+
+    useEffect(() => {
         const el = listRef.current;
         if (!el) return;
 
-        // Try to move by one card (width + gap). Fallback to 300px.
-        //const firstCard = el.querySelector(".card");
-        //const gap =
-        //parseFloat(getComputedStyle(el).gap || getComputedStyle(el).columnGap || 24) || 24;
-        //const amount = firstCard ? firstCard.offsetWidth + gap : 300;
+        const cards = el.querySelectorAll(".card");
+
+        // compute how many cards fit in container
+        let visibleCount = 1;
+        if (cards.length > 0) {
+            const containerWidth = el.clientWidth;
+            const cardWidth = cards[0].offsetWidth;
+            const gap = parseFloat(getComputedStyle(el).gap || 0);
+            visibleCount = Math.max(
+            1,
+            Math.floor(containerWidth / (cardWidth + gap))
+            );
+        }
+
+        let lastScrollLeft = 0;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+            const listOfId = Array.from({ length: cards.length }, () => false);
+
+            // figure out scroll direction
+            const dir = el.scrollLeft > lastScrollLeft ? "right" : "left";
+            lastScrollLeft = el.scrollLeft;
+
+            // collect intersecting indices
+            const indices = entries
+                .filter((entry) => entry.isIntersecting)
+                .map((entry) => Array.from(cards).indexOf(entry.target));
+
+            if (indices.length) {
+                if (dir === "right") {
+                // anchor at the rightmost visible index
+                const anchor = Math.max(...indices);
+                for (
+                    let i = anchor;
+                    i > anchor - visibleCount && i >= 0;
+                    i--
+                ) {
+                    listOfId[i] = true;
+                }
+                } else {
+                // anchor at the leftmost visible index
+                const anchor = Math.min(...indices);
+                for (
+                    let i = anchor;
+                    i < anchor + visibleCount && i < cards.length;
+                    i++
+                ) {
+                    listOfId[i] = true;
+                }
+                }
+            }
+
+            setActiveIndex(listOfId);
+            },
+            { root: el, threshold: 0.6 }
+        );
+
+        cards.forEach((card) => observer.observe(card));
+        return () => observer.disconnect();
+    }, []);
+    
+    
+
+
+    const swipe = useCallback((dir) => {
+        const el = listRef.current;
+        if (!el) return;
         const amount = 100;
         el.scrollBy({
         left: dir === "left" ? -amount : amount,
@@ -49,7 +115,7 @@ const Product_display = ({theme})=>{
 
 
     const generateDisplayCard = (item) =>{
-        console.log(item);
+        //console.log(item);
         return(
             <div className="card" onClick={() => router.push(href+item.id)}>
                 <h3>{item.product_name}</h3>
@@ -69,6 +135,7 @@ const Product_display = ({theme})=>{
                 ))}
             </div>
             <SlideButton dir="right" onClick={() => swipe("right")} />
+            <Carosel_indicator item_list={activeIndex}  />
         </div>
         
     )

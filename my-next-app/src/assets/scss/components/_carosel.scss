@@ -17,7 +17,7 @@
         flex-direction: row;
         align-items: center;
         overflow-x: auto;
-        width: 83vw;
+        width: 84vw;
         margin-top: 20px;
         margin-bottom: 40px;
         scroll-snap-type: x mandatory;  // nice snapping effect
@@ -49,6 +49,28 @@
             }
         }
 
+    }
+
+    .carousel_indicator{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        padding-top: 0;
+        
+        .dot{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .dot.active {
+            background-color: #000;
+            transform: scale(1.2);
+        }
     }
 
 }
