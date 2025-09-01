@@ -33,7 +33,13 @@ $screen_width: 100vw;
     height: 7vh;
     font-size: 15px;
     z-index: 900;
+     @media (max-width: 960px){
+      & {
+        justify-content: space-between;
+      }
+    }
   }
+ 
 
   /* ====== NEW STATES ====== */
 
@@ -49,7 +55,7 @@ $screen_width: 100vw;
 
   &.force-visible {
     transform: translateY(0) !important; // override hidden when menu is open
-    opacity: .9 !important;
+    opacity: 1 !important;
   }
 
 
@@ -60,12 +66,13 @@ $screen_width: 100vw;
 // ---- Nav (desktop default)
 .header-nav {
   flex: 1;
-
+  position: relative;
   .header-nav-inner {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    
     //gap: .5rem;
     .header-nav-left{
       
@@ -82,17 +89,14 @@ $screen_width: 100vw;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        //padding: 20px;
         color: white;
           //width: 100%;
           //height: 100%;
         button{
           text-align: center;
           all: unset;
-          width: 100%;
-          
-          
-
+          padding: 20px;
         }
         
       }
@@ -102,7 +106,7 @@ $screen_width: 100vw;
 
       // Dropdown
       .dropdown {
-          position: relative;
+          
           color: $text;
           cursor: pointer;
           list-style: none;
@@ -120,10 +124,11 @@ $screen_width: 100vw;
             content: none;
           }
           
-
+          @media(min-width: 961px){
           .dropdown-menu {
+            border: 0px;
             position: fixed;
-            top: 70px;
+            top: 60px;
             left: 0;
             
             width: $screen_width;
@@ -136,15 +141,13 @@ $screen_width: 100vw;
             flex-direction: column;
             align-items: flex-start;
 
-            //padding: 20px;
-            
             visibility: hidden;
             transform: translateY(+10px);
 
             pointer-events: none;
             background-color: rgba($bg, 0.0);
             transition: background-color .2s ease 0.25s, transform .2s ease .25s, visibility .2s ease .25s;
-            //transition: background-color .5s ease ,  visibility .5s ease;
+            
             z-index: 100;
             
             li {
@@ -162,24 +165,27 @@ $screen_width: 100vw;
             }
           }
 
-          &:hover {
-            color: $accent;
+          
+            &:hover {
+              color: $accent;
 
 
-            > .dropdown-menu {
-              
-              visibility: visible;
-              transform: translateY(0px);
-              pointer-events: auto;
-              background-color: rgba($bg, 0.99);
-              .link{
-                display: block;
-                width: 100%;
-                text-align: left;
+              > .dropdown-menu {
+                
+                visibility: visible;
+                transform: translateY(0px);
+                pointer-events: auto;
+                background-color: rgba($bg, 0.99);
+                .link{
+                  display: block;
+                  width: 100%;
+                  text-align: left;
+                }
               }
+              
             }
-            
           }
+          
       }
     }
     
@@ -273,6 +279,7 @@ $screen_width: 100vw;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    
     width: 44px;
     height: 44px;
     background: transparent;
@@ -282,32 +289,96 @@ $screen_width: 100vw;
   }
 
   .header-nav {
+    
     position: absolute;
-    top: 80px;
+    top: 60px;
     left: 0; right: 0;
     background: $bg;
     max-height: 0;
     overflow: hidden;
     transition: max-height .3s ease;
 
-    &.is-active { max-height: 80vh; }
+    &.is-active { max-height: 100vh; min-height: 100vh; }
 
     .header-nav-inner {
+      display: flex;
       flex-direction: column;
       align-items: stretch;
+      justify-content: space-between;
+      width: 100vw;
+      min-height: 90vh;
       padding: 8px 16px;
+      .header-nav-left{
+          flex: 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+          max-width: calc(4*20vw);
+          font-size: 20px;
+          
+          padding: 0;
+          
+          .dropdown {
+            text-align: center;
+           > .dropdown-menu { 
+              border: 0px;
+              position: fixed; 
+              left: 0; 
+              top: 200px;  
+              width: $screen_width;
+              padding: 50px;
+              list-style: none;
+              background: $bg;
+              z-index: 100;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              visibility: hidden;
+              transform: translateY(+10px);
+              pointer-events: none;
+              background-color: rgba($bg, 0.0);
+              //transition: background-color .1s ease 0.1s, transform .1s ease .1s, visibility .1s ease .1s;
+              li {
+                padding: .5rem 1rem;
+                //height: 10px;
+                color: rgb(255, 255, 255);
+                opacity: 1;
+                width: $screen_width;
+                font-size: 20px;
+                transition: color .2s ease, opacity .2s ease, font-size .2s ease;
+                
+                
+
+                &:hover { color: $accent; opacity: 1; font-size: 30px; }
+              }
+            
+            
+            
+            }
+            &.open 
+              > .dropdown-menu {
+
+                opacity: 1; visibility: visible; pointer-events: auto;
+              }
+              
+              .highlight{
+                color: #a7cdf5;
+                transform: scale(1.2);
+              }
+              
+          }
+          .dropdown:hover{
+            color: #a7cdf5;
+            
+          }
+
+      }
     }
 
     
 
     li { margin: 8px 0; }
 
-    .dropdown {
-      > .dropdown-menu { position: relative; left: 0; }
-      &.open > .dropdown-menu {
-        opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto;
-      }
-    }
+    
   }
 }
 

@@ -128,6 +128,18 @@ $cart_width: 70vw;
 
                 
             }
+        
+        .empty_container{
+            height: 50vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            span{
+                font-size: 30px;
+            }
+        }
 
         .product_container{
             overflow: scroll;

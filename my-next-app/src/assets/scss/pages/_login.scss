@@ -5,13 +5,35 @@
     justify-content: center;
     align-items: center;
     background-color: #bbd4f4   ;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute; 
+        inset: -20% -12% -12% -12%;
+        width: 112%;
+        
+        
+        
+        background:
+            radial-gradient(60% 60% at 20% 25%, rgba(255,255,255,var(--blob-opacity-1, .9)), transparent 62%),
+            radial-gradient(55% 55% at 80% 30%, rgba(160,185,255,var(--blob-opacity-1, .9)), transparent 62%),
+            linear-gradient(120deg, #eef4ff, #000e4e);
+        filter: saturate(1.15) contrast(1.05);        
+        animation: bgDrift 1800ms cubic-bezier(.2,.8,.2,1) forwards 820ms;
+        z-index: 1;
+    };
+
     .login-pane{
+        opacity: .8;
+        z-index: 2;
         height: 80%;
+        max-height: 600px;
         width: 60%;
         background-color: #868686;
         border-radius: 20px;
         margin-top: 50px;
-        
+        box-shadow: 10px  10px 10px rgba(0, 0, 0, 0.5);
         
         .left-pane{
             display: flex;

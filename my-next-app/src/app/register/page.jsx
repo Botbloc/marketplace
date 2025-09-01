@@ -1,11 +1,13 @@
 "use client";
 import React from 'react';
 import {useState} from 'react';
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export default function Register() {
 
   const [username, setUsername] = useState();
   const [pw, setPw] = useState();
+  const router = useRouter();
 
   return (
   <div className='register'>
@@ -24,7 +26,7 @@ export default function Register() {
           <h4>Already had an account?</h4>  
         </div>
          
-         <button>Tap to login!</button>
+         <button onClick={(e)=>{router.push("/login")}}>Tap to login!</button>
       </div>
     </div>
   </div>);

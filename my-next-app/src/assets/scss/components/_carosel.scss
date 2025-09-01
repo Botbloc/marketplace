@@ -22,7 +22,11 @@
         margin-bottom: 40px;
         scroll-snap-type: x mandatory;  // nice snapping effect
         padding: 20px;
+        scroll-padding-left: 20px;
+        scroll-padding-right: 20px;
         gap: 2vw;
+        background-color: #f1f1f1;
+        border-radius: 20px;
 
         &::-webkit-scrollbar {
             display: none;          // hide scrollbar for cleaner UI
@@ -47,7 +51,14 @@
             &:hover{
                 transform: scale(1.05);
             }
+            @media (max-width : 1024px){
+                flex: 0 0 25vw;
+            }
+            @media (max-width : 728px){
+                flex: 0 0 40vw;
+            }
         }
+        
 
     }
 

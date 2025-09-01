@@ -111,6 +111,7 @@
     };
 
     const href = "";
+    const [selected, setSelected] = useState(null);
 
     return (
       <header ref={headerRef} className={headerClasses}>
@@ -123,7 +124,13 @@
               className="header-nav-toggle"
               aria-expanded={open ? 'true' : 'false'}
               aria-controls="site-nav"
-              onClick={() => setOpen((v) => !v)}
+              onClick={() => {
+                setOpen((v) => !v);
+                if(openDropdown){
+                  closeAll();
+                }
+                
+              }}
             >
               
               <span className="hamburger"></span>
@@ -137,8 +144,10 @@
                       return (
                         <li key={item.id} className="header_item">
                           <button type="button" onClick={() => { 
-                            closeAll();
-                            router.push(item.href)} }>
+                              closeAll();
+                              router.push(item.href);
+                              
+                              }}>
                             {item.label}
                           </button>
                           
@@ -151,9 +160,18 @@
                         {/* On desktop, :hover opens. On mobile, this toggles. */}
                         <button
                           type="button"
-                          className="dropdown-toggle"
+                          className={selected === item.id ? 'highlight': ''}
                           aria-expanded={isOpen ? 'true' : 'false'}
-                          onClick={() => toggleDropdown(item.id)}
+                          onClick={() => {
+                            toggleDropdown(item.id);
+                            if(selected === item.id){
+                              setSelected(null);
+                            }
+                            else{
+                              setSelected(item.id);
+                            }
+                            
+                          }}
                         >
                           {item.label}
                         </button>

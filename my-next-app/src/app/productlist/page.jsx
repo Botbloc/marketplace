@@ -111,7 +111,7 @@ const Productlist = () => {
                 onChange = {updateUrl}
             />
             <div className="body-container">      
-                <main className="product_list_window">          
+                <div className="product_list_window">          
                 <div className="product_list">
                     <Sidebar 
                         value = {filters}
@@ -141,9 +141,10 @@ const Productlist = () => {
                 </div>
                
                 
-                </main>
-                <Product_display theme="Suggestion" />
+                </div>
+  
             </div>
+            <Product_display theme="Suggestion" />
         </>
     )
 }
