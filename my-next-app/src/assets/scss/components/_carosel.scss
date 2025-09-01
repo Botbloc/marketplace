@@ -51,11 +51,14 @@
             &:hover{
                 transform: scale(1.05);
             }
-            @media (max-width : 1024px){
+            @media (max-width : 1440px){
                 flex: 0 0 25vw;
             }
-            @media (max-width : 728px){
+            @media (max-width : 960px){
                 flex: 0 0 40vw;
+            }
+            @media (max-width : 600px){
+                flex: 0 0 80vw;
             }
         }
         

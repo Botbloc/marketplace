@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {useState} from 'react';
 
 import Logo from './partials/Logo';
 import FooterNav from './partials/FooterNav';
@@ -9,6 +10,10 @@ import FooterSocial from './partials/FooterSocial';
 import Link from 'next/link';
 
 const Footer = () => {
+  const [openShop, setOpenShop] = useState(false);
+  const [business, setBusiness] = useState(false);
+  const [developers, setDevelopers] = useState(false);
+  const [about, setAbout] = useState(false);
 
   return (
     <div className='site-footer'>
@@ -33,8 +38,12 @@ const Footer = () => {
               </ul>
             
           </div>
-          <div className='footer-shop'> 
-            <h6>Shop</h6>
+          <div 
+            className={`footer-shop ${openShop?"open":""}`} 
+           > 
+            <h6  onClick={(e)=>{
+              openShop? setOpenShop(false): setOpenShop(true);
+            }}>Shop</h6>
             <ul>
               {[
                 { label: 'R-Cores', href: '/' },
@@ -54,37 +63,51 @@ const Footer = () => {
             </ul>
 
           </div>
-          <div className='footer-business-dev'>
-            <h6>Businesses</h6>
-              <ul>
-                {[
-                  { label: 'Use cases', href: '/' },
-                  { label: 'Book a demo', href: '/' },
-                ].map(({ label, href }) => (  
-                  <li key={label}>
-                    <Link href={href}>
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <h6>Developers</h6>
-              <ul>
-                {[
-                  { label: 'Documentation', href: '/' },
-                  { label: 'Learning', href: '/' },
-                  { label: 'Community', href: '/' }
-                ].map(({ label, href }) => (  
-                  <li key={label}>
-                    <Link href={href}>
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          <div >
+                <div className={`footer-business ${business?"open": ""}`}
+                  
+                >
+                  <h6 onClick={(e)=>{
+                  business? setBusiness(false): setBusiness(true);
+                  }}>Businesses</h6>
+                  <ul>
+                    {[
+                      { label: 'Use cases', href: '/' },
+                      { label: 'Book a demo', href: '/' },
+                    ].map(({ label, href }) => (  
+                      <li key={label}>
+                        <Link href={href}>
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+              </div>
+              <div className={`footer-dev ${developers?"open": ""}`}
+                
+                >
+                <h6 onClick={(e)=>{
+                    developers? setDevelopers(false): setDevelopers(true);
+                  }}>Developers</h6>
+                <ul>
+                  {[
+                    { label: 'Documentation', href: '/' },
+                    { label: 'Learning', href: '/' },
+                    { label: 'Community', href: '/' }
+                  ].map(({ label, href }) => (  
+                    <li key={label}>
+                      <Link href={href}>
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
           </div>
-          <div className='footer-about'>
-            <h6>About</h6>
+          <div className={`footer-about ${about? "open": ""}`}>
+            <h6 onClick={(e)=>{
+                about? setAbout(false): setAbout(true);
+              }}>About</h6>
               <ul>
                 {[
                   { label: 'About us', href: '/' },
@@ -108,14 +131,5 @@ const Footer = () => {
   );
 };
 
-Footer.propTypes = {
-  topOuterDivider: PropTypes.bool,
-  topDivider: PropTypes.bool,
-};
-
-Footer.defaultProps = {
-  topOuterDivider: false,
-  topDivider: false,
-};
 
 export default Footer;
