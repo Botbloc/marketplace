@@ -1,6 +1,6 @@
 import React from "react";
 
-const About: React.FC = () => {
+const About = () => {
   return (
     <div className="about_us">
       <div className="hero">

@@ -1,4 +1,5 @@
 // app/layout.tsx
+import { Suspense } from "react";
 export const metadata = {
   title: 'Next.js App with Sidebar',
   description: 'Plain CSS Sidebar Layout',
@@ -6,9 +7,9 @@ export const metadata = {
 
 export default function layout({ children }) {
   return (
-    <div>
+    <Suspense fallback={null}>
       {children}
-    </div>
+    </Suspense>
     
   );
 }

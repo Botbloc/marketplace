@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import {createContext, useState, useEffect} from "react";
 import placeholder from "../assets/images/placeholder.jpg" ;
 import ProductContext from "./ProductContext";
-import cart from "@/app/cart/page";
 
 // context storing the cart details that can be used later on
 const CartContext = createContext();
