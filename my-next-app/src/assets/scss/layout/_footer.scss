@@ -106,7 +106,11 @@
                     
                 }
                 .terms_and_condition{
-                    margin-top: 80px;
+                    
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    
                 }
             
             }
@@ -121,10 +125,11 @@
                     justify-content: space-between;
                     align-items: center;
                     cursor: pointer;
-                    width: 90%;
+                    width: 95%;
                     text-align: left;
                     &::after{
-                        content: ">";              /* or use ▼ / ▾ */
+                        content: ">";
+                        transform: rotate(90deg);              /* or use ▼ / ▾ */
                         font-size: 20px;
                         transition: transform 0.3s ease;
                     }
@@ -143,10 +148,9 @@
                         
 
                     }
-                    //max-height: 500px;
                     h6{
                         &::after {
-                            transform: rotate(450deg);  /* sideways chevron */
+                            transform: rotate(630deg);  /* sideways chevron */
                         }
                     }
                     
