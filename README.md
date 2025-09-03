@@ -45,3 +45,9 @@ mv out docs
 touch docs/.nojekyll
 cp docs/index.html docs/404.html
 ```
+
+or by running bash script(bash scripts/build-docs.sh):
+
+```
+npm run docs
+```

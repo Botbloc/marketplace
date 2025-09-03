@@ -112,6 +112,7 @@
 
     const href = "";
     const [selected, setSelected] = useState(null);
+    
 
     return (
       <header ref={headerRef} className={headerClasses}>
@@ -154,21 +155,22 @@
                         </li>
                       );
                     }
-                    const isOpen = openDropdown === item.id;
-                    return (
+                    else{
+                      const isOpen = openDropdown === item.id;
+                      return (
                       <li key={item.id} className={`dropdown ${isOpen ? 'open' : ''}`}>
                         {/* On desktop, :hover opens. On mobile, this toggles. */}
                         <button
                           type="button"
-                          className={selected === item.id ? 'highlight': ''}
+                          className={selected === item ? 'highlight': ''}
                           aria-expanded={isOpen ? 'true' : 'false'}
                           onClick={() => {
                             toggleDropdown(item.id);
-                            if(selected === item.id){
+                            if(selected === item){
                               setSelected(null);
                             }
                             else{
-                              setSelected(item.id);
+                              setSelected(item);
                             }
                             
                           }}
@@ -185,7 +187,17 @@
                         </ul>
                       </li>
                     );
+                    }
+                    
                   })}
+                </ul>
+                <ul className={`dropdown-menu_mobile ${selected ? 'open' : ''}`}>
+                          {selected &&selected.children.map(sub => (
+                            <li key={sub.id}>
+                              
+                              <Link href={sub.href} onClick={closeAll} className="link">{sub.label}</Link>
+                            </li>
+                          ))}
                 </ul>
 
                 {!hideSignin && (
