@@ -8,10 +8,9 @@ $screen_width: 100vw;
 
 // ---- Header
 .site-header {
-  overflow-x: hidden;
   position: fixed;
   inset: 0 0 auto 0;
-  width: 100vw;
+  width: 100%;
   z-index: 900;
   background: $bg;
   opacity: .9;
