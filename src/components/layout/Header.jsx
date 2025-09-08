@@ -116,7 +116,7 @@
 
     return (
       <header ref={headerRef} className={headerClasses}>
-        <div className="container">
+        <div className="">
           <div className={innerClasses}>
             <Logo />
 

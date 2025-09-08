@@ -1,9 +1,9 @@
-$cart_width: 70vw;
+$cart_width: 85vw;
 
 .cart_window{
     width: 100%;
-    padding-right: 10vw;
-    padding-left: 10vw;
+    padding-right: 0vw;
+    padding-left: 0vw;
     padding-top: 15vh;
     background-color: white;
     color: black;
@@ -301,6 +301,9 @@ $cart_width: 70vw;
             
         }
 
+        .product_header, .product_container{
+            min-width: 400px;
+        }
         
 
     }

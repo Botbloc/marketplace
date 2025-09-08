@@ -6,12 +6,14 @@
     flex-direction: column;
     background-color: white;
     align-items: center;
+    overflow-x: hidden;
+    width: 100vw;
 
     .product_list_window{
         padding-top: 120px;
         min-height: 100vh;
         //background-color: rgb(44, 44, 44);
-        width: 100%;
+        width: 100vw;
         flex: 1;
         //display: flex;
         //align-items: center;

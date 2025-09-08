@@ -46,7 +46,7 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
     };
   }, []);
 
-  const navClasses = classNames('subHeader-nav', isActive && 'is-active');
+  //const navClasses = classNames('subHeader-nav', isActive && 'is-active');
 
   return (
     <div className="subHeader">
@@ -63,7 +63,7 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
                 </span>
               </button>
 
-              <nav ref={navRef} className={navClasses}>
+              <nav ref={navRef}>
                 <div className="subHeader-nav-inner">
                   <ul
                     className={classNames(
