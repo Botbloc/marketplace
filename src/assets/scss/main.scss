@@ -40,14 +40,22 @@
 // Sample File: _variables.scss
 
 
+
+
+
+
+
+
 .search_bar_section{
     width: 100vmax;
-    height: 2vmax;
+    
     min-height: 100px;
+    max-height: 180px;
     background-color: rgb(224, 224, 224);
     color: black;
     
-    margin-top: 80px;
+    padding-top: 60px;
+    //padding-bottom: 20px;
     display: flex;
    
     align-items: center;

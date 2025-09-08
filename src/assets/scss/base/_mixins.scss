@@ -16,6 +16,30 @@
   }
 }
 
+@mixin hamburger($color: #000) {
+  // ---- Hamburger icon
+  .hamburger {
+    display: inline-block;
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background: currentColor;
+    color: $color;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: currentColor;
+    }
+    &::before { top: -7px; }
+    &::after  { top: 7px; }
+  }
+}
+
 @mixin product_card($height : 150px, $width: 150px, $bg : #fff, $border-radius: 20px){
   @include flex-center(0,column);
   height: $height;

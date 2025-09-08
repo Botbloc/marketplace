@@ -19,8 +19,9 @@
     justify-content: center;
     position: relative;
     min-height: 100vh;
-    height: 100vh;
-    padding: 0px;
+    
+    padding-top: 10vh;
+    padding-bottom: 10vh;
     background-color: white;
     z-index: 100;
 
@@ -87,11 +88,6 @@
             
 
         }
-        
-        
-
- 
-
         .tall{
             grid-row: span 2;
         }
@@ -99,13 +95,23 @@
         .wide{
             grid-column: span 2;
         }
+        .small{
+            grid-column: span 1; grid-row: span 1;
+        }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 960px) {
     .card_container {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 20vh;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 40vh;
     }
-    .tall, .wide { grid-column: auto; grid-row: auto; }
+    .tall{
+        grid-column: span 2; grid-row: span 2;
+    }
+    .wide { grid-column: auto; grid-row: span 1; }
+    .small{
+        grid-column: span 1; grid-row: span 1;
+    }
+    
 }
 }

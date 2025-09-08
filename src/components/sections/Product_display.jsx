@@ -14,8 +14,12 @@ const Product_display = ({theme})=>{
     let header = "";
     const {allProducts} = useContext(ProductContext); 
     const [activeIndex, setActiveIndex] = useState([]);
+    const [containerWidth, setContainerWidth] = useState(0);
+    
     let display_entity = [];
     const href = "/product/";
+    
+    
     switch (theme) {
         case "Trending":
             header = "Trending";
@@ -39,6 +43,9 @@ const Product_display = ({theme})=>{
         if (!el) return;
 
         const cards = el.querySelectorAll(".card");
+        const resize_observer = new ResizeObserver(() => {
+            setContainerWidth(el.clientWidth);
+        });
 
         // compute how many cards fit in container
         let visibleCount = 1;
@@ -103,16 +110,20 @@ const Product_display = ({theme})=>{
         );
 
         cards.forEach((card) => observer.observe(card));
-        return () => observer.disconnect();
-    }, []);
+        resize_observer.observe(el);
+        return () => {
+            resize_observer.disconnect();
+            observer.disconnect()};
+    }, [containerWidth]);
     
     
 
 
     const swipe = useCallback((dir) => {
         const el = listRef.current;
+        const cards = el.querySelectorAll(".card");
         if (!el) return;
-        const amount = 100;
+        const amount = cards[0].offsetWidth + parseFloat(getComputedStyle(el).gap || 0);
         el.scrollBy({
         left: dir === "left" ? -amount : amount,
         behavior: "smooth",

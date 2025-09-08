@@ -1,3 +1,5 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
 .subHeader{
     position: absolute !important;
 	top: 80px;
@@ -7,39 +9,96 @@
     background-color: #ffffff;
     border-bottom: #000000 1px solid;
     .subHeader-inner{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-    position: sticky;
-    top: 0;
-    font-size: 15px;    
-        .subHeader-nav{
-            .subHeader-nav-inner{
-                 margin: 0;
-                .subHeader-nav{
-                    list-style: none;
-                    display: flex;
-                    flex-direction: row;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        position: sticky;
+        top: 0;
+        font-size: 15px;    
+        .header-nav-toggle{
+            display: none;
+            @include hamburger($color: black);
+        }
+            .subHeader-nav{
+                .subHeader-nav-inner{
                     margin: 0;
+                    .subHeader-nav{
+                        list-style: none;
+                        display: flex;
+                        flex-direction: row;
+                        margin: 0;
 
-                    li{
-                        color: black;
-                        //padding: 8px;
-                        padding: 20px;
+                        li{
+                            color: black;
+                            //padding: 8px;
+                            padding: 20px;
+                        }
+                        
+                        a{
+                            text-decoration: none;
+                            color: black;   
+                        }
+                        li:hover{
+                            background-color: #b9b9b9;
+                        }
                     }
                     
-                    a{
-                        text-decoration: none;
-                        color: black;   
-                    }
-                    li:hover{
-                        background-color: #b9b9b9;
-                    }
                 }
+            }
+    }
+}
+
+
+
+
+@media (max-width: 960px) {
+    .subHeader{
+        .subHeader-inner{
+            .header-nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
                 
+                width: 44px;
+                height: 44px;
+                background: transparent;
+                border: 0;
+                color: $text;
+                cursor: pointer;
             }
         }
     }
+    
+    
+    .subHeader{
+
+        .subHeader-inner{
+            flex-direction: column;
+            
+            height: auto;
+            .subHeader-nav{
+                .subHeader-nav-inner{
+                    .subHeader-nav{
+                        max-height: 0;
+                        visibility: hidden;
+                        opacity: 0;
+                        transition: visibility .3s ease, max-height .3s ease, opacity .3s ease;
+                    }
+                    .subHeader-nav.open{
+                        max-height: 80vh;
+                        visibility: visible;
+                        opacity: 1;
+                        flex-direction: column;
+                        align-items: center;
+                        li{
+                            padding: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 

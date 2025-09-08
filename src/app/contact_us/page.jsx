@@ -20,18 +20,20 @@ const Contact_us = () =>{
             <div className="hero">
                 <h1>Contacts</h1>
             </div>
-            <div className="introduction">
-                <p>Questions, partnership ideas, or late-night epiphanies - drop us a line. We reply within 5 business days.</p>
+            <div className="content_container">
+                           
+                <div className="introduction">
+                    <p>Questions, partnership ideas, or late-night epiphanies - drop us a line. We reply within 5 business days.</p>
+                </div>
+                <ul className="email_list">
+                    {email_list.map((item) =>(
+                        <li className="email">
+                            <span>{item.label}</span>
+                            <a href={"mailto:"+ item.email}>{item.email}</a>
+                        </li>
+                    ))}
+                </ul>
             </div>
-            <ul className="email_list">
-                {email_list.map((item) =>(
-                    <li className="email">
-                        <span>{item.label}</span>
-                        <a href={"mailto:"+ item.email}>{item.email}</a>
-                    </li>
-                ))}
-            </ul>
-            
             
         </div>
     )

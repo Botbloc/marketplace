@@ -1,8 +1,5 @@
 .Contacts{
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    justify-content: center;
+    min-height: 100vh;
     a{
         text-decoration: none;
         color: rgb(103, 103, 103);
@@ -18,29 +15,42 @@
         justify-content: center;
 
     }
-    .introduction{
+    .content_container{
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
-        margin-top: 10vh;
-        
-        width: 80%;
-        
-        p{
-           text-align: center; 
-        }
-    }
-    .email_list{
-        display: flex;
-        flex-direction: row;
         align-items: center;
-        .email{
+    
+        .introduction{
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 40px;
-
+            justify-content: center;
+            margin-top: 10vh;
+            
+            width: 80%;
+            
+            p{
+            text-align: center; 
+            }
+        }
+        .email_list{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            .email{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 3%;
+                /*
+                @media (max-width: 480px){
+                                
+                    flex-direction: row;
+                }*/
+            }
+            
         }
     }
 

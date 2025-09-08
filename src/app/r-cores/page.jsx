@@ -5,10 +5,10 @@ import placeholder from "../../assets/images/landscape-placeholder.svg";
 const Rcore = () => {
     return(
         <div className="row rcore">
-            <div className="col-md-5 image-module">
+            <div className="col-lg-5 image-module">
                 <img src={placeholder.src} className="r-core-image"/>
             </div>
-            <div className="col-md-7 discription-module">
+            <div className="col-lg-7 discription-module">
                 <div className="discription">
                     <h1>R, for robot cores</h1>
                     <p>Our R-series core units are the brain & heart of every robotic creation.

@@ -99,12 +99,12 @@ const MultiWindowDisplay = () => {
               <span className='learn_more'>→ Learn more</span>
           </div>
           
-          <div className=" box">  
+          <div className=" box small">  
               <span className="span_header">Investment Opportunity</span>
               <span className='learn_more'>→ Learn more</span>
           </div>
             
-          <div className=" box">
+          <div className=" box small">
               <span className="span_header">About us</span>
               <span className='learn_more'>→ Learn more</span>
           </div>

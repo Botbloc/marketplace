@@ -1,3 +1,5 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
 // ---- Theme
 $bg: #0F2243;
 $text: #fff;
@@ -61,7 +63,7 @@ $screen_width: 100vw;
 
 }
 
-
+@include hamburger($color: white);
 
 // ---- Nav (desktop default)
 .header-nav {
@@ -319,7 +321,7 @@ $screen_width: 100vw;
             align-items: flex-start;
             transform: translateY(+10px);
 
-            pointer-events: none;
+            
             background-color: rgba($bg, 0.0);
             transition: background-color .2s ease 0.25s, transform .2s ease .25s, visibility .2s ease .25s;
             
@@ -377,23 +379,4 @@ $screen_width: 100vw;
   }
 }
 
-// ---- Hamburger icon
-.hamburger {
-  display: inline-block;
-  position: relative;
-  width: 24px;
-  height: 2px;
-  background: currentColor;
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 24px;
-    height: 2px;
-    background: currentColor;
-  }
-  &::before { top: -7px; }
-  &::after  { top: 7px; }
-}

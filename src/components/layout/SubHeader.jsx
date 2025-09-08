@@ -12,7 +12,6 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-
   const handleEscape = (e) => e.key === 'Escape' && isActive && closeMenu();
 
   const handleClickOutside = (e) => {
@@ -28,6 +27,12 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
   const closeMenu = () => { // used after clicking any link: it collapses the mobile menu and any open dropdowns.
     setIsActive(false);
     setOpenDropdown(null); 
+  };
+  
+  const openMenu = () => {
+    setIsActive(true);
+    setOpenDropdown(true);
+
   };
 
   useEffect(() => {
@@ -52,7 +57,7 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
               <button
                 ref={hamburgerRef}
                 className="header-nav-toggle"
-                //onClick={isActive ? closeMenu : openMenu}
+                onClick={isActive ? closeMenu : openMenu}
               >
                 <span className="hamburger">
                 </span>
@@ -62,7 +67,7 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
                 <div className="subHeader-nav-inner">
                   <ul
                     className={classNames(
-                      `subHeader-nav`
+                      `subHeader-nav`, openDropdown? "open": ""
                     )}
                   >
                     {[

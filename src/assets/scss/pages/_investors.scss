@@ -1,12 +1,12 @@
 .investors{
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    justify-content: center;
+    
+    min-height: 100vh;
+    padding-top: 0px;
     .hero{
+        margin-top: 0px;
         padding-top: 75px;
         display: flex;
-        height: 50vh;   
+        min-height: 50vh;   
         width: 100%;
         background-color: #afafaf;
         align-items: center;
@@ -14,6 +14,9 @@
 
     }
     .introduction{
+        margin: auto;
+        margin-top:  50px;
+        margin-bottom:  50px;
         display: flex;
         flex-direction: column;
         align-items: center;
