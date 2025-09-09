@@ -1,9 +1,18 @@
 // app/not-found.tsx
+'use client';
+import {useRouter} from "next/navigation";
 export default function NotFound() {
+  const router = useRouter();
+  const href = "/";
   return (
-    <div style={{ padding: '200px', textAlign: 'center' }}>
-      <h1>404 - Page Not Found</h1>
-      <p>Sorry, the page you're looking for doesn't exist.</p>
+    <div className="not_found" style={{ padding: '300px', textAlign: 'center' }}>
+      <h1 className="heading">Page coming soon!</h1>
+      <p></p>
+      <button
+        onClick={(e)=> router.push(href)}
+      >
+        Click to explore
+      </button>
     </div>
   );
 }

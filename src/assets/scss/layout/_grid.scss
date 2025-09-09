@@ -58,7 +58,7 @@
             transition: transform .25s ease, box-shadow .25s ease, background-color .2s ease, color .25s ease; 
 
             &:hover{
-                transform: translateY(-20px);
+                transform: translateY(-10px);
                 box-shadow: 0 12px 24px rgba(0,0,0,0.42);
                 background-color: #3c5371;
                 > .learn_more{

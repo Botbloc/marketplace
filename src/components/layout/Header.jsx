@@ -8,8 +8,8 @@
 
   const NAV = [
     { id: 0, label: 'R-Cores', href: '/r-cores' },
-    { id: 1, label: 'Components', href: '/' },
-    { id: 2, label: 'Apps', href: '/' },
+    { id: 1, label: 'Components', href: '/components' },
+    { id: 2, label: 'Apps', href: '/apps' },
     {
       id: 3, label: 'Business', children: [
         { id: 0, label: 'Uses cases', href: '/uses_cases' },

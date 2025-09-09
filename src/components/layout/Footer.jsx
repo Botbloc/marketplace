@@ -25,9 +25,9 @@ const Footer = () => {
                 <copy>Copyright @ 2025 BotBloc Ltd.<br/> All rights reserved</copy>
                 <ul className='terms_and_condition'>
                 {[
-                  { label: 'Terms of use', href: '/' },
-                  { label: 'Privacy Policy', href: '/' },
-                  { label: 'Cookies Policy', href: '/' }
+                  { label: 'Terms of use', href: '/a' },
+                  { label: 'Privacy Policy', href: '/a' },
+                  { label: 'Cookies Policy', href: '/a' }
                 ].map(({ label, href }) => (  
                   <li key={label}>
                     <Link href={href}>
@@ -46,13 +46,13 @@ const Footer = () => {
             }}>Shop</h6>
             <ul>
               {[
-                { label: 'R-Cores', href: '/' },
-                { label: 'Actuators', href: '/' },
-                { label: 'End effectors', href: '/' },
-                { label: 'Sensors', href: '/' },
-                { label: 'Applications', href: '/' },
-                { label: 'Accessories', href: '/' },
-                { label: 'Bundles', href: '/' }
+                { label: 'R-Cores', href: '/a' },
+                { label: 'Actuators', href: '/a' },
+                { label: 'End effectors', href: '/a' },
+                { label: 'Sensors', href: '/a' },
+                { label: 'Applications', href: '/a' },
+                { label: 'Accessories', href: '/a' },
+                { label: 'Bundles', href: '/a' }
               ].map(({ label, href }) => (  
                 <li key={label}>
                   <Link href={href}>
@@ -72,8 +72,8 @@ const Footer = () => {
                   }}>Businesses</h6>
                   <ul>
                     {[
-                      { label: 'Use cases', href: '/' },
-                      { label: 'Book a demo', href: '/' },
+                      { label: 'Use cases', href: '/uses_cases' },
+                      { label: 'Book a demo', href: '/book-a-demo' },
                     ].map(({ label, href }) => (  
                       <li key={label}>
                         <Link href={href}>
@@ -91,9 +91,10 @@ const Footer = () => {
                   }}>Developers</h6>
                 <ul>
                   {[
-                    { label: 'Documentation', href: '/' },
-                    { label: 'Learning', href: '/' },
-                    { label: 'Community', href: '/' }
+                    { label: 'Documentation', href: '/Docs' },
+                    { label: 'Learning', href: '/learning' },
+                    { label: 'Community', href: '/community' },
+                    { label: 'Selling with us', href: '/selling-with-us' }
                   ].map(({ label, href }) => (  
                     <li key={label}>
                       <Link href={href}>
@@ -110,12 +111,12 @@ const Footer = () => {
               }}>About</h6>
               <ul>
                 {[
-                  { label: 'About us', href: '/' },
-                  { label: 'Press and release', href: '/' },
-                  { label: 'Investors', href: '/' },
-                  { label: 'Sustainability', href: '/' },
-                  { label: 'Careers', href: '/' },
-                  { label: 'Contact us', href: '/' }
+                  { label: 'About us', href: '/about' },
+                  { label: 'Press and release', href: '/press_and_release' },
+                  { label: 'Investors', href: '/investors' },
+                  { label: 'Sustainability', href: '/sustainability' },
+                  { label: 'Careers', href: '/careers' },
+                  { label: 'Contact us', href: '/contact_us' }
                 ].map(({ label, href }) => (  
                   <li key={label}>
                     <Link href={href}>

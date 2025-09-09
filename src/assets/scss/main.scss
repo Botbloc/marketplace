@@ -13,6 +13,7 @@
 @use 'components/carosel';
 @use 'components/slide_button';
 
+@use 'pages/not_found';
 @use 'pages/home';
 @use 'pages/selling-with-us';
 @use 'pages/login';
@@ -37,14 +38,15 @@
     100% { transform: translate3d(2%, -2%, 0) scale(1.03); }
 }
 
-// Sample File: _variables.scss
-
-
-
-
-
-
-
+@keyframes spin {
+  from {
+    transform: rotate(0deg) ;
+  }
+  to {
+    transform: rotate(1800deg) ;
+  }
+  
+}
 
 .search_bar_section{
     width: 100vmax;
