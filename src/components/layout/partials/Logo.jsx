@@ -21,25 +21,17 @@ const Logo = ({
       className={classes}
       
     >     
-        <h2 className="m-0" >
-            <Link href="/">
-                <Image
-                  src={require('../../../assets/images/BotBloc.png')}
-                  width={48}
-                  height={48}
-                  alt="BotBloc"
-                  placeholder="blur"
-                  blurDataURL="data:image/svg+xml,..."
-                />
-            </Link>
-            
-
-        </h2>
-      
-      
         
-      
-      
+    <Link href="/">
+        <Image
+          src={require('../../../assets/images/botbloc logo new 2.png')}
+          width={120}
+          height={28}
+          alt="BotBloc"
+          placeholder="blur"
+          blurDataURL="data:image/svg+xml,..."
+        />
+    </Link>
     </div>
     
   );

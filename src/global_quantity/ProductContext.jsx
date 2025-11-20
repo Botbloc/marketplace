@@ -13,6 +13,7 @@ const ProductContext = createContext();
 // shipping: uk, hk
 const items = [
   {
+    img : placeholder,
     id: "AB-1234",
     product_name: "R25 4Ah Lithium-ion Battery",
     price: 120,
@@ -34,6 +35,7 @@ const items = [
     
   },
   {
+    img : placeholder,
     id: "AB-1000",
     product_name: "R-Core 50W Compact",
     price: 85,
@@ -48,6 +50,7 @@ const items = [
     delivery_status: "Ships when restocked",
   },
   {
+    img : placeholder,
     id: "AB-1001",
     product_name: "R-Core 200W High Efficiency",
     price: 210,
@@ -64,6 +67,7 @@ const items = [
 
   // Actuators
   {
+    img : placeholder,
     id: "AB-1002",
     product_name: "Linear Actuator 150mm Stroke",
     price: 180,
@@ -78,6 +82,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1003",
     product_name: "Servo Actuator Pro 20kg·cm",
     price: 75,
@@ -92,6 +97,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1004",
     product_name: "Pneumatic Actuator Compact",
     price: 140,
@@ -106,6 +112,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1005",
     product_name: "BLDC Actuator Module",
     price: 220,
@@ -122,6 +129,7 @@ const items = [
 
   // End effectors
   {
+    img : placeholder,
     id: "AB-1006",
     product_name: "Two-Finger Parallel Gripper",
     price: 260,
@@ -136,6 +144,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1007",
     product_name: "Vacuum Suction Cup Kit",
     price: 95,
@@ -150,6 +159,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1008",
     product_name: "Magnetic Gripper Heavy-Duty",
     price: 180,
@@ -164,6 +174,7 @@ const items = [
     delivery_status: "Ships when restocked",
   },
   {
+    img : placeholder,
     id: "AB-1009",
     product_name: "Soft Gripper Food-Grade",
     price: 310,
@@ -180,6 +191,7 @@ const items = [
 
   // Sensors
   {
+    img : placeholder,
     id: "AB-1010",
     product_name: "Lidar Distance Sensor 12m",
     price: 150,
@@ -194,6 +206,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1011",
     product_name: "Industrial IMU 9-Axis",
     price: 130,
@@ -208,6 +221,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1012",
     product_name: "Force/Torque Sensor 6-Axis",
     price: 480,
@@ -222,6 +236,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1013",
     product_name: "Optical Encoder 1024 PPR",
     price: 60,
@@ -238,6 +253,7 @@ const items = [
 
   // Applications
   {
+    img : placeholder,
     id: "AB-1014",
     product_name: "Quality Inspection Kit (Vision)",
     price: 890,
@@ -252,6 +268,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1015",
     product_name: "Assembly Line Starter Pack",
     price: 1250,
@@ -266,6 +283,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1016",
     product_name: "Material Transport Bundle",
     price: 990,
@@ -282,6 +300,7 @@ const items = [
 
   // Accessories
   {
+    img : placeholder,
     id: "AB-1017",
     product_name: "Cable Management Kit",
     price: 35,
@@ -296,6 +315,7 @@ const items = [
     delivery_status: "Delivery in 2 days",
   },
   {
+    img : placeholder,
     id: "AB-1018",
     product_name: "Mounting Bracket Universal",
     price: 28,
@@ -352,6 +372,7 @@ export const ProductProvider = ({children}) => {
     // NEW: normalized array your page/filter expects
      const allProducts = useMemo(() => (
         products.map((p, idx) => ({
+          img: p.img,
           id: p.id,
           name: p.product_name,                // alias for UI
           product_name: p.product_name,
@@ -372,6 +393,7 @@ export const ProductProvider = ({children}) => {
     
 
     return (
+        // allProduct: normalised product list ; product : raw data
         <ProductContext.Provider value={{allProducts, products,idIndex, findProductByID, addProduct}}>
             {children} 
         </ProductContext.Provider>

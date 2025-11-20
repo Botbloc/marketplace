@@ -3,7 +3,7 @@
 import React from "react";
 import { useSidebar } from "../../../global_quantity/SidebarContext";
 
-const SidebarLayer = () => {
+const SidebarLayer = ({value, onChange}) => {
   const { isOpen, closeSidebar, sidebarContent } = useSidebar();
 
   //if (!isOpen) return null;

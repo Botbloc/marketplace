@@ -7,6 +7,8 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import SubHeader from "../../components/layout/SubHeader";
 import placeholder from "../../assets/images/landscape-placeholder.svg";
 import Product_display from '../../components/sections/Product_display';
+import SidebarLayer from "../../components/sections/partials/SidebarLayer";
+import SidebarContext from "../../global_quantity/SidebarContext";
 
 let array1 = [
     
@@ -110,13 +112,18 @@ const Productlist = () => {
                 value = {filters}
                 onChange = {updateUrl}
             />
+            <SidebarLayer>
+                <Sidebar 
+                    value = {filters}
+                    onChange = {updateUrl}
+                />
+                
+            </SidebarLayer>
+            
             <div className="body-container">      
                 <div className="product_list_window">          
                 <div className="product_list">
-                    <Sidebar 
-                        value = {filters}
-                        onChange = {updateUrl}
-                    />
+                    
                     <ul className="product_grid" >
 
                         {pageItems.map((item)=>(

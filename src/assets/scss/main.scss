@@ -10,7 +10,7 @@
 @use 'layout/grid';
 
 @use 'components/notification';
-@use 'components/carosel';
+@use 'components/product_display'; 
 @use 'components/slide_button';
 
 @use 'pages/not_found';
@@ -22,7 +22,7 @@
 @use 'pages/cart';
 @use 'pages/about';
 @use 'pages/contact_us';
-@use 'pages/investors';
+@use 'pages/investors'; 
 @use 'pages/rcore';
 @use 'pages/productlist';
 @use 'pages/uses_cases';
@@ -74,6 +74,7 @@
 }
 
 
+/*
 .Intro{
     height: 70vh;
     background-color: #232c38;
@@ -86,5 +87,5 @@
     flex-direction: column;
     padding: 20px;
 
-
 }
+*/

@@ -5,6 +5,7 @@
   import Logo from './partials/Logo';
   import cart_logic from '../../global_quantity/CartContext';
   import {useRouter} from "next/navigation";
+  import login_icon from "../../assets/images/login_icon.svg"
 
   const NAV = [
     { id: 0, label: 'R-Cores', href: '/r-cores' },
@@ -203,9 +204,7 @@
                 {!hideSignin && (
                   
                   <ul className=" header-nav-right">
-                    <li>
-                      <Link href="/login" onClick={closeAll} className="button_2">Sign in</Link>
-                    </li>
+                    
                     <li className="shopping_cart">
                       <Link href="/cart" onClick={closeAll} >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="shopping_cart_link">
@@ -217,6 +216,14 @@
                           
                           <span className="cart-count">{product_in_cart_Context?.length ?? 0}</span>
                       </div>
+                    </li>
+                    <li>
+                      <Link href="/login" onClick={closeAll} className="button_2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="login_icon">
+                            <path d="M9.954,241.305h228.441c3.051,0,5.896-1.246,7.805-3.416c1.659-1.882,2.393-4.27,2.078-6.723    c-5.357-41.734-31.019-76.511-66.15-95.053c-14.849,14.849-35.348,24.046-57.953,24.046s-43.105-9.197-57.953-24.046    C31.09,154.65,5.423,189.432,0.071,231.166c-0.315,2.453,0.424,4.846,2.078,6.723C4.058,240.059,6.903,241.305,9.954,241.305z"/>
+                            <path d="M72.699,127.09c1.333,1.398,2.725,2.73,4.166,4.019c12.586,11.259,29.137,18.166,47.309,18.166    s34.723-6.913,47.309-18.166c1.441-1.289,2.834-2.622,4.166-4.019c1.327-1.398,2.622-2.828,3.84-4.329    c9.861-12.211,15.8-27.717,15.8-44.6c0-39.216-31.906-71.116-71.116-71.116S53.059,38.95,53.059,78.16    c0,16.883,5.939,32.39,15.8,44.6C70.072,124.262,71.366,125.687,72.699,127.09z"/>
+                        </svg>
+                      </Link>
                     </li>
                   </ul>
                   

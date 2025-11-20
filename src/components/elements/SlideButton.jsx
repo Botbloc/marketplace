@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const SlideButton = ({dir, onClick}) =>{
     if(dir==="left"){
         return(

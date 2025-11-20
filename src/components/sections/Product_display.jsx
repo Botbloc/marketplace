@@ -6,6 +6,7 @@ import ProductContext from "../../global_quantity/ProductContext";
 import { useRouter } from "next/navigation";
 import SlideButton from "../elements/SlideButton";
 import Carosel_indicator from "../elements/Carousel_indicator";
+import placeholder from "../../assets/images/placeholder.jpg";
 
 
 const Product_display = ({theme})=>{
@@ -115,8 +116,6 @@ const Product_display = ({theme})=>{
             resize_observer.disconnect();
             observer.disconnect()};
     }, [containerWidth]);
-    
-    
 
 
     const swipe = useCallback((dir) => {
@@ -132,12 +131,15 @@ const Product_display = ({theme})=>{
 
 
     const generateDisplayCard = (item) =>{
+        // item : display_entity content
         //console.log(item);
+        
         return(
             <div className="card" onClick={() => router.push(href+item.id)}>
-                <h3>{item.product_name}</h3>
+                <img src={item.img.src} />
+                
+                <h5>{item.product_name}</h5>
                 <p>From {item.currency + "" + item.price}</p>
-                <h4>Learn more →</h4>
             </div>
         )
     }
