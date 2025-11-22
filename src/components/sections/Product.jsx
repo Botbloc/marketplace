@@ -10,6 +10,7 @@
     import Notification from "../../components/elements/Notification";
     import {useRouter,notFound} from "next/navigation";
     import SidebarLayer from "../../components/sections/partials/SidebarLayer";
+    import SlideButton from "../elements/SlideButton";
 
     // we need image, price, products detail
 
@@ -46,9 +47,13 @@
     // storing iamges for rotation
     let product_iamges = [
         {"id" : 0 ,"img_src" : image1},
-        {"id" : 1 ,"img_src" : image1},
+        {"id" : 1 ,"img_src" : image2},
         {"id" : 2 ,"img_src" : image1},
-        {"id" : 3 ,"img_src" : image1}
+        {"id" : 3 ,"img_src" : image2},
+        {"id" : 4 ,"img_src" : image1},
+        {"id" : 5 ,"img_src" : image2},
+        {"id" : 6 ,"img_src" : image2},
+        {"id" : 7 ,"img_src" : image2}
     ]
 
 
@@ -59,6 +64,8 @@
         const [toastVisible, setToastVisible] = useState(false);
 
         const [Display, setDisplay] = useState();
+
+        const [display_pointer, setDisplay_pointer] = useState(0);
 
         const {addCart} = useContext(cart_logic);
 
@@ -108,12 +115,11 @@
     }
 
         useEffect(()=>{
-            setDisplay(image2);
-            console.log("image1: ",image2);
-            console.log("image1: ",Display);
+            setDisplay(product_iamges[display_pointer].img_src);
             //loadImage; // call api to draw images from drive to local 
-        },[])
+        },[display_pointer])
 
+        
         // switch between Detail, Statistics, and review
         const [TextType, setTextType] = useState("Overview");
         const [quantity, setQuantity] = useState(0);
@@ -212,6 +218,18 @@
             }
         }
 
+        const switch_img = (dir) => {
+            if (dir === 0 && display_pointer != 0){
+                setDisplay_pointer(display_pointer-1); 
+            }
+            else if (dir===1 && display_pointer < product_iamges.length -1){
+                setDisplay_pointer(display_pointer+1); 
+            }
+            console.log("display_pointer: ",display_pointer);
+        }
+
+        
+
         useEffect(() => {
             if (products && products.length > 0){
                 if (!verifyEntry()){
@@ -240,15 +258,19 @@
                                 
                                 {//console.log("DIsplay: ",Display)
                                 }
+                                <SlideButton dir="left" onClick={() => switch_img(0)} />
                                 <img src={Display.src} className="large_img_config"/>
+                                <SlideButton dir="right" onClick={() => switch_img(1)} />
                             </div>
                             <ul className="small_Imgs">
                                 {(product_iamges).map(({id,img_src}) => (
-                                    <li className="small_img_icon" key={id}>
+                                    
+                                    <li className={`small_img_icon ${id === display_pointer ? 'highlight': ''}`} key={id}>
                                         {//console.log("image src: ", img_src)
                                         }
                                         
                                         <img src={img_src.src} className="small_img_config"/>
+                                        
                                     </li>
                                 ))}
                             </ul>

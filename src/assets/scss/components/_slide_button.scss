@@ -3,11 +3,11 @@
 .left_button{
     position: absolute;
     top: 50%;
-    left: 3%;
+    left: 2%;
     background-color: black;
     color: white;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     z-index: 100;
     display: flex;               /* enable flexbox */
     align-items: center;         /* vertical center */
@@ -26,11 +26,11 @@
 .right_button{
     position: absolute;
     top: 50%;
-    right: 3%;
+    right: 2%;
     background-color: black;
     color: white;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     z-index: 100;
     display: flex;               /* enable flexbox */
     align-items: center;         /* vertical center */
