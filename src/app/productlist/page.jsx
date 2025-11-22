@@ -8,7 +8,7 @@ import SubHeader from "../../components/layout/SubHeader";
 import placeholder from "../../assets/images/landscape-placeholder.svg";
 import Product_display from '../../components/sections/Product_display';
 import SidebarLayer from "../../components/sections/partials/SidebarLayer";
-import SidebarContext from "../../global_quantity/SidebarContext";
+import {useSidebar} from "../../global_quantity/SidebarContext";
 
 let array1 = [
     
@@ -106,23 +106,28 @@ const Productlist = () => {
     },[allProducts])
     const href = "product/";
 
+    const {openSidebar} = useSidebar();
+
     return(
         <>
-            <SubHeader
-                value = {filters}
-                onChange = {updateUrl}
-            />
+            
             <SidebarLayer>
                 <Sidebar 
                     value = {filters}
                     onChange = {updateUrl}
                 />
-                
             </SidebarLayer>
             
-            <div className="body-container">      
-                <div className="product_list_window">          
+            <div className="body-container">    
+                <div className="product_list_window">   
+                <SubHeader
+                    value = {filters}
+                    onChange = {updateUrl}
+                    fnc = {openSidebar}
+                />        
+                     
                 <div className="product_list">
+                    
                     
                     <ul className="product_grid" >
 

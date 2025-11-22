@@ -1,23 +1,30 @@
 @use '../base/variables' as *;
 @use '../base/mixins' as *;
 .subHeader{
-    position: absolute !important;
-	top: 80px;
-	width: 100vw;
+    position: sticky;
+	top: $navbar_height;
+	width: 100%;
 	opacity: 90%;
-	z-index: 1 !important;
+    
+	z-index: 10 !important;
     background-color: #ffffff;
     border-bottom: #000000 1px solid;
+    transition: top 0.2s ease;
+    .site-header.hidden + main & {
+        top: 0;                      // snap to very top of viewport
+    }
+
     .subHeader-inner{
+        
         display:flex;
         justify-content: space-between;
         align-items: center;
-        height: 80px;
-        position: sticky;
-        top: 0;
+        height: $navbar_height;
+        width: 100%;
         font-size: 15px;   
+        padding: 0 5vw 0 5vw;
          
-        .header-nav-toggle{
+        .subHeader-nav-toggle{
             display: none;
             @include hamburger($color: black);
         }
@@ -32,36 +39,58 @@
                 
 
                 li{
-                    color: black;
+                    //color: rgb(27, 27, 27);
                     //padding: 8px;
                     padding: 20px;
+                    a{
+                        text-decoration: none;
+                        color: rgb(80, 80, 80);   
+                        
+                    }
                 }
                 
-                a{
-                    text-decoration: none;
-                    color: black;   
-                }
+                
                 li:hover{
-                    background-color: #b9b9b9;
+                   
+                    a{
+                        color: #000000;
+                        //font-weight: bold;
+                        text-decoration: underline;
+                        }
+                    
                 }
             }
             
+        }
+        .filter_btn{
+            width: clamp(100px, 5vw, 200px);
+            height: 50px;
+            border-radius: 20px;
+            border: 0px;
+            background-color: #ebebeb;
+            transition: background-color .2s ease;
+            &:hover{
+                background-color: #cecece;
+            }
         }
             
     }
 }
 
-
-
-
-@media (max-width: 960px) {   
+// mobile
+@include respond(lg){
     .subHeader{
+        top: $mobile_navbar_height;
+        position: sticky;
         .subHeader-inner{
-            flex-direction: column;
-            height: auto;
-            align-items: stretch; 
-            .header-nav-toggle {
-                display: inline-flex;
+            position: relative;
+            flex-direction: row;
+            height: $mobile_navbar_height;
+            align-items: center; 
+            justify-content: space-between;
+            padding: 0 10vw 0 10vw;
+            .subHeader-nav-toggle {
+                display: flex;
                 align-items: center;
                 justify-content: center;
                 
@@ -75,32 +104,46 @@
             
             
             .subHeader-nav-inner{
-                min-width: 0; 
+                position: absolute;
+                 top: 100%;
+                 left: 0;
+                max-height: 0; 
                 width: 100%;
                 overflow-x: clip;  
+                
+                
 
                 .subHeader-nav{
+                    
+                    padding: 12px 0 12px 0;
+                    
+                    width: 100vw;
                     max-height: 0;
                     overflow: hidden; 
                     visibility: hidden;
                     opacity: 0;
-                    transition: visibility .3s ease, max-height .3s ease, opacity .3s ease;
+                    transition:  max-height .5s ease, opacity .2s ease;
                 }
                 .subHeader-nav.open{
-                    max-height: 80vh;
-                    
+                    background-color: #ffffff;
+                    max-height: 100vh;
                     visibility: visible;
                     opacity: 1;
                     flex-direction: column;
                     align-items: center;
+                    background-color: $drop_down_bg;
                     li{
-                        padding: 10px;
+                        
+                        padding: 12px;
+                        
+                    }
+                    li:hover{
+                        text-decoration: underline;
                     }
                 }
             }
             
         }
     }
-    
 }
 

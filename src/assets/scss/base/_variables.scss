@@ -4,6 +4,7 @@ $text-color: white;
 
 // testing color
 $card_background: #eeeeee;
+$drop_down_bg: #dbdbdb;
 
 $bg: #0F2243;
 $text: #fff;
@@ -13,9 +14,24 @@ $learn_more_text: 20px;
 
 $border-radius-button: 20px;
 
+// sizing
+$navbar_height : 9vh;
+$mobile_navbar_height: 8vh;
+
+// breakpoints, from bootstrap
 $breakpoints : (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+
+$breakpoints_1 : (
     sm: 480px,
     md: 768px,
     lg: 1024px,
     xl: 1280px
 );
+
+

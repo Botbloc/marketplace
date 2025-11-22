@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import Logo from './partials/Logo';
 
-const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
+const SubHeader = ({ value, onChange, fnc }) => {
   const [isActive, setIsActive] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); // mobile: which dropdown is open
   const navRef = useRef(null);
@@ -24,6 +24,9 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
     closeMenu();
   };
 
+
+  
+
   const closeMenu = () => { // used after clicking any link: it collapses the mobile menu and any open dropdowns.
     setIsActive(false);
     setOpenDropdown(null); 
@@ -38,6 +41,7 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
   useEffect(() => {
     document.addEventListener('keydown', handleEscape);
     document.addEventListener('click', handleClickOutside);
+    
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
@@ -46,17 +50,18 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
     };
   }, []);
 
+
   //const navClasses = classNames('subHeader-nav', isActive && 'is-active');
 
   return (
     <div className="subHeader">
-      <div className="container">
+      
         <div className="subHeader-inner">
           { (
             <>
               <button
                 ref={hamburgerRef}
-                className="header-nav-toggle"
+                className="subHeader-nav-toggle"
                 onClick={isActive ? closeMenu : openMenu}
               >
                 <span className="hamburger">
@@ -86,20 +91,21 @@ const Header = ({ className = '', hideSignin = false, navPosition = '' }) => {
                             </Link>
                           </li>
                         )
-                        
-                      
-                      
                     })}
                   </ul>
+                  
                 </div>
               </nav>
             </>
           )}
+          <button onClick={fnc} className='filter_btn'>
+              All Filter
+          </button>
         </div>
-      </div>
+      
     </div>
   );
 };
 
 
-export default Header;
+export default SubHeader;

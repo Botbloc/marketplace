@@ -231,127 +231,126 @@
                         visible={toastVisible}
                         onClose={() => setToastVisible(false)}
                     />
-                    {
-                        Display && <div className="product">
-
-                        
-
-                    <div className="row">
-                            <div className="col-md-6 left-pane" >
-                                <div className="Big_Img">
-                                    
-                                    {//console.log("DIsplay: ",Display)
-                                    }
-                                    <img src={Display.src} className="large_img_config"/>
-                                </div>
-                                <ul className="small_Imgs">
-                                    {(product_iamges).map(({id,img_src}) => (
-                                        <li className="small_img_icon" key={id}>
-                                            {//console.log("image src: ", img_src)
-                                            }
-                                            
-                                            <img src={img_src.src} className="small_img_config"/>
-                                        </li>
-                                    ))}
-                                </ul>
+                {
+                Display && 
+                <div className="product">
+                <div className="row">
+                        <div className=" left-pane" >
+                            <div className="Big_Img">
                                 
+                                {//console.log("DIsplay: ",Display)
+                                }
+                                <img src={Display.src} className="large_img_config"/>
                             </div>
-
-                            <div className="col-md-6 right-pane">
-                                <div className="price_tag">
-                                    <h5 className="id_text" >{product_detail.id}</h5>
-                                    <h4>{product_detail.product_name}</h4>
-                                    <h5>{product_detail.description}</h5>
-                                    <h5 className="status_text">{product_detail.status + " | " + product_detail.delivery_status }</h5>
-                                    <div className="review">
-                                        {Array.from({ length : Math.round(product_detail.rating)}, (_,i)=>(
-                                            <span key={"full-" + i} className="star">★</span>
-                                        ))}
-                                        {/* Empty stars */}
-                                        {Array.from({ length: 5 - Math.round(product_detail.rating) }, (_, i) => (
-                                            <span key={"empty-" + i} className="star">☆</span>
-                                        ))}
-                                        <span>({(product_detail.rating.toFixed(1))})</span>
-                                        <span>({product_detail.review? product_detail.review.length : 0 })</span>
-                                    </div>
-                                    <h3>{product_detail.currency + " " + product_detail.price}</h3>
-                                </div>
-                                <div className="spec_module" onClick={() => openSidebar()}>
-                                    <div className="spec_text">
-                                        <h5>Options</h5>
-                                        <span>{"View All >>"}</span>
-                                    </div>
-                                    <div className="Option_buttons">
-                                        {option.map((item)=>(
-                                            <button
-                                                onClick={(e)=>{
-                                                    e.stopPropagation();
-                                                }}
-                                            >
-                                                {<img src={image2.src}/>
-                                                }
-                                            </button>
-                                        ))}
-                                    </div>
-                                    
-                                    
-                                </div>
-                                <div className="buy-module">  
-                                    
-                                        <div className="buy-module-container">
-                                    
-                                        <div className="buy_quantity">
-                                            <button onClick={()=> setQuan("-")}>-</button>
-                                            <input type="text" onChange={(e)=> {onQuanChange(e.target.value)}} value={quantity}></input>
-                                            <button onClick={()=> setQuan("+")}>+</button>  
-
-                                        </div>
-                                        <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to cart</button>
-                                        </div>             
-                                    
-                                </div>
-                                
-                            </div>
-                    </div>
-                    
-                    <div className="Product_detail">
-                        <ul className="detail_buttons">
-                            <li>
-                                <button onClick={() =>setTextType("Overview")} className={
-                                    TextType == "Overview" ? 'selected' : ''}>
-                                        Overview
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() =>setTextType("Specs")} className={
-                                    TextType == "Specs" ? 'selected' : ''}>
-                                        Specs
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => setTextType("Review")} className={
-                                    TextType == "Review" ? 'selected' : ''}>
-                                        Review
-                                </button>
-                            </li>
-                            <li>
-                                <button onClick={() => setTextType("Compatibility")} className={
-                                    TextType == "Compatibility" ? 'selected' : ''}>
-                                        Compatibility
-                                </button>
-                            </li>
-                            <div className="borderline"></div>
-                        </ul>
-                        <div className="detail_text">
-                            {setDetailTextDisplay()}
+                            <ul className="small_Imgs">
+                                {(product_iamges).map(({id,img_src}) => (
+                                    <li className="small_img_icon" key={id}>
+                                        {//console.log("image src: ", img_src)
+                                        }
+                                        
+                                        <img src={img_src.src} className="small_img_config"/>
+                                    </li>
+                                ))}
+                            </ul>
+                            
                         </div>
+
+                        <div className="right-pane">
+                            <div className="price_tag">
+                                <h5 className="id_text" >{product_detail.id}</h5>
+                                <h4>{product_detail.product_name}</h4>
+                                <h5>{product_detail.description}</h5>
+                                <h5 className="status_text">{product_detail.status + " | " + product_detail.delivery_status }</h5>
+                                <h5>Producer(placeholder)</h5>
+                                <div className="review">
+                                    {Array.from({ length : Math.round(product_detail.rating)}, (_,i)=>(
+                                        <span key={"full-" + i} className="star">★</span>
+                                    ))}
+                                    {/* Empty stars */}
+                                    {Array.from({ length: 5 - Math.round(product_detail.rating) }, (_, i) => (
+                                        <span key={"empty-" + i} className="star">☆</span>
+                                    ))}
+                                    <span>({(product_detail.rating.toFixed(1))})</span>
+                                    <span>({product_detail.review? product_detail.review.length : 0 })</span>
+                                </div>
+                                <h3>{product_detail.currency + " " + product_detail.price}</h3>
+                            </div>
+                            <div className="spec_module" onClick={() => openSidebar()}>
+                                <div className="spec_text">
+                                    <h5>Options</h5>
+                                    <span>{"View All >>"}</span>
+                                </div>
+                                <div className="Option_buttons">
+                                    {option.map((item)=>(
+                                        <button
+                                            onClick={(e)=>{
+                                                e.stopPropagation();
+                                            }}
+                                        >
+                                            {<img src={image2.src}/>
+                                            }
+                                        </button>
+                                    ))}
+                                </div>
+                                
+                                
+                            </div>
+                            <div className="buy-module">  
+                                
+                                    <div className="buy-module-container">
+                                
+                                    <div className="buy_quantity">
+                                        <button onClick={()=> setQuan("-")}>-</button>
+                                        <input type="text" onChange={(e)=> {onQuanChange(e.target.value)}} value={quantity}></input>
+                                        <button onClick={()=> setQuan("+")}>+</button>  
+
+                                    </div>
+                                    <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to cart</button>
+                                    </div>             
+                                
+                            </div>
+                            
+                        </div>
+                </div>
+                
+                <div className="Product_detail">
+                    <ul className="detail_buttons">
+                        <li>
+                            <button onClick={() =>setTextType("Overview")} className={
+                                TextType == "Overview" ? 'selected' : ''}>
+                                    Overview
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={() =>setTextType("Specs")} className={
+                                TextType == "Specs" ? 'selected' : ''}>
+                                    Specs
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={() => setTextType("Review")} className={
+                                TextType == "Review" ? 'selected' : ''}>
+                                    Review
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={() => setTextType("Compatibility")} className={
+                                TextType == "Compatibility" ? 'selected' : ''}>
+                                    Compatibility
+                            </button>
+                        </li>
+                        <div className="borderline"></div>
+                    </ul>
+                    <div className="detail_text">
+                        {setDetailTextDisplay()}
                     </div>
-                    
-                    </div>
-                    }
-                    
-                    {//set it to layout and add a context for it
-                    }
+                </div>
+                
+                </div>
+                }
+                
+                {//set it to layout and add a context for it
+                }
                 
             </>
         )

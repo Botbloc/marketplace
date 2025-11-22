@@ -1,7 +1,9 @@
 .rcore{
     position: relative;
-    min-height: 100vh;
+    min-height: 100%;
     padding: 150px;
+    width: 100%;
+    margin: 0;
     //padding-top: 20vh;
     .image-module{
         display: flex;

@@ -10,6 +10,7 @@ $screen_width: 100vw;
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
+  height: $navbar_height;
   width: 100%;
   z-index: 900;
   background: $bg;
@@ -32,7 +33,7 @@ $screen_width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 7vh;
+    height: 100%;
     font-size: 15px;
     z-index: 900;
      @media (max-width: 960px){
@@ -53,6 +54,7 @@ $screen_width: 100vw;
   &.visible {
     transform: translateY(0); // fully visible  
     opacity: .9;
+    width: 100%;
   }
 
   &.force-visible {
@@ -279,6 +281,9 @@ $screen_width: 100vw;
 .header-nav-toggle { display: none; }
 
 @media (max-width: 960px) {
+  .site-header{
+    height: $mobile_navbar_height;
+  }
   .header-nav-toggle {
     display: inline-flex;
     align-items: center;

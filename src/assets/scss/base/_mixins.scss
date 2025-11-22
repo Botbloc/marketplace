@@ -1,3 +1,6 @@
+@use "../base/variables" as v;
+@use "sass:map";
+
 @mixin flex-center($gap: 0, $flex-dir: column) {
   display: flex;
   justify-content: center;
@@ -7,12 +10,12 @@
 }
 
 // mixin controlling responsiveness
-@mixin respond-to($size) {
-  $value: map-get($breakpoints, $size);
-  @if $value {
-    @media (max-width: $value) {
-      @content;
-    }
+@mixin respond($size) {
+  @if $size == null {
+    @error "Breakpoint `#{$size}` not found in $breakpoints map.";
+  }
+  @media (max-width: map.get(v.$breakpoints, $size)) {
+    @content;
   }
 }
 
@@ -64,3 +67,4 @@
 
 
 }
+

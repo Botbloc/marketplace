@@ -1,36 +1,20 @@
 @use '../base/mixins' as *;
+@use '../base/variables' as *;
 
 .body-container{
-    //flex: 1;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    align-items: center;
-    overflow-x: hidden;
-    width: 100vw;
-
+    width: 100%;
+    overflow: visible !important;
     .product_list_window{
-        padding-top: 120px;
-        min-height: 100vh;
-        //background-color: rgb(44, 44, 44);
-        width: 100vw;
-        flex: 1;
-        //display: flex;
-        //align-items: center;
         
+        width: 100%;
+        position: static !important;
         background-color: #f9fafb;
-        .hero{  
-            height: 50vh;
-            background-color:#868686;
-        }
+        overflow: visible;
+        
         .product_list{
-            //overflow: scroll;
             //height: 100vh;
-            padding: 50px;
-            padding-left: 10px;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
+            padding: 10vh 5vw 10vh 5vw;
+                    
         
 
             .sidebar {
@@ -88,7 +72,7 @@
                     max-width: 400px;
                     max-height: 500px;
                     //height: 400px;
-                    background-color: #ffffff;
+                    background-color: $card_background;
                     //border: #000000 1px solid;
                     border-radius: 10px;
                     margin: auto;
@@ -162,10 +146,12 @@
     }
 }
 
-@media (max-width: 960px) {
-    .body-container{
+@include respond(lg){
+        .body-container{
+            
         .product_list_window{
             .product_list{
+                //padding-top: 5vh;
                 flex-direction: column;
                 align-items: center;
                 .sidebar{
@@ -178,20 +164,22 @@
                     margin-left: 0;
                     width: 90vw;
                     max-width: none;
-                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                    gap: 10px;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 20px;
                     padding: 20px;
 
                     .product_in_grid{
-                        width: 150px;
-                        height: 250px;
+                        aspect-ratio: 3/4;
+                        width: clamp(200px, 100%, 300px);
+                        //height: 300px;
                     }
                 }
             }
         }
     }
-    
-}
+    }
+
+
 
 .productList{
     height: 60vh;

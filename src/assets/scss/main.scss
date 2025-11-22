@@ -39,13 +39,33 @@
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg) ;
+  0% {
+    transform: rotate(0deg) scale(0.1) translateX(500px) rotate(0deg) ;
+    
   }
-  to {
-    transform: rotate(1800deg) ;
+  50% {
+    transform: rotate(1800deg) scale(1.2) translateX(500px) ;
+    
+  }
+  100%{
+    transform: rotate(3600deg) scale(0.1) translateX(500px) rotate(3600deg) ;
   }
   
+}
+
+@keyframes spin-orbit {
+  0% {
+    transform: rotate(0deg) translateX(400px) rotate(0deg);
+  }
+  100% {
+    transform:  rotate(360deg) translateX(400px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .search_bar_section{
@@ -89,3 +109,6 @@
 
 }
 */
+main{
+  width: 100%;
+}

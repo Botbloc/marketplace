@@ -27,7 +27,7 @@ const Product_id = async ({params})=>{
     
     return(
         <>
-            <Search_bar />
+            
             <Product productID={id} /> 
         </>
     )
