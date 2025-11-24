@@ -13,10 +13,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
         .Big_Img{
-            width: clamp(300px,90%,1000px);
-            height : clamp(300px,90%,1000px);
+            width: clamp(300px,85%,1000px);
+            height : clamp(300px,85%,1000px);
             background-color: #c1c1c1;
             position: relative;
             display: flex;
@@ -35,7 +35,8 @@
         }
         .small_Imgs{
             width: 85%;   
-            height: 200px;
+            height: 20vh;
+
             
             position: relative;
             display: flex;
@@ -46,10 +47,11 @@
             scroll-snap-type: x mandatory; 
             gap: 20px; /* Optional: spacing between items */
             list-style-type: none; /* Remove bullets */
-            padding: 0; /* Remove padding */
+            padding: 20px; /* Remove padding */
             margin-top: 20px;
             
             scroll-padding: 0 40px;
+            padding-bottom: 20px;
             .small_img_icon{
                 &.highlight{
                     border: #000000 2px solid;
@@ -58,12 +60,14 @@
                 .small_img_config{
                 flex: 0 0 calc((100% - 3 * 20px) / 4);  
                 scroll-snap-align: start; 
-                height: 8vw;
-                width: 8vw;
+                height: 7vw;
+                width: 7vw;
+                
                 //border: 2px solid rgb(31, 31, 31);
                 border-radius: 5px;
                 margin:0;
                 padding: 0;
+                
                  cursor: pointer;   
 
             }
@@ -72,6 +76,7 @@
             &::-webkit-scrollbar{
                 width: 0px;
                 height: 8px;
+                padding-top: 10px;
             }
           
             &::-webkit-scrollbar-thumb{
@@ -271,21 +276,21 @@
             list-style-type: none; /* Remove bullets */
             padding: 0; /* Remove padding */
             //margin: 10px; /* Remove margin */
-            margin: 0px 0 30px 0;
+            margin: 30px 0 30px 0;
 
             button{
                 //min-width: 8vw;
                 padding: 0 20px 0 20px;
                 color: #000000;
                 
-                height: 40px;
+                height: 50px;
                 background-color: white;
                 
                 border-radius: 0px;
                 border: rgb(135, 193, 229) 0px solid;
-                font-size: 18px;
+                font-size: 20px;
                 
-                transition: font-size .2s ease, background-color .2s ease-in-out, border-width .2s ease-in-out;
+                transition: font-size .2s ease, background-color .2s ease-in-out, border-width .2s ease-in-out ;
                 text-align: center;
                 &.selected{
                      border-width: 0 0 4px 0 ;

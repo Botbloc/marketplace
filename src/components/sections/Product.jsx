@@ -1,5 +1,5 @@
     "use client";
-    import React, { useContext } from "react";
+    import React, { useContext,useRef } from "react";
     import {useEffect, useState} from "react";
     import image1 from "../../assets/images/placeholder.jpg";
     import image2 from "../../assets/images/landscape-placeholder.svg";
@@ -76,6 +76,8 @@
         const {products, findProductByID} = useContext(product_logic);
 
         const option = [{},{},{},{}];
+
+        const thumbRefs = useRef([]);
 
         const [product_detail, setProduct_detail] = useState({
             "product_name": "Product 1",
@@ -228,8 +230,6 @@
             console.log("display_pointer: ",display_pointer);
         }
 
-        
-
         useEffect(() => {
             if (products && products.length > 0){
                 if (!verifyEntry()){
@@ -239,6 +239,17 @@
             }
             
         },[products])
+
+        useEffect(() => {
+            const el = thumbRefs.current[display_pointer];
+            if (!el) return;
+
+            el.scrollIntoView({
+                behavior: "smooth",
+                inline: "center",   // horizontally center in the strip if possible
+                block: "nearest",   // don't scroll vertically
+            });
+        }, [display_pointer]);
 
         if (isValid){
             return(   
@@ -269,7 +280,13 @@
                                         {//console.log("image src: ", img_src)
                                         }
                                         
-                                        <img src={img_src.src} className="small_img_config"/>
+                                        <img 
+                                            id={id}
+                                            src={img_src.src} 
+                                            ref={el => thumbRefs.current[id] = el}
+                                            className="small_img_config"
+                                            onClick={() => setDisplay_pointer(id)}
+                                        />
                                         
                                     </li>
                                 ))}
