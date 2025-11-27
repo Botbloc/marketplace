@@ -15,8 +15,8 @@ $learn_more_text: 20px;
 $border-radius-button: 20px;
 
 // sizing
-$navbar_height : 9vh;
-$mobile_navbar_height: 8vh;
+$navbar_height : clamp(80px,9vh,100px);
+$mobile_navbar_height: clamp(60px,8vh,90px);
 
 // breakpoints, from bootstrap
 $breakpoints : (

@@ -99,7 +99,7 @@
       open ? 'force-visible' : '' // keep header visible while mobile menu is open
     ].filter(Boolean).join(' ');
     const innerClasses = 'site-header-inner';
-    const navClasses = ['header-nav', open ? 'is-active' : ''].join(' ');
+    const navClasses = ['header-nav', open ? 'is-active' : ''].join(' '); 
 
     const closeAll = () => { // used after clicking any link: it collapses the mobile menu and any open dropdowns.
       setOpen(false);
@@ -213,8 +213,7 @@
                       
                       </Link>
                       <div className={product_in_cart_Context?.length > 0 ? 'box-show' : 'box-hide'}>
-                          
-                          <span className="cart-count">{product_in_cart_Context?.length ?? 0}</span>
+                          {product_in_cart_Context?.length ?? 0}
                       </div>
                     </li>
                     <li>

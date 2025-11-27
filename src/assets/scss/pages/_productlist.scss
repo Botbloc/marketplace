@@ -14,8 +14,6 @@
         .product_list{
             //height: 100vh;
             padding: 10vh 5vw 10vh 5vw;
-                    
-        
 
             .sidebar {
                     
@@ -56,6 +54,7 @@
             .product_grid{
                 flex-grow: 1;
                 //min-width: 960px;
+                min-height: 30vh;
                 border-radius: 20px;
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

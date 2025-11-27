@@ -2,6 +2,7 @@
 // components/Sidebar.tsx
 import Link from 'next/link';
 import {useMemo} from "react";
+import PriceRangeSlider from "../elements/PriceRangeSlider.jsx";
 
 const AVAILABILITY_OPTIONS = [
   { label: "Any", value: undefined },
@@ -28,12 +29,18 @@ const SHIPPING_OPTIONS = [
 ];
 
 
-export default function Sidebar({value, onChange}) {
+export default function Product_Filter({value, onChange}) {
 
   const setMinPrice = (v) =>
     onChange({ minPrice: v ? Number(v) : undefined });
   const setMaxPrice = (v) =>
     onChange({ maxPrice: v ? Number(v) : undefined });
+
+  const setPrice= (min,max)=>
+    onChange({
+      minPrice: min ? Number(min) : undefined, 
+      maxPrice: max ? Number(max) : undefined
+    })
 
   const setAvailability = (v) =>
     onChange({ availability: v || undefined });
@@ -49,6 +56,9 @@ export default function Sidebar({value, onChange}) {
     const next = value.minRating === n ? undefined : n;
     onChange({ minRating: next });
   };
+  
+  const minPrice = 0;
+  const maxPrice = 1000;
 
   return (
     <aside className="sidebar">
@@ -57,7 +67,14 @@ export default function Sidebar({value, onChange}) {
         <div>
         <h5>Price Range</h5>
         <div>
-          <input
+          <PriceRangeSlider 
+            min={0}
+            max={2000}
+            step={10}
+            //value={{ minPrice: minPrice, maxPrice: maxPrice }}
+            //onChange={(min,max)=> setPrice({min, max})} // patch contains { minPrice, maxPrice }
+          />
+          {/*<input
             type="number"
             placeholder="Min"
             value={value.minPrice ?? ""}
@@ -71,7 +88,7 @@ export default function Sidebar({value, onChange}) {
             value={value.maxPrice ?? ""}
             onChange={(e) => setMaxPrice(e.target.value)}
             className="border rounded px-2 py-1 w-full"
-          />
+          />*/}
         </div>
         </div>
 

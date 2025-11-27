@@ -1,3 +1,5 @@
+@use "../base/mixins" as *;
+
 @keyframes fadeUp_2 {
      from {
         transform: translateY(20px);
@@ -29,10 +31,10 @@
         //width: clamp(320px, 90vw, 85vw);
         width: 90vw;
         margin: 0 ;
-
+        min-height: 100vh;
         display: grid;
         grid-template-columns: 2fr 1fr 1fr;  // left column bigger
-        grid-auto-rows: 40vh;              // base height for cards
+        grid-auto-rows: 60vh;              // base height for cards
         gap: 20px;
         
         .box {
@@ -42,7 +44,7 @@
             font-weight: bold;
             padding: 20px;
             padding-top: 30px;
-            height: 100%;
+            //height: clamp(300px,100%,1500px);
             //border-color: #232c38;
             border-radius: 20px;
 
@@ -73,7 +75,7 @@
                 opacity: 1;
                 animation: fadeUp_2 .6s ease forwards; /* both = forwards + backwards safety */
             }
-
+           
         
     
 
@@ -81,11 +83,24 @@
                 display: block;
                 font-size: 25px;
                 color: white;
+                @include respond(lg){
+                    font-size: 22px;
+                }
+
+                @include respond(md){
+                    font-size: 18px;
+                }
+
+                @include respond(sm){
+                    font-size: 15px;
+                }
+
             }
             .learn_more{
                 display: block;
                 margin-top: auto;
                 align-self: flex-end;
+                font-size: 12px;
             }
             
 
@@ -102,21 +117,33 @@
         }
     }
     
+    @include respond(md){
+        .card_container {
+            grid-template-columns: 1fr;
+            grid-auto-rows: 70vh;
+            
+            .tall{
+                grid-column: span 1; grid-row: span 1;
+            }
+            .wide { grid-column: 1; grid-row: span 1; }
+            .small{
+                grid-column: span 1; grid-row: span 1;
+            }
+        }
+    }
+    @include respond(xl){
+        .card_container {
+            grid-template-columns: 1fr 1fr;
+            grid-auto-rows: 70vh;
+            
+            .tall{
+                grid-column: span 2; grid-row: span 1;
+            }
+            .wide { grid-column: span 2; grid-row: span 1; }
+            .small{
+                grid-column: span 1; grid-row: span 1;
+            }
+        }
+    }
 
-    @media (max-width: 960px) {
-    .card_container {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 50vh;
-        
-        .tall{
-            grid-column: span 1; grid-row: span 1;
-        }
-        .wide { grid-column: 1; grid-row: span 1; }
-        .small{
-            grid-column: span 1; grid-row: span 1;
-        }
-        }
-    
-    
-}
 }

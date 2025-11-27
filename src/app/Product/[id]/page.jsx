@@ -4,6 +4,7 @@ import React from "react";
 import Button from "../../../components/elements/Button"
 import Product from "../../../components/sections/Product"
 import Search_bar from '../../../components/sections/Search_bar';
+import Product_display from '../../../components/sections/Product_display';
 
 
 export const dynamicParams = false;
@@ -29,6 +30,7 @@ const Product_id = async ({params})=>{
         <>
             
             <Product productID={id} /> 
+            <Product_display theme="Suggestion"/>
         </>
     )
 }

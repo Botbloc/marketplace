@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext,useState, useEffect, useMemo } from "react";
-import Sidebar from '../../components/layout/Sidebar';
+import Sidebar from '../../components/layout/Product_Filter';
 import Search_bar from '../../components/sections/Search_bar';
 import product_logic from "../../global_quantity/ProductContext";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
@@ -57,6 +57,11 @@ const Productlist = () => {
         if (!("page" in patch)) next.set("page", "1"); // reset page on filter change
         router.push(`${pathname}?${next.toString()}`, { scroll: false });
     };
+
+    const clearAll = () => {
+        router.push(pathname, { scroll: false });
+    };
+
 
 
 
@@ -124,6 +129,7 @@ const Productlist = () => {
                     value = {filters}
                     onChange = {updateUrl}
                     fnc = {openSidebar}
+                    clearAll = {clearAll}
                 />        
                      
                 <div className="product_list">

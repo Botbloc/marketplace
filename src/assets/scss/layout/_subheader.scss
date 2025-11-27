@@ -36,13 +36,13 @@
                 display: flex;
                 flex-direction: row;
                 margin: 0;
-                
-
                 li{
                     //color: rgb(27, 27, 27);
                     //padding: 8px;
                     padding: 20px;
-                    a{
+                    button{
+                        border: none;
+                        background-color: #ffffff;
                         text-decoration: none;
                         color: rgb(80, 80, 80);   
                         
@@ -52,7 +52,7 @@
                 
                 li:hover{
                    
-                    a{
+                    button{
                         color: #000000;
                         //font-weight: bold;
                         text-decoration: underline;
@@ -62,17 +62,48 @@
             }
             
         }
-        .filter_btn{
-            width: clamp(100px, 5vw, 200px);
-            height: 50px;
-            border-radius: 20px;
-            border: 0px;
+        .filter_module{
             background-color: #ebebeb;
-            transition: background-color .2s ease;
-            &:hover{
-                background-color: #cecece;
+            //padding: 2px 5px 2px 5px;
+            border-radius: 20px;
+            .filter_btn{
+                
+                height: 50px;
+                border-radius: 20px 0 0 20px;
+                border: 0px;
+                padding: 0 15px;
+                transition: background-color .2s ease;
+                &:hover{
+                    background-color: #cecece;
+                }
+            }
+            .clear_btn{
+                height: 50px;
+                border-width: 0;
+                background-color: #ffffff00;
+                border-radius: 0 20px 20px 0;
+                position: relative;
+                padding: 0 15px;
+                
+                &::before{
+                    position: absolute;
+                    content: ""; 
+                    top: 10px;
+                    left: 0px;
+                    display: block;  
+                    height: 30px;
+                    width: 2px;
+                    background-color: #000000;
+                    margin-right: 8px;  
+                }
+                &:hover{
+                    background-color: #cecece;
+                }
+                
             }
         }
+        
+
             
     }
 }
@@ -107,7 +138,7 @@
                 position: absolute;
                  top: 100%;
                  left: 0;
-                max-height: 0; 
+                
                 width: 100%;
                 overflow-x: clip;  
                 
@@ -116,29 +147,46 @@
                 .subHeader-nav{
                     
                     padding: 12px 0 12px 0;
-                    
+                    background-color: #ffffff;
                     width: 100vw;
-                    max-height: 0;
+                    //max-height: 0;
                     overflow: hidden; 
-                    visibility: hidden;
+                    //visibility: hidden;
                     opacity: 0;
-                    transition:  max-height .5s ease, opacity .2s ease;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    transform-origin: top;             // important for dropdown feel
+                    pointer-events: none;
+                    transform: scaleY(0);
+                    
+                    transition: opacity .2s ease-in-out, transform .3s ease-in-out; 
+                    //transition: transform .3s ease-in-out; 
                 }
                 .subHeader-nav.open{
                     background-color: #ffffff;
                     max-height: 100vh;
-                    visibility: visible;
+                    //visibility: visible;
                     opacity: 1;
                     flex-direction: column;
                     align-items: center;
-                    background-color: $drop_down_bg;
+                    pointer-events: auto;    
+                    transform: scaleY(1);
                     li{
-                        
-                        padding: 12px;
+                        font-size: 16px;
+                        padding: 15px;
                         
                     }
                     li:hover{
                         text-decoration: underline;
+                    }
+                    &::after{
+                        content: "";
+                        width: 95%;       /* control how long the line is */
+                        height: 2px;      /* thickness */
+                        background: rgb(207, 207, 207); /* colour */
+                        border-radius: 2px;
+
                     }
                 }
             }
