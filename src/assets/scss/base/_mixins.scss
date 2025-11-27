@@ -19,6 +19,23 @@
   }
 }
 
+@mixin separation_login_reg(){
+  .separation_line{
+    margin-top: 20px;
+    display: block;
+    align-self: center;
+    //width: 100%;
+    &::before ,&::after{
+        display: inline-block;
+        content: "";
+        width: clamp(60px,8vw,100px);
+        height: 1px;
+        margin: 5px 10px;
+        background-color: #ffffff;
+    }
+  }
+}
+
 @mixin hamburger($color: #000) {
   // ---- Hamburger icon
   .hamburger {

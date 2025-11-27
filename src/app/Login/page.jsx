@@ -17,7 +17,7 @@ export default function Login() {
       <h5>Sign in to your account.</h5>
       <input className='login_details' type="text" placeholder="Enter your username" name="username" onChange={e => setUsername(e)} ></input>
       <input className='login_details' type="text" placeholder="Enter your password" name="password" onChange={e => setPw(e)} ></input>
-      <h6>Forget password?</h6>
+      <a href="/">Forget password?</a>
       <button type="submit">Continue</button>
       <h5 className='separation_line'>Or sign in with</h5>
 
@@ -88,7 +88,7 @@ export default function Login() {
           <div className='captions'>Apple</div>
         </div>
       </div>
-      <h6>Haven't have an account?</h6>
+      <h5>Haven't have an account?</h5>
       <button onClick={(e)=>{router.push("/register")}}>Tap to join us!</button>
     </div>
   </div>);
