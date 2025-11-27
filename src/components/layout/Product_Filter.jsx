@@ -74,21 +74,6 @@ export default function Product_Filter({value, onChange}) {
             //value={{ minPrice: minPrice, maxPrice: maxPrice }}
             //onChange={(min,max)=> setPrice({min, max})} // patch contains { minPrice, maxPrice }
           />
-          {/*<input
-            type="number"
-            placeholder="Min"
-            value={value.minPrice ?? ""}
-            onChange={(e) => setMinPrice(e.target.value)}
-            className="border rounded px-2 py-1 w-full"
-          />
-
-          <input
-            type="number"
-            placeholder="Max"
-            value={value.maxPrice ?? ""}
-            onChange={(e) => setMaxPrice(e.target.value)}
-            className="border rounded px-2 py-1 w-full"
-          />*/}
         </div>
         </div>
 

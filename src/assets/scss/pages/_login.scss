@@ -1,11 +1,12 @@
 .login{
-    height: 100vh;
+    height: 120vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #bbd4f4   ;
     overflow: hidden;
+    position: relative;
 
     &::before {
         content: '';
@@ -16,24 +17,113 @@
         
         
         background:
-            radial-gradient(60% 60% at 20% 25%, rgba(255,255,255,var(--blob-opacity-1, .9)), transparent 62%),
-            radial-gradient(55% 55% at 80% 30%, rgba(160,185,255,var(--blob-opacity-1, .9)), transparent 62%),
-            linear-gradient(120deg, #eef4ff, #000e4e);
-        filter: saturate(1.15) contrast(1.05);        
+            radial-gradient(60% 60% at 20% 25%, rgba(255,255,255,var(--blob-opacity-1, .9)), transparent 42%),
+            //radial-gradient(55% 55% at 80% 30%, rgba(160,185,255,var(--blob-opacity-1, .9)), transparent 42%),
+            linear-gradient(120deg, #22345a, #000000);
+        filter: saturate(1.35) contrast(1.05);        
         animation: bgDrift 1800ms cubic-bezier(.2,.8,.2,1) forwards 820ms;
         z-index: 1;
     };
 
     .login-pane{
+        position: absolute;
+        top: 20vh;
+        margin: auto;
         opacity: .8;
         z-index: 2;
         height: 80%;
         max-height: 600px;
-        width: 60%;
-        background-color: #868686;
+        width: clamp(280px, 40%, 400px);
+        //background-color: #868686;
         border-radius: 20px;
         margin-top: 50px;
-        box-shadow: 10px  10px 10px rgba(0, 0, 0, 0.5);
+        //box-shadow: 10px  10px 10px rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+        h5{
+            font-size: 15px;
+        }
+        h6{
+            font-size: 12px;
+        }
+
+        .login_details{
+            margin: 5px 0;
+            width: 100%;
+            height: 50px;
+            border-radius: 12px;
+            border-width: 0px;
+            padding: 12px;
+            background-color: #516783;
+            color: #ffffff;
+            &::placeholder{
+                color: #ffffff;
+            }
+            &:focus{
+                outline: none;
+                background-color: #5d6e85;
+            }
+            
+        }
+        .separation_line{
+            margin-top: 20px;
+            display: inline-block;
+            align-self: center;
+            &::before ,&::after{
+                display: inline-block;
+                content: "";
+                width: 80px;
+                height: 2px;
+                margin: 5px 10px;
+                background-color: #ffffff;
+            }
+        }
+
+        button{
+                background-color: #232c38;
+                color: white;
+                //margin-top: 80%;
+                width: 100%;
+                height: 10%;
+                border-radius: 50px;
+                border-width: 0px;
+                //border-color: #000000;
+            }
+            button:hover{
+                background-color: #f6f6f6;
+                color: #000000;
+            }
+
+        .login_options{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 20%;
+            width: 100%;
+            .option{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                .img{
+                    border-radius: 50%;
+                    height: 60px;
+                    width: 60px;
+                    background-color: #c7c7c7;
+                    display: flex;
+                    align-items: center;   /* vertical center */
+                    justify-content: center; /* horizontal center */
+                   
+                }
+            }
+        }
+        
         
         .left-pane{
             display: flex;
@@ -46,19 +136,7 @@
             padding-top: 100px;
             
             
-            button{
-                background-color: #232c38;
-                color: white;
-                margin-top: 80%;
-                width: 70%;
-                height: 10%;
-                border-radius: 10px;
-                border-color: #000000;
-            }
-            button:hover{
-                background-color: #f6f6f6;
-                color: #000000;
-            }
+            
         }
         .right-pane{
             background-color: rgb(176, 192, 210);

@@ -96,7 +96,6 @@
         width: 45%;
         display: flex;
         flex-direction: column;
-        
         align-items: flex-start;
         gap: 30px;
         .price_tag{
@@ -128,24 +127,20 @@
                         font-size: 20px;
                     }
                 }
-                
             }
-            
         }
 
         .spec_module{
             
             width: 70%;
-            height: 80px;
-            
+            min-height: 100px;
             border-width: 4px 0 0 0 ;
-            //padding: 15px;
-            
-            padding-top: 30px;
+            border-radius: 20px;
+            padding: 20px;
             background-color: #ffffff;
             cursor: pointer;
             //transform: translateX(80%);
-            transition: transform 0.3s ease;
+            transition: background-color 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -192,7 +187,7 @@
             
         }
         .spec_module:hover{
-            transform: scale(1.03);
+            background-color: #e6e6e6;
         }
         .buy-module{  
             display: flex;
