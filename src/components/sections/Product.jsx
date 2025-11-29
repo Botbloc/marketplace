@@ -9,7 +9,7 @@
     import SidebarContext from "../../global_quantity/SidebarContext";
     import Notification from "../../components/elements/Notification";
     import {useRouter,notFound} from "next/navigation";
-    import SidebarLayer from "../../components/sections/partials/SidebarLayer";
+    import SidebarLayer from "../../components/layout/SidebarLayer";
     import SlideButton from "../elements/SlideButton";
 
     // we need image, price, products detail

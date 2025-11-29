@@ -5,8 +5,9 @@
   import Logo from './partials/Logo';
   import cart_logic from '../../global_quantity/CartContext';
   import {useRouter} from "next/navigation";
-  import login_icon from "../../assets/images/login_icon.svg"
-
+  import login_icon from "../../assets/images/login_icon.svg";
+  
+  
   const NAV = [
     { id: 0, label: 'R-Cores', href: '/r-cores' },
     { id: 1, label: 'Components', href: '/components' },
@@ -48,6 +49,7 @@
     const [show, setShow] = useState(true);
     const lastScrollY = useRef(0);
     const ticking = useRef(false);
+    const [screenWidth, setScreenWidth] = useState(0);
 
     // Close on ESC
     useEffect(() => {
@@ -91,6 +93,18 @@
         window.removeEventListener('scroll', onScroll);
       };
     }, [lastScrollY]);
+
+    useEffect(() => {
+      // This only runs in the browser
+      const handleResize = () => {
+        setScreenWidth(window.innerWidth);
+      };
+
+      handleResize();                     // set initial value
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const headerClasses = [
       'site-header',
@@ -158,19 +172,22 @@
                     }
                     else{
                       const isOpen = openDropdown === item.id;
+                      
+                      const screen_width_check = screenWidth <= 960;
+                      console.log("screen width: ", screenWidth);
                       return (
-                      <li key={item.id} className={`dropdown ${isOpen ? 'open' : ''}`}>
+                      <li key={item.id} className={`dropdown ${isOpen && screen_width_check  ? 'open' : ''}`}>
                         {/* On desktop, :hover opens. On mobile, this toggles. */}
                         <button
                           type="button"
                           className={selected === item ? 'highlight': ''}
                           aria-expanded={isOpen ? 'true' : 'false'}
                           onClick={() => {
-                            toggleDropdown(item.id);
-                            if(selected === item){
+                            //toggleDropdown(item.id);
+                            if(selected === item && screen_width_check){
                               setSelected(null);
                             }
-                            else{
+                            else if (screen_width_check){
                               setSelected(item);
                             }
                             

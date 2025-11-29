@@ -1,9 +1,9 @@
 // components/layout/SidebarLayer.jsx
 "use client";
 import React from "react";
-import { useSidebar } from "../../../global_quantity/SidebarContext";
+import { useSidebar } from "../../global_quantity/SidebarContext";
 
-const SidebarLayer = ({value, onChange ,children}) => {
+const SidebarLayer = ({value, onChange ,children, header}) => {
   const { isOpen, closeSidebar, sidebarContent } = useSidebar();
 
   //if (!isOpen) return null;
@@ -16,11 +16,15 @@ const SidebarLayer = ({value, onChange ,children}) => {
       />
 
       <div className={`sidebar-panel ${isOpen ? "open" : ""}`}>
+        <div className="sidebar_header">
+            <h5>{header}</h5>
+            <button onClick={closeSidebar}>X</button>
+        </div>
         <div className="sidebar-content">
           {typeof children === "function"
           ? children(value, onChange)
           : children}
-          <button onClick={closeSidebar}>Close</button>
+          
         </div>
       </div>
       

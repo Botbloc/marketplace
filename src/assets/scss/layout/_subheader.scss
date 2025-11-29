@@ -22,7 +22,7 @@
         height: $navbar_height;
         width: 100%;
         font-size: 15px;   
-        padding: 0 5vw 0 5vw;
+        padding: 0 7.5vw 0 7.5vw;
          
         .subHeader-nav-toggle{
             display: none;
@@ -36,10 +36,11 @@
                 display: flex;
                 flex-direction: row;
                 margin: 0;
+                padding: 0;
                 li{
                     //color: rgb(27, 27, 27);
                     //padding: 8px;
-                    padding: 20px;
+                    padding: 12px;
                     button{
                         border: none;
                         background-color: #ffffff;
@@ -74,7 +75,7 @@
                 padding: 0 15px;
                 transition: background-color .2s ease;
                 &:hover{
-                    background-color: #cecece;
+                    background-color: $button_hover;
                 }
             }
             .clear_btn{
@@ -97,7 +98,7 @@
                     margin-right: 8px;  
                 }
                 &:hover{
-                    background-color: #cecece;
+                    background-color: $button_hover;
                 }
                 
             }

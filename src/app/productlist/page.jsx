@@ -7,7 +7,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import SubHeader from "../../components/layout/SubHeader";
 import placeholder from "../../assets/images/landscape-placeholder.svg";
 import Product_display from '../../components/sections/Product_display';
-import SidebarLayer from "../../components/sections/partials/SidebarLayer";
+import SidebarLayer from "../../components/layout/SidebarLayer";
 import {useSidebar} from "../../global_quantity/SidebarContext";
 
 let array1 = [
@@ -116,11 +116,12 @@ const Productlist = () => {
     return(
         <>
             
-            <SidebarLayer>
+            <SidebarLayer header="Filter and Sort">
                 <Sidebar 
                     value = {filters}
                     onChange = {updateUrl}
                 />
+                
             </SidebarLayer>
             
             <div className="body-container">    

@@ -7,7 +7,7 @@ const About = () => {
         <h1>About BotBloc</h1>
       </div>
       <div className="content_container">
-        <div className="introduction_1">
+        <div className="introduction">
           <h2>Our mission</h2>
           <p>
             Commercial robotics have long been the privilege of few multinationals.
@@ -22,7 +22,7 @@ const About = () => {
           </p>
         </div>
 
-        <div className="introduction_2">
+        <div className="introduction">
           <h2>Our Vision</h2>
           <p>
             In the AI era, useful creations are no longer dominated by large,

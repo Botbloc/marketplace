@@ -10,7 +10,6 @@
   import {CartProvider} from "../global_quantity/CartContext";
   import {ProductProvider} from "../global_quantity/ProductContext";
   import {SidebarProvider} from "../global_quantity/SidebarContext";
-  import SidebarLayer from "../components/sections/partials/SidebarLayer";
   import 'bootstrap/dist/css/bootstrap.min.css';
 
   const geistSans = Geist({

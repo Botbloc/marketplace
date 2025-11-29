@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const PriceRangeSlider = ({ min = 0, max = 2000, step = 10 }) => {
+const PriceRangeSlider = ({ min = 0, max = 2000, step = 10, funcMin, funcMax }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(1170);
 
@@ -19,6 +19,14 @@ const PriceRangeSlider = ({ min = 0, max = 2000, step = 10 }) => {
     const val = Math.max(Number(e.target.value), minVal + step);
     setMaxVal(val);
   };
+
+  useEffect(()=>{
+    funcMin(minVal);
+  },[minVal])
+
+  useEffect(()=>{
+    funcMax(maxVal);
+  },[maxVal])
 
   return (
     <div className="price-range">

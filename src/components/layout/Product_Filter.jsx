@@ -71,9 +71,9 @@ export default function Product_Filter({value, onChange}) {
             min={0}
             max={2000}
             step={10}
-            //value={{ minPrice: minPrice, maxPrice: maxPrice }}
-            //onChange={(min,max)=> setPrice({min, max})} // patch contains { minPrice, maxPrice }
-          />
+            funcMin={(e) => setMinPrice(e)}
+            funcMax={(e) => setMaxPrice(e)}
+            />
         </div>
         </div>
 
