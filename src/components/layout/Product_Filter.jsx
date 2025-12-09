@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import {useMemo} from "react";
 import PriceRangeSlider from "../elements/PriceRangeSlider.jsx";
+import Accordion from '../elements/Accordion.jsx';
 
 const AVAILABILITY_OPTIONS = [
   { label: "Any", value: undefined },
@@ -61,12 +62,11 @@ export default function Product_Filter({value, onChange}) {
   const maxPrice = 1000;
 
   return (
-    <aside className="sidebar">
+    <aside className="Product_filter">
       
       <nav>
-        <div>
-        <h5>Price Range</h5>
-        <div>
+        
+        <Accordion title="Price Range" defaultOpen={false}>
           <PriceRangeSlider 
             min={0}
             max={2000}
@@ -74,13 +74,13 @@ export default function Product_Filter({value, onChange}) {
             funcMin={(e) => setMinPrice(e)}
             funcMax={(e) => setMaxPrice(e)}
             />
-        </div>
-        </div>
+        </Accordion>
+        
 
 
         {/* Availability */}
-      <div>
-        <div className="text-lg font-semibold mb-2">Availability</div>
+        
+        <Accordion title="Availability" defaultOpen={false}>
         <select
           value={value.availability ?? ""}
           onChange={(e) => setAvailability(e.target.value)}
@@ -91,79 +91,77 @@ export default function Product_Filter({value, onChange}) {
             <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
           ))}
         </select>
-      </div>
+        </Accordion>
+        
 
 
+        {/* Condition */}
+        <Accordion title="Condition" defaultOpen={false}>
+          <select
+            value={value.condition ?? ""}
+            onChange={(e) => setCondition(e.target.value)}
+            className="w-full rounded-md px-3 py-2"
+            style={{ background: "white", color: "black" }}
+          >
+            {CONDITION_OPTIONS.map(opt => (
+              <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
+            ))}
+          </select>
+        </Accordion>
 
-      {/* Condition */}
-      <div>
-        <div className="text-lg font-semibold mb-2">Condition</div>
-        <select
-          value={value.condition ?? ""}
-          onChange={(e) => setCondition(e.target.value)}
-          className="w-full rounded-md px-3 py-2"
-          style={{ background: "white", color: "black" }}
-        >
-          {CONDITION_OPTIONS.map(opt => (
-            <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Rating (stars) */}
-      <div>
-        <div className="text-lg font-semibold mb-2">Rating</div>
-        <div className="flex items-center gap-1" role="group" aria-label="Minimum rating">
-          {[1,2,3,4,5].map(n => {
-            const active = (value.minRating ?? 0) >= n;
-            return (
+        {/* Rating (stars) */}
+        <Accordion title="Rating" defaultOpen={false}>
+          
+          <div className="flex items-center gap-1" role="group" aria-label="Minimum rating">
+            {[1,2,3,4,5].map(n => {
+              const active = (value.minRating ?? 0) >= n;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setStars(n)}
+                  aria-label={`${n} star${n>1?"s":""} & up`}
+                  className="text-2xl leading-none"
+                  style={{
+                    background: "transparent",
+                    color: active ? "gold" : "black",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "2px 2px",
+                    fontSize: "30px"
+                  }}
+                >
+                  {active ? "★" : "☆"}
+                </button>
+              );
+            })}
+            {/* Clear button (optional) */}
+            {value.minRating ? (
               <button
-                key={n}
                 type="button"
-                onClick={() => setStars(n)}
-                aria-label={`${n} star${n>1?"s":""} & up`}
-                className="text-2xl leading-none"
-                style={{
-                  background: "transparent",
-                  color: active ? "gold" : "black",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "2px 2px",
-                  fontSize: "30px"
-                }}
+                onClick={() => onChange({ minRating: undefined })}
+                className="ml-3 text-sm underline "
+                style={{ color: "white" }}
               >
-                {active ? "★" : "☆"}
+                Clear
               </button>
-            );
-          })}
-          {/* Clear button (optional) */}
-          {value.minRating ? (
-            <button
-              type="button"
-              onClick={() => onChange({ minRating: undefined })}
-              className="ml-3 text-sm underline "
-              style={{ color: "white" }}
-            >
-              Clear
-            </button>
-          ) : null}
-        </div>
-      </div>
+            ) : null}
+          </div>
+        </Accordion>
 
 
-        <div>
-        <div className="text-lg font-semibold mb-2">Shipping Location</div>
-        <select
-          value={value.shipping ?? ""}
-          onChange={(e) => setShipping(e.target.value)}
-          className="w-full rounded-md px-3 py-2"
-          style={{ background: "white", color: "black" }}
-        >
-          {SHIPPING_OPTIONS.map(opt => (
-            <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
-          ))}
-        </select>
-      </div>
+        <Accordion title="Shipping Location" defaultOpen={false}>
+          <select
+            value={value.shipping ?? ""}
+            onChange={(e) => setShipping(e.target.value)}
+            className="w-full rounded-md px-3 py-2"
+            style={{ background: "white", color: "black" }}
+          >
+            {SHIPPING_OPTIONS.map(opt => (
+              <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
+            ))}
+          </select>
+        </Accordion>
       </nav>
     </aside>
   );

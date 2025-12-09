@@ -1,0 +1,85 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
+
+.accordion-section {
+  
+  padding: 8px 0;
+  &.is-narrow{
+    border-bottom: 0px;
+  }
+  &.is-wide{
+    border-bottom: 1px solid #e6e6e6;
+  }
+}
+
+.accordion-header {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+
+  .chevron {
+    font-size: 14px;
+    transition: transform 0.25s ease;
+  }
+
+  &.open .chevron {
+    transform: rotate(180deg);
+  }
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 0.25s ease,
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.accordion-body.open {
+  max-height: 500px; // just needs to be “big enough”
+  opacity: 1;
+  transform: translateY(0);
+  margin: 25px 0 25px 0;
+}
+
+/* Mobile-first: mobile behaves like normal accordion (no override needed) */
+
+/* Desktop: when mobileOnly is true, keep it always expanded */
+@include respond(lg, min){
+  .accordion-section{
+    
+    //border-bottom:0px;
+    &.accordion--mobile-only {
+    .accordion-header {
+      cursor: default;
+      pointer-events: none; // no toggling on desktop
+    }
+
+    .chevron {
+      display: none; // hide arrow in footer desktop
+    }
+
+    .accordion-body {
+      max-height: none !important;
+      overflow: visible;
+      opacity: 1;
+      transform: none;
+    }
+    
+  }
+  }
+}
+

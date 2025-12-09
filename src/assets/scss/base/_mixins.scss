@@ -10,14 +10,32 @@
 }
 
 // mixin controlling responsiveness
-@mixin respond($size) {
-  @if $size == null {
-    @error "Breakpoint `#{$size}` not found in $breakpoints map.";
+@mixin respond($size, $type: max) {
+  // 1) Validate breakpoint key
+  @if not map.has-key(v.$breakpoints, $size) {
+    @error "Breakpoint `#{$size}` not found in v.$breakpoints map.";
   }
-  @media (max-width: map.get(v.$breakpoints, $size)) {
-    @content;
+
+  // 2) Validate type (must be max or min)
+  @if $type != max and $type != min {
+    @error "Breakpoint type must be `max` or `min`, got `#{$type}`.";
+  }
+
+  // 3) Get the breakpoint value
+  $value: map.get(v.$breakpoints, $size);
+
+  // 4) Apply media query
+  @if $type == max {
+    @media (max-width: $value) {
+      @content;
+    }
+  } @else if $type == min {
+    @media (min-width: calc(#{$value} + 1px)) {
+      @content;
+    }
   }
 }
+
 
 @mixin separation_login_reg(){
   .separation_line{
@@ -83,5 +101,29 @@
   }
 
 
+}
+
+@mixin Accordion_prev(){
+  ul{
+      max-height: 0;
+      visibility: hidden;
+      transition: max-height 0.3s ease;
+      padding-bottom: 20px;
+  }
+  
+  &.open{
+      ul{
+          max-height: 500px;
+          visibility: visible;
+          
+
+      }
+      h6{
+          &::after {
+              transform: rotate(630deg);  /* sideways chevron */
+          }
+      }
+      
+  }
 }
 

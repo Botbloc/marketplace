@@ -13,6 +13,8 @@
 @use 'components/product_display'; 
 @use 'components/slide_button';
 @use 'components/priceRangeSlider';
+@use 'components/accordion';
+@use 'components/product_filter';
 
 @use 'pages/not_found';
 @use 'pages/home';

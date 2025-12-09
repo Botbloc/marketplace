@@ -59,10 +59,10 @@ const Product_display = ({theme})=>{
             1,
             Math.floor(containerWidth / (cardWidth + gap-padding*2))
             );
-            console.log("containerWidth: ", containerWidth);
-            console.log("cardWidth: ", cardWidth);
-            console.log("gap: ", gap);
-            console.log("divider: ", cardWidth + gap+padding*2);
+            //console.log("containerWidth: ", containerWidth);
+            //console.log("cardWidth: ", cardWidth);
+            //console.log("gap: ", gap);
+            //console.log("divider: ", cardWidth + gap+padding*2);
 
         }
 
@@ -131,9 +131,7 @@ const Product_display = ({theme})=>{
 
 
     const generateDisplayCard = (item) =>{
-        // item : display_entity content
-        //console.log(item);
-        
+        // item : display_entity content        
         return(
             <div className="card" onClick={() => router.push(href+item.id)}>
                 <img src={item.img.src} />

@@ -254,7 +254,7 @@
         if (isValid){
             return(   
             <>  
-                <SidebarLayer />
+                <SidebarLayer header="Other Options"/>
                 <Notification
                         message={noti_msg}
                         visible={toastVisible}
@@ -263,7 +263,7 @@
                 {
                 Display && 
                 <div className="product">
-                <div className="row">
+                <div className="product_upper">
                         <div className=" left-pane" >
                             <div className="Big_Img">
                                 
@@ -334,20 +334,20 @@
                                 
                                 
                             </div>
-                            <div className="buy-module">  
+                             
                                 
-                                    <div className="buy-module-container">
-                                
-                                    <div className="buy_quantity">
-                                        <button onClick={()=> setQuan("-")}>-</button>
-                                        <input type="text" onChange={(e)=> {onQuanChange(e.target.value)}} value={quantity}></input>
-                                        <button onClick={()=> setQuan("+")}>+</button>  
+                            <div className="buy-module-container">
+                        
+                            <div className="buy_quantity">
+                                <button onClick={()=> setQuan("-")}>-</button>
+                                <input type="text" onChange={(e)=> {onQuanChange(e.target.value)}} value={quantity}></input>
+                                <button onClick={()=> setQuan("+")}>+</button>  
 
-                                    </div>
-                                    <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to cart</button>
-                                    </div>             
-                                
                             </div>
+                            <button onClick={(e)=> confirmToCart()} className="confirm_button">Add to cart</button>
+                            </div>             
+                                
+                            
                             
                         </div>
                 </div>

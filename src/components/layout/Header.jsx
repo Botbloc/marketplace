@@ -174,7 +174,7 @@
                       const isOpen = openDropdown === item.id;
                       
                       const screen_width_check = screenWidth <= 960;
-                      console.log("screen width: ", screenWidth);
+                  
                       return (
                       <li key={item.id} className={`dropdown ${isOpen && screen_width_check  ? 'open' : ''}`}>
                         {/* On desktop, :hover opens. On mobile, this toggles. */}

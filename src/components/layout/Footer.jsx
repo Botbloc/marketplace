@@ -8,6 +8,7 @@ import Logo from './partials/Logo';
 import FooterNav from './partials/FooterNav';
 import FooterSocial from './partials/FooterSocial';
 import Link from 'next/link';
+import Accordion from "../elements/Accordion";
 
 const Footer = () => {
   const [openShop, setOpenShop] = useState(false);
@@ -39,37 +40,34 @@ const Footer = () => {
             
           </div>
           <div 
-            className={`footer-shop ${openShop?"open":""}`} 
+            className="footer-shop"
            > 
-            <h6  onClick={(e)=>{
-              openShop? setOpenShop(false): setOpenShop(true);
-            }}>Shop</h6>
-            <ul>
-              {[
-                { label: 'R-Cores', href: '/a' },
-                { label: 'Actuators', href: '/a' },
-                { label: 'End effectors', href: '/a' },
-                { label: 'Sensors', href: '/a' },
-                { label: 'Applications', href: '/a' },
-                { label: 'Accessories', href: '/a' },
-                { label: 'Bundles', href: '/a' }
-              ].map(({ label, href }) => (  
-                <li key={label}>
-                  <Link href={href}>
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+           <Accordion title="Shop" mobileOnly={true}>
+              <ul>
+                {[
+                  { label: 'R-Cores', href: '/a' },
+                  { label: 'Actuators', href: '/a' },
+                  { label: 'End effectors', href: '/a' },
+                  { label: 'Sensors', href: '/a' },
+                  { label: 'Applications', href: '/a' },
+                  { label: 'Accessories', href: '/a' },
+                  { label: 'Bundles', href: '/a' }
+                ].map(({ label, href }) => (  
+                  <li key={label}>
+                    <Link href={href}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+           </Accordion>            
 
           </div>
           <div >
-                <div className={`footer-business ${business?"open": ""}`}
+                <div className="footer-business"
                   
                 >
-                  <h6 onClick={(e)=>{
-                  business? setBusiness(false): setBusiness(true);
-                  }}>Businesses</h6>
+                <Accordion title="Businesses" mobileOnly={true}>
                   <ul>
                     {[
                       { label: 'Use cases', href: '/uses_cases' },
@@ -82,33 +80,33 @@ const Footer = () => {
                       </li>
                     ))}
                   </ul>
+                </Accordion>
+                  
               </div>
-              <div className={`footer-dev ${developers?"open": ""}`}
+              <div className="footer-dev"
                 
                 >
-                <h6 onClick={(e)=>{
-                    developers? setDevelopers(false): setDevelopers(true);
-                  }}>Developers</h6>
-                <ul>
-                  {[
-                    { label: 'Documentation', href: '/Docs' },
-                    { label: 'Learning', href: '/learning' },
-                    { label: 'Community', href: '/community' },
-                    { label: 'Selling with us', href: '/selling-with-us' }
-                  ].map(({ label, href }) => (  
-                    <li key={label}>
-                      <Link href={href}>
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                  <Accordion title="Developers" mobileOnly={true}>
+                    <ul>
+                      {[
+                        { label: 'Documentation', href: '/Docs' },
+                        { label: 'Learning', href: '/learning' },
+                        { label: 'Community', href: '/community' },
+                        { label: 'Selling with us', href: '/selling-with-us' }
+                      ].map(({ label, href }) => (  
+                        <li key={label}>
+                          <Link href={href}>
+                            {label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </Accordion>
+                
               </div>
           </div>
           <div className={`footer-about ${about? "open": ""}`}>
-            <h6 onClick={(e)=>{
-                about? setAbout(false): setAbout(true);
-              }}>About</h6>
+            <Accordion title="About" mobileOnly={true}>
               <ul>
                 {[
                   { label: 'About us', href: '/about' },
@@ -125,6 +123,7 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
+            </Accordion>
           </div>
         
       </footer>

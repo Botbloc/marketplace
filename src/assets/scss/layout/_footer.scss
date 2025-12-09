@@ -1,3 +1,5 @@
+@use "../base/mixins" as *;
+@use "../base/variables" as *;
 .site-footer{
     position: relative;
     display: flex;
@@ -89,7 +91,7 @@
 
 
 
-    @media (max-width:960px){
+    @include respond(lg){
         .site-footer-inner{
             flex-direction: column;
             .footer-social{
@@ -134,27 +136,7 @@
                         transition: transform 0.3s ease;
                     }
                 }
-                ul{
-                    max-height: 0;
-                    visibility: hidden;
-                    transition: max-height 0.3s ease;
-                    padding-bottom: 20px;
-                }
                 
-                &.open{
-                    ul{
-                        max-height: 500px;
-                        visibility: visible;
-                        
-
-                    }
-                    h6{
-                        &::after {
-                            transform: rotate(630deg);  /* sideways chevron */
-                        }
-                    }
-                    
-                }
             }
 
         
