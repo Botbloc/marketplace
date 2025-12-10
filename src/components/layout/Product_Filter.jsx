@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {useMemo} from "react";
 import PriceRangeSlider from "../elements/PriceRangeSlider.jsx";
 import Accordion from '../elements/Accordion.jsx';
+import RadioButtonList from "../elements/RadioButtonList.jsx";
 
 const AVAILABILITY_OPTIONS = [
   { label: "Any", value: undefined },
@@ -81,32 +82,26 @@ export default function Product_Filter({value, onChange}) {
         {/* Availability */}
         
         <Accordion title="Availability" defaultOpen={false}>
-        <select
-          value={value.availability ?? ""}
-          onChange={(e) => setAvailability(e.target.value)}
-          className="w-fit rounded-md px-3 py-2"
-          style={{ background: "white", color: "black" }}
-        >
-          {AVAILABILITY_OPTIONS.map(opt => (
-            <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
-          ))}
-        </select>
+          <RadioButtonList
+            value={value.availability ?? ""}
+            onChange={setAvailability}
+            options={AVAILABILITY_OPTIONS}
+            className="w-fit bg-white text-black"
+            name="availability"
+          />
         </Accordion>
         
 
 
         {/* Condition */}
         <Accordion title="Condition" defaultOpen={false}>
-          <select
+          <RadioButtonList
             value={value.condition ?? ""}
-            onChange={(e) => setCondition(e.target.value)}
-            className="w-full rounded-md px-3 py-2"
-            style={{ background: "white", color: "black" }}
-          >
-            {CONDITION_OPTIONS.map(opt => (
-              <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
-            ))}
-          </select>
+            onChange={setCondition}
+            options={CONDITION_OPTIONS}
+            className="w-fit bg-white text-black"
+            name="availability"
+          />
         </Accordion>
 
         {/* Rating (stars) */}
@@ -151,16 +146,13 @@ export default function Product_Filter({value, onChange}) {
 
 
         <Accordion title="Shipping Location" defaultOpen={false}>
-          <select
+          <RadioButtonList
             value={value.shipping ?? ""}
-            onChange={(e) => setShipping(e.target.value)}
-            className="w-full rounded-md px-3 py-2"
-            style={{ background: "white", color: "black" }}
-          >
-            {SHIPPING_OPTIONS.map(opt => (
-              <option key={opt.label} value={opt.value ?? ""}>{opt.label}</option>
-            ))}
-          </select>
+            onChange={setShipping}
+            options={SHIPPING_OPTIONS}
+            className="w-fit bg-white text-black"
+            name="Shipping Location"
+          />
         </Accordion>
       </nav>
     </aside>
