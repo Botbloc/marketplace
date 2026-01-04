@@ -68,7 +68,6 @@ const template_product = [
     }
 ]
 
-
 const Cart = () =>{
     const [product_in_cart, setProduct] = useState([]);
     const {product} = useContext(product_logic);
@@ -79,7 +78,6 @@ const Cart = () =>{
     const [selectedItem, setSelectedItem] = useState([]);
     const [display,setDisplay] = useState();
     const boxRef = useRef(null);
-
 
     useEffect(() => {
         const box = boxRef.current;
@@ -281,8 +279,6 @@ const Cart = () =>{
         
     }
 
-
-
     const dummy = 120;
     return(
         product_in_cart != undefined
@@ -291,23 +287,49 @@ const Cart = () =>{
             <div className="cart_window">
                 <div className="cart_heading">
 
-                        <h4>Your Shopping Cart</h4>
+                    <h4>Your Shopping Cart</h4>
                     
+                    {/*
                     <div className="heading_purchase">
                         <h4>Total: ${total.toFixed(2)}</h4>
                         <button>Proceed to checkout</button>
-                    </div>
+                    </div>*/}
                     
                 </div>
-                
-                <div className="left_pane">             
-                    {generateHeader()}
-                    {generateProductEntity(product_in_cart)}
+                <div className="cart_session">
+                    <div className="cart_detail">   
+
+                        {generateHeader()}
+                        {generateProductEntity(product_in_cart)}
+
+                    </div>
+                    <div className="payment_session">
+                        <h5>Order Summary</h5>
+                        <div className="calc_session">
+                            <div className="total_calc">
+                                <span>Products</span>
+                                <span>${total.toFixed(2)}</span>
+                            </div>
+                            <div className="total_calc">
+                                <span>Some cost</span>
+                                <span>$0</span>
+                            </div>
+                        </div> 
+                        <div className="total_cost">
+                            <div className="total_calc">
+                                <span>Total cost:</span>
+                                <span>${total.toFixed(2)}</span>
+                            </div>
+                        </div>     
+                        <button className="payment_button">Proceed to checkout</button>
+                    </div>
                 </div>
+                
                     
                 
                 
             </div> 
+
             <Product_display theme="Suggestion" />   
         </div>    
         

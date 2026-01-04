@@ -303,6 +303,17 @@
             //margin: 10px; /* Remove margin */
             margin: 30px 0 30px 0;
 
+            @include respond(lg){
+                margin-top: 50px;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: space-between;
+                min-width: 100%;
+                //gap: 12px;
+                //border-left: rgb(135, 193, 229) 4px solid;
+            }
+
             button{
                 //min-width: 8vw;
                 padding: 0 20px 0 20px;
@@ -315,10 +326,19 @@
                 border: rgb(135, 193, 229) 0px solid;
                 font-size: 20px;
                 
-                transition: font-size .2s ease, background-color .2s ease-in-out, border-width .2s ease-in-out ;
+                transition: font-size .2s ease, background-color .2s ease-in-out, border-width .2s ease-in-out;
                 text-align: center;
                 &.selected{
                      border-width: 0 0 4px 0 ;
+                }
+                @include respond(lg){
+                    width: 100%;
+                    margin: 0;
+                    min-height: 60px;
+                    text-align: left;
+                    &.selected{
+                        border-width: 0 0 0 4px ;
+                    }
                 }
             }
             
@@ -334,11 +354,17 @@
         .detail_text{
             margin: 0;
             margin-top: 00px;
+            @include respond(lg){
+                margin-top: 50px;
+            }
 
             ul{
                 list-style: none;
                 margin: 0px;
                 padding: 0px;
+                @include respond(lg){
+                    margin-top: 50px;
+                }
                 li{
                     padding: 5%;
                     
@@ -373,49 +399,15 @@
          
         .Product_detail{
             .detail_buttons{
-                margin-top: 50px;
-                display: flex;
-                flex-direction: column;
-                align-items: stretch;
-                justify-content: space-between;
-                min-width: 100%;
-                //gap: 12px;
-                border-left: rgb(135, 193, 229) 4px solid;
-               
-                
-                button{
-                    width: 100%;
-                    color: #000000;
-                    padding: 10px;
-                    margin: 0;
-                    min-height: 60px;
-                    background-color: white;
-                    
-                    border-radius: 0px;
-                    border: 0px;
-                    font-size: 20px;
-                    
-                    transition: font-size .2s ease;
-                    text-align: left;
-                    &.selected{
-                        //background-color: rgb(135, 193, 229); 
-                        border-width: 8px;  
-                    }
-                }
-                
                 button:hover{
                     //color: white;
                     font-size: 22px;
-                    
                 }
-                
+
             }
             .borderline{
                 opacity: 0;
                 height: 0px;
-            }
-            .detail_text{
-                margin-top: 50px;
             }
         }
         
