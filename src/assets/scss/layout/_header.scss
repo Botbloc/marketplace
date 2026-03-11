@@ -1,7 +1,7 @@
 @use '../base/variables' as *;
 @use '../base/mixins' as *;
 // ---- Theme
-$bg: #0F2243;
+$bg: $primary-color;
 $text: #fff;
 $accent: #a7cdf5;
 $screen_width: 100vw;
@@ -156,6 +156,7 @@ $screen_width: 100vw;
             position: fixed;
             top: 60px;
             left: 0;
+            //min-height: 40vh;
             
             width: $screen_width;
             

@@ -11,6 +11,7 @@
   import {ProductProvider} from "../global_quantity/ProductContext";
   import {SidebarProvider} from "../global_quantity/SidebarContext";
   import 'bootstrap/dist/css/bootstrap.min.css';
+  import {AuthProvider} from "../global_quantity/AuthContext";
 
   const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -36,12 +37,12 @@
             <CartProvider>
             <Header className="invert-color" navPosition="right" />
             <SidebarProvider>
-              
-                <main>
-                  {children}      
-                </main>
-              
-              <Footer />
+                <AuthProvider>
+                  <main>
+                    {children}      
+                  </main>
+                </AuthProvider>
+                <Footer />
               <ScrollToAnchor />
             </SidebarProvider>
             </CartProvider>

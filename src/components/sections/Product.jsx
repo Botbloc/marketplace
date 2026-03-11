@@ -367,15 +367,15 @@
                             </button>
                         </li>
                         <li>
-                            <button onClick={() => setTextType("Review")} className={
-                                TextType == "Review" ? 'selected' : ''}>
-                                    Review
-                            </button>
-                        </li>
-                        <li>
                             <button onClick={() => setTextType("Compatibility")} className={
                                 TextType == "Compatibility" ? 'selected' : ''}>
                                     Compatibility
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={() => setTextType("Review")} className={
+                                TextType == "Review" ? 'selected' : ''}>
+                                    Review
                             </button>
                         </li>
                         <div className="borderline"></div>

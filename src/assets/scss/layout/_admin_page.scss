@@ -1,0 +1,15 @@
+@use "../base/_mixins.scss" as *;
+@use "../base/variables" as *;
+.admin-layout{
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-top: $navbar_height;
+    .admin-content{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}

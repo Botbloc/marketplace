@@ -6,8 +6,12 @@
 @use 'layout/header';
 @use 'layout/footer';
 @use 'layout/subheader';
+@use 'layout/sidebarPopup';
 @use 'layout/sidebar';
 @use 'layout/grid';
+@use 'layout/admin_page';
+@use 'layout/DashboardLayout';
+
 
 @use 'components/notification';
 @use 'components/product_display'; 
@@ -29,6 +33,8 @@
 @use 'pages/rcore';
 @use 'pages/productlist';
 @use 'pages/uses_cases';
+
+@use 'section/statsSection';
 
 
 /* keyframes */

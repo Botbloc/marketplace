@@ -1,0 +1,21 @@
+@use "../base/_mixins.scss" as *;
+@use "../base/variables" as *;
+.multi_display{
+    align-self: center;
+    padding-top: calc($navbar_height + 20px);
+    max-width: 85%;
+    padding: 100px 0px 0px 190px;
+    ul{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        max-width: 85vw;
+        gap: 20px;
+        .card{
+            width: clamp(100px,15vw,300px);
+            height: clamp(100px,15vh,300px);
+            border: solid 1px black;
+            padding: 20px;
+        }
+    }
+    
+}

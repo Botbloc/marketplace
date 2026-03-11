@@ -3,12 +3,15 @@ import React from 'react';
 import {useState} from 'react';
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import LoginForm from '../../components/sections/LoginForm';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../../lib/firebase";
 
-export default function Login() {
+export default async function Login() {
 
   const [username, setUsername] = useState();
   const [pw, setPw] = useState();
   const router = useRouter();
+  //const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
   return (
   <div className='login'>
