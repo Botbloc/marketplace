@@ -3,8 +3,8 @@
 .multi_display{
     align-self: center;
     padding-top: calc($navbar_height + 20px);
-    max-width: 85%;
-    padding: 100px 0px 0px 190px;
+    max-width: 85vw;
+    padding: 100px 0px 0px 0px;
     ul{
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
