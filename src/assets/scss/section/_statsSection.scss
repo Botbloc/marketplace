@@ -1,20 +1,33 @@
 @use "../base/_mixins.scss" as *;
 @use "../base/variables" as *;
 .multi_display{
-    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-top: calc($navbar_height + 20px);
     max-width: 85vw;
-    padding: 100px 0px 0px 0px;
+    ///padding: 100px 0px 0px 0px;
     ul{
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        max-width: 85vw;
+        margin: 10px;
+        padding: 0px;
         gap: 20px;
+        grid-template-columns: repeat(auto-fit, 250px);
+        width: 80vw;
+        //max-width: clamp( 1000px, 85vw, 1500px);
+       
         .card{
-            width: clamp(100px,15vw,300px);
+            //width: clamp(100px,15vw,300px);
             height: clamp(100px,15vh,300px);
-            border: solid 1px black;
+            border: solid 2px rgb(204, 204, 204);
             padding: 20px;
+            
+            .label{
+                font-size: 15px;
+            }
+            .amount{
+                font-size: 12px;
+            }
         }
     }
     

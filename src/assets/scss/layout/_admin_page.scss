@@ -1,7 +1,6 @@
 @use "../base/_mixins.scss" as *;
 @use "../base/variables" as *;
 .admin-layout{
-    width: 100vw;
     min-height: 100vh;
     display: flex;
     justify-content: space-between;
@@ -11,5 +10,6 @@
         position: absolute;
         right: 0;
         top: 0;
+        width: 85vw;
     }
 }

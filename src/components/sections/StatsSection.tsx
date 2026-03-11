@@ -4,8 +4,8 @@ const StatsSection  =  ({multi_display}) => {
             <ul>
                 {multi_display.map((item)=>(
                     <li key={item.label} className="card">
-                        <span>{item.label}</span>
-                        <span>{item.amount}</span>
+                        <span className="label">{item.label}</span>
+                        <span className="amount">{item.amount}</span>
                     </li>
                 ))}
             </ul>
