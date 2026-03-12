@@ -1,0 +1,19 @@
+@use "../base/_mixins.scss" as *;
+@use "../base/variables" as *;
+
+.User_Information{
+    overflow-y: auto;
+    position: relative;
+    min-width: 0;
+    .feature_bar{
+        display: flex;
+        padding: 40px 2vw 20px 2vw;
+    }
+    .table_session{
+        padding: 20px 5vw 20px 5vw;
+        font-size: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

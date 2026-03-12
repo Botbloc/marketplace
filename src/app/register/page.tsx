@@ -2,12 +2,34 @@
 import React from 'react';
 import {useState} from 'react';
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { fetchWithAuth } from '../../lib/api';
+import {auth} from "../../lib/firebase";
+
 
 export default function Register() {
 
-  const [username, setUsername] = useState();
-  const [pw, setPw] = useState();
+  const [username, setUsername] = useState<string>();
+  const [pw, setPw] = useState<string>();
+  const [email, setEmail] = useState<string>();
   const router = useRouter();
+
+  const signup = async (email: string, password: string) => {
+    try{
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log("userCredential: ",userCredential);
+
+      const user = userCredential.user;
+
+      // send user info to backend
+      await fetchWithAuth("http://localhost:4000/api/auth/newUser", {
+          method: "POST"
+        });
+      console.log("success");
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
   <div className='register'>
@@ -15,10 +37,11 @@ export default function Register() {
       
       <h4>Register with us</h4>
       <h6>Enter your details in the following.</h6>
-      <input className='register_details' type="text" placeholder="Enter your username" name="username" onChange={e => setUsername(e)} ></input>
-      <input className='register_details' type="text" placeholder="Enter your password" name="password" onChange={e => setPw(e)} ></input>
-      <input className='register_details' type="text" placeholder="Confirm password" name="confirm pw" onChange={e => (e)} ></input>
-      <button type="submit" className='continue'>Register</button>
+      <input className='register_details' type="text" placeholder="Enter your username" name="username" onChange={(e) => setUsername(e.target.value)} ></input>
+      <input className='register_details' type="text" placeholder="Enter your email" name="email" onChange={(e) => setEmail(e.target.value)} ></input>
+      <input className='register_details' type="text" placeholder="Enter your password" name="password" onChange={(e) => setPw(e.target.value)} ></input>
+      <input className='register_details' type="text" placeholder="Confirm password" name="confirm pw" onChange={(e) => (e)} ></input>
+      <button type="submit" className='continue' onClick={() => signup(email,pw) }>Register</button>
       <h6 className='separation_line'>Or register with</h6>
       <div className='register_options'>
         <div className='option'>

@@ -1,8 +1,10 @@
 // File: main.scss (better formatted SCSS for modular maintainability)
 
+// basics (global)
 @use 'base/variables';
 @use 'base/mixins';
 
+// layout
 @use 'layout/header';
 @use 'layout/footer';
 @use 'layout/subheader';
@@ -12,7 +14,7 @@
 @use 'layout/admin_page';
 @use 'layout/DashboardLayout';
 
-
+// components
 @use 'components/notification';
 @use 'components/product_display'; 
 @use 'components/slide_button';
@@ -20,6 +22,7 @@
 @use 'components/accordion';
 @use 'components/product_filter';
 
+// pages rendering
 @use 'pages/not_found';
 @use 'pages/home';
 @use 'pages/selling-with-us';
@@ -33,6 +36,7 @@
 @use 'pages/rcore';
 @use 'pages/productlist';
 @use 'pages/uses_cases';
+@use 'pages/admin_userView';
 
 @use 'section/statsSection';
 

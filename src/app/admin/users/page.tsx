@@ -3,59 +3,56 @@ import {useState,useEffect} from "react";
 import { getAuth } from "firebase/auth";
 import { fetchWithAuth } from "../../../lib/api";
 import Table from "../../../components/elements/Table";
+import { User_type } from "../../types/Index";
+import { fetchUsers, createNewUser } from "../../service/users.service";
 const Users = () => {
 
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    type User = {
-        id: string
-        email: string
-        role: string
-    }
+    const userColumns = [
+        { key: "name", label: "Name" },
+        { key: "email", label: "Email" },
+        { key: "role", label: "Role" },
+        { key: "createdAt", label: "Created" },
+        ];
 
     useEffect(() => {
 
-        const fetchUsers = async () => {
+        const loadUsers = async () => {
             try{
-                const user = getAuth().currentUser;
-                const token = await user.getIdToken();
-                const res = await fetchWithAuth("/api/users");
-                const data = await res.json();
+                const data = await fetchUsers();
                 setUsers(data);
-            }
-            catch(err){
+            }catch (err) {
                 console.error(err);
+                setError("Failed to fetch users");
+            } finally {
+                setLoading(false);
             }
             
         };
 
-        fetchUsers();
+        loadUsers();
 
     }, []);
 
-    const createNewUser = async (newUser : User) => {
-        try{
-            const user = getAuth().currentUser;
-            const token = await user.getIdToken();
-            const res = await fetchWithAuth("/api/products", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUser),
-            });
-            const data = await res.json();
-            
-        }
-        catch(err){
-            console.error(err);
-        }
+    const renderTable = () => {
+        if (loading) return <div>Loading...</div>;
+        if (error) return <div>{error}</div>;
+        return(
+            <Table content={users} columns={userColumns}/>
+        )
     }
 
     return(
-        <div>
-            <h5>users info</h5>
-            <Table content={users}/>
+        <div className="User_Information">
+            <div className="feature_bar">
+                <h3>User Information</h3>
+            </div>
+            <div className="table_session">
+                {renderTable()}
+            </div>
         </div>
     );
 }
