@@ -3,13 +3,19 @@
 .admin-layout{
     min-height: 100vh;
     display: flex;
+    flex-direction: row;
+    //align-items: center;
+
     justify-content: space-between;
+    gap: 0;
     position: relative;
     padding-top: $navbar_height;
     .admin-content{
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 85vw;
+        //position: absolute;
+        //right: 0;
+        //top: 0;
+        min-width: 80vw;
+        flex-grow: 1;
+        //min-height: 100vh;
     }
 }

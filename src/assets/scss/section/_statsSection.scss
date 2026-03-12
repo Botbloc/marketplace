@@ -1,32 +1,32 @@
 @use "../base/_mixins.scss" as *;
 @use "../base/variables" as *;
 .multi_display{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: calc($navbar_height + 20px);
-    max-width: 85vw;
+    
+    padding: 20px 5vw 20px 5vw;
     ///padding: 100px 0px 0px 0px;
     ul{
         display: grid;
         margin: 10px;
         padding: 0px;
-        gap: 20px;
-        grid-template-columns: repeat(auto-fit, 250px);
-        width: 80vw;
+        gap: 50px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        //width: 80vw;
         //max-width: clamp( 1000px, 85vw, 1500px);
        
         .card{
             //width: clamp(100px,15vw,300px);
-            height: clamp(100px,15vh,300px);
+            height: clamp(100px,12vh,250px);
             border: solid 2px rgb(204, 204, 204);
             padding: 20px;
+            background-color: rgb(235, 235, 235);
+            border: none;
+            border-top: solid 3px rgb(0, 153, 255);
             
             .label{
-                font-size: 15px;
+                font-size: 20px;
             }
             .amount{
-                font-size: 12px;
+                font-size: 15px;
             }
         }
     }

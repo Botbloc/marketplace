@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/admin/users", "src/app/admin/products", "src/app/admin/orders"  ],
   "exclude": [
     "node_modules"
   ]

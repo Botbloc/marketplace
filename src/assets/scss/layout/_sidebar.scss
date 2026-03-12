@@ -2,9 +2,10 @@
 @use "../base/variables" as *;
 .Sidebar{
     width: 10vw;
+    //min-height: 90vh;
     background: $primary-color;
     color: #e5e7eb;
-
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -29,6 +30,7 @@
             
             li{
                 list-style-type: none;
+                padding: 2px 0 2px 0;
                 button{
                     width: 100%;
                     margin: 0;
@@ -38,11 +40,15 @@
                     border-left: none;
                     color: white;
                     text-align: left;
-                    transition:  background-color .3s ease, color .3s ease;
+                    transition:  background-color .3s ease, color .3s ease, border-left .2s ease;
                     &:hover{
                         background-color: $selected-color;
-                        border-left: solid 4px $accent-color;
+                        //border-left: solid 4px $accent-color;
 
+                    }
+                    &.selected{
+                        
+                        border-left: solid 4px $accent-color;
                     }
                 }
 

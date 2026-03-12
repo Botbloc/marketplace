@@ -5,17 +5,19 @@ import Accordion  from "../elements/Accordion"
 const Sidebar = () => {
     const [expand, setExpand] = useState(true);
     const router = useRouter();
+    const [selected, setSelected] = useState(0); 
 
     const NAV = [
-        { id: 0, label: 'User Detail', href: '/users' },
-        { id: 1, label: 'Products', href: '/products' },
-        { id: 2, label: 'Orders', href: '/orders' }
+        { id: 0, label: 'Dashboard', href: '/admin' },
+        { id: 1, label: 'User Detail', href: '/admin/users' },
+        { id: 2, label: 'Products', href: '/admin/products' },
+        { id: 3, label: 'Orders', href: '/admin/orders' }
     ];
 
     const sidebar_footer = [
-        {id : 0, label: 'settings', href: '/settings' , children : [
-            {id: 0, label: 'something1' , href: '/orders' },
-            {id: 1, label: 'something2' , href: '/orders' }
+        {id : 0, label: 'settings', href: '/admin/settings' , children : [
+            {id: 0, label: 'something1' , href: '/admin/orders' },
+            {id: 1, label: 'something2' , href: '/admin/orders' }
         ] }
     ]
 
@@ -32,7 +34,13 @@ const Sidebar = () => {
                 <ul className="">
                     {NAV.map((item)=>(
                         <li key={item.id} className='box'>
-                            <button onClick={()=>(router.push(item.href))}>
+                            <button 
+                            onClick={()=>{
+                                router.push(item.href)
+                                setSelected(item.id);
+                            }}
+                            className={selected === item.id? 'selected' : ''}
+                            >
                                 {item.label}
                             </button>
                         </li>
