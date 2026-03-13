@@ -22,7 +22,7 @@ export default function Register() {
       const user = userCredential.user;
 
       // send user info to backend
-      await fetchWithAuth("http://localhost:4000/api/auth/newUser", {
+      await fetchWithAuth(process.env.URL+"/api/auth/newUser", {
           method: "POST"
         });
       console.log("success");

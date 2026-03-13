@@ -4,24 +4,35 @@ import {useState} from 'react';
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import LoginForm from '../../components/sections/LoginForm';
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { fetchWithAuth } from '../../lib/api';
 import {auth} from "../../lib/firebase";
 
-export default async function Login() {
+export default function Login() {
 
-  const [username, setUsername] = useState();
-  const [pw, setPw] = useState();
+  const [email, setEmail] = useState<string>();
+  const [pw, setPw] = useState<string>();
   const router = useRouter();
-  //const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+  const Login_fn = async (email: string, password: string) => {
+    try{
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("logged in user:", userCredential.user);
+      const user = userCredential.user;
+      console.log("login successful");
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
   <div className='login'>
     <div className='login-pane'>
       <h4>Welcome back</h4>  
       <h5>Sign in to your account.</h5>
-      <input className='login_details' type="text" placeholder="Enter your username" name="username" onChange={e => setUsername(e)} ></input>
-      <input className='login_details' type="text" placeholder="Enter your password" name="password" onChange={e => setPw(e)} ></input>
+      <input className='login_details' type="text" placeholder="Enter your username" name="username" onChange={(e) => setEmail(e.target.value)} ></input>
+      <input className='login_details' type="text" placeholder="Enter your password" name="password" onChange={(e) => setPw(e.target.value)} ></input>
       <a href="/">Forget password?</a>
-      <button type="submit">Continue</button>
+      <button type="submit" onClick={() => Login_fn(email, pw)}>Continue</button>
       <h5 className='separation_line'>Or sign in with</h5>
 
       <div className='login_options'>
