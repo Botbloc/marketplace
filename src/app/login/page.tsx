@@ -1,17 +1,25 @@
 "use client";
 import React from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import LoginForm from '../../components/sections/LoginForm';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { fetchWithAuth } from '../../lib/api';
 import {auth} from "../../lib/firebase";
+import ConfirmationButton from '../../components/elements/ConfirmationButton';
+import { text } from 'stream/consumers';
+import InputField from '../../components/elements/InputField';
+import Notification from "../../components/elements/Notification";
+import AuthContext from "../../global_quantity/AuthContext";
 
 export default function Login() {
 
   const [email, setEmail] = useState<string>();
   const [pw, setPw] = useState<string>();
   const router = useRouter();
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const {auth_in_context, login_auth} = useContext(AuthContext);
 
   const Login_fn = async (email: string, password: string) => {
     try{
@@ -19,20 +27,46 @@ export default function Login() {
       console.log("logged in user:", userCredential.user);
       const user = userCredential.user;
       console.log("login successful");
+      const token = await user.getIdToken();
+      console.log("token: ",token);
+      await login_auth(token);
     }catch(err){
       console.log(err);
+      setToastMessage("Email does not exist or password is incorrect");
+      setToastVisible(true);
     }
   }
 
   return (
   <div className='login'>
+    <Notification
+      message= {toastMessage} 
+      visible={toastVisible}
+      onClose={() => setToastVisible(false)}
+    />
     <div className='login-pane'>
       <h4>Welcome back</h4>  
       <h5>Sign in to your account.</h5>
-      <input className='login_details' type="text" placeholder="Enter your username" name="username" onChange={(e) => setEmail(e.target.value)} ></input>
-      <input className='login_details' type="text" placeholder="Enter your password" name="password" onChange={(e) => setPw(e.target.value)} ></input>
+      <InputField
+          
+          type="text" 
+          placeholder="Enter your username" 
+          name="username" 
+          onChange={(e) => setEmail(e.target.value)}
+      />
+      <InputField
+          
+          type="text" 
+          placeholder="Enter your password" 
+          name="password" 
+          onChange={(e) => setPw(e.target.value)}
+      />
       <a href="/">Forget password?</a>
-      <button type="submit" onClick={() => Login_fn(email, pw)}>Continue</button>
+      <ConfirmationButton
+          fnc={() => Login_fn(email, pw)}
+          type="submit"
+          text="Continue"
+      />
       <h5 className='separation_line'>Or sign in with</h5>
 
       <div className='login_options'>
@@ -103,7 +137,10 @@ export default function Login() {
         </div>
       </div>
       <h5>Haven't have an account?</h5>
-      <button onClick={(e)=>{router.push("/register")}}>Tap to join us!</button>
+      <ConfirmationButton
+          fnc={(e)=>{router.push("/register")}}
+          text="Tap to join us!"
+      />
     </div>
   </div>);
 }

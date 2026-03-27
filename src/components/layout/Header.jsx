@@ -6,6 +6,7 @@
   import cart_logic from '../../global_quantity/CartContext';
   import {useRouter} from "next/navigation";
   import login_icon from "../../assets/images/login_icon.svg";
+  import AuthContext from '../../global_quantity/AuthContext';
   
   
   const NAV = [
@@ -50,6 +51,7 @@
     const lastScrollY = useRef(0);
     const ticking = useRef(false);
     const [screenWidth, setScreenWidth] = useState(0);
+    const {auth_in_context} = useContext(AuthContext);
 
     // Close on ESC
     useEffect(() => {
@@ -127,6 +129,10 @@
 
     const href = "";
     const [selected, setSelected] = useState(null);
+
+    const profile_login_render = () => {
+
+    };
     
 
     return (
@@ -234,6 +240,7 @@
                       </div>
                     </li>
                     <li>
+                      {profile_login_render()}
                       <Link href="/login" onClick={closeAll} className="button_2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="login_icon">
                             <path d="M9.954,241.305h228.441c3.051,0,5.896-1.246,7.805-3.416c1.659-1.882,2.393-4.27,2.078-6.723    c-5.357-41.734-31.019-76.511-66.15-95.053c-14.849,14.849-35.348,24.046-57.953,24.046s-43.105-9.197-57.953-24.046    C31.09,154.65,5.423,189.432,0.071,231.166c-0.315,2.453,0.424,4.846,2.078,6.723C4.058,240.059,6.903,241.305,9.954,241.305z"/>

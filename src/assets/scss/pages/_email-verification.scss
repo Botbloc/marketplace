@@ -1,0 +1,21 @@
+@use "../base/_mixins.scss" as *;
+@use "../base/variables" as *;
+.email_verfication{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #081527;
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: clamp(200px,20vw,400px);
+        gap: 12px;
+        color: white;
+        text-align: center;
+    }
+}

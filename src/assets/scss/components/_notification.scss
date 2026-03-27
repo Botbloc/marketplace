@@ -1,11 +1,11 @@
 /* in your global stylesheet or a CSS module */
 .custom-toast {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 25px;
+  right: 25px;
   background-color: #333;
   color: white;
-  padding: 12px 20px;
+  padding: 25px 40px;
   border-radius: 8px;
   opacity: 0;
   transform: translateY(-20px);

@@ -1,10 +1,14 @@
 "use client";
 import React from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { fetchWithAuth } from '../../lib/api';
 import {auth} from "../../lib/firebase";
+import AuthContext from "../../global_quantity/AuthContext";
+import ConfirmationButton from '../../components/elements/ConfirmationButton';
+import InputField from '../../components/elements/InputField';
+import Notification from "../../components/elements/Notification";
 
 
 export default function Register() {
@@ -13,35 +17,80 @@ export default function Register() {
   const [pw, setPw] = useState<string>();
   const [email, setEmail] = useState<string>();
   const router = useRouter();
+  const {auth_in_context, login_auth} = useContext(AuthContext);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  type NewUserResponse = {
+    accountType?: string;
+    message?: string;
+  };
 
   const signup = async (email: string, password: string) => {
     try{
+      console.log(`${process.env.NEXT_PUBLIC_URL}/api/auth/newUser`);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log("userCredential: ",userCredential);
 
       const user = userCredential.user;
 
       // send user info to backend
-      await fetchWithAuth(process.env.URL+"/api/auth/newUser", {
+      const data : NewUserResponse = await fetchWithAuth(`${process.env.NEXT_PUBLIC_URL}/api/auth/newUser`, {
           method: "POST"
         });
+      const accountType = data.accountType || "user";
       console.log("success");
+      const token = await user.getIdToken();
+      await login_auth(token);
+      router.push("/");
     }catch(err){
       console.log(err);
+      setToastMessage("Something is wrong");
+      setToastVisible(true);
     }
   }
 
   return (
   <div className='register'>
+    <Notification
+      message= {toastMessage} 
+      visible={toastVisible}
+      onClose={() => setToastVisible(false)}
+    />
     <div className='register-pane'>
       
       <h4>Register with us</h4>
       <h6>Enter your details in the following.</h6>
-      <input className='register_details' type="text" placeholder="Enter your username" name="username" onChange={(e) => setUsername(e.target.value)} ></input>
-      <input className='register_details' type="text" placeholder="Enter your email" name="email" onChange={(e) => setEmail(e.target.value)} ></input>
-      <input className='register_details' type="text" placeholder="Enter your password" name="password" onChange={(e) => setPw(e.target.value)} ></input>
-      <input className='register_details' type="text" placeholder="Confirm password" name="confirm pw" onChange={(e) => (e)} ></input>
-      <button type="submit" className='continue' onClick={() => signup(email,pw) }>Register</button>
+      <InputField  
+        type="text" 
+        placeholder="Enter your username" 
+        name="username" 
+        onChange={(e) => setUsername(e.target.value)} 
+      />
+      <InputField  
+        type="text" 
+        placeholder="Enter your email" 
+        name="email" 
+        onChange={(e) => setEmail(e.target.value)} 
+      />
+      <InputField  
+        type="text" 
+        placeholder="Enter your password" 
+        name="password" 
+        onChange={(e) => setPw(e.target.value)}
+      />
+      <InputField  
+        type="text" 
+        placeholder="Confirm password" 
+        name="confirm pw" 
+        onChange={(e) => (e)}
+      />
+      <ConfirmationButton
+          fnc={() => signup(email,pw) }
+          text="Register"
+          type="submit"
+          className='continue'
+      />
       <h6 className='separation_line'>Or register with</h6>
       <div className='register_options'>
         <div className='option'>
@@ -111,7 +160,10 @@ export default function Register() {
         </div>
       </div>
       <h6>Already had an account?</h6>   
-      <button onClick={(e)=>{router.push("/login")}}>Tap to login!</button>
+      <ConfirmationButton
+          fnc={(e)=>{router.push("/login")}}
+          text="Tap to login!"
+      />
     </div>
   </div>);
 }

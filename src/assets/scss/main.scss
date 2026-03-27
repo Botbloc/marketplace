@@ -21,6 +21,8 @@
 @use 'components/priceRangeSlider';
 @use 'components/accordion';
 @use 'components/product_filter';
+@use 'components/confirmation_button';
+@use 'components/inputField';
 
 // pages rendering
 @use 'pages/not_found';
@@ -37,6 +39,7 @@
 @use 'pages/productlist';
 @use 'pages/uses_cases';
 @use 'pages/admin_userView';
+@use 'pages/email-verification';
 
 @use 'section/statsSection';
 

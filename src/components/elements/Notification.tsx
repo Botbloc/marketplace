@@ -2,7 +2,19 @@
 "use client";
 import { useEffect } from "react";
 
-export default function Notification({ message, visible, onClose, duration = 3000 }) {
+type NotificationProps = {
+    message : string;
+    visible ?: boolean;
+    onClose ?: () => void;
+    duration ?: number;
+}
+
+export default function Notification({ 
+  message, 
+  visible, 
+  onClose, 
+  duration = 3000 
+} : NotificationProps) {
   useEffect(() => {
     if (visible) {
       const timer = setTimeout(() => {

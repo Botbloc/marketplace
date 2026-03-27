@@ -1,0 +1,20 @@
+.InputField{
+    width: 100%;
+    Input{
+        margin: 5px 0;
+        width: 100%;
+        height: 5vh;
+        border-radius: 12px;
+        border-width: 0px;
+        padding: 12px;
+        background-color: #516783;
+        color: #ffffff;
+        &::placeholder{
+            color: #ffffff;
+        }
+        &:focus{
+            outline: none;
+            background-color: #5d6e85;
+        }
+    }
+}
