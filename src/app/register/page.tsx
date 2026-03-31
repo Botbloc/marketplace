@@ -3,7 +3,7 @@ import React from 'react';
 import {useState, useContext} from 'react';
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { fetchWithAuth } from '../../lib/api';
+import { fetchWithTokenAuth } from '../../lib/api';
 import {auth} from "../../lib/firebase";
 import AuthContext from "../../global_quantity/AuthContext";
 import ConfirmationButton from '../../components/elements/ConfirmationButton';
@@ -17,32 +17,22 @@ export default function Register() {
   const [pw, setPw] = useState<string>();
   const [email, setEmail] = useState<string>();
   const router = useRouter();
-  const {auth_in_context, login_auth} = useContext(AuthContext);
+  const {auth_in_context, login_auth, signup} = useContext(AuthContext);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  type NewUserResponse = {
-    accountType?: string;
-    message?: string;
-  };
+  
 
-  const signup = async (email: string, password: string) => {
+  const signup_func = async (email: string, password: string, username : string) => {
     try{
-      console.log(`${process.env.NEXT_PUBLIC_URL}/api/auth/newUser`);
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log("userCredential: ",userCredential);
+      const res = signup(email,password, username );
 
-      const user = userCredential.user;
+      router.push("/email-verification");
 
-      // send user info to backend
-      const data : NewUserResponse = await fetchWithAuth(`${process.env.NEXT_PUBLIC_URL}/api/auth/newUser`, {
-          method: "POST"
-        });
-      const accountType = data.accountType || "user";
-      console.log("success");
-      const token = await user.getIdToken();
-      await login_auth(token);
-      router.push("/");
+
+      //const token = await user.getIdToken();
+      //await login_auth(token);
+      //router.push("/");
     }catch(err){
       console.log(err);
       setToastMessage("Something is wrong");
@@ -86,7 +76,7 @@ export default function Register() {
         onChange={(e) => (e)}
       />
       <ConfirmationButton
-          fnc={() => signup(email,pw) }
+          fnc={() => signup_func(email,pw, username) }
           text="Register"
           type="submit"
           className='continue'

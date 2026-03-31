@@ -15,7 +15,7 @@ export default function useContainerWidth() {
     const updateWidth = () => {
       const rect = el.getBoundingClientRect();
       setWidth(rect.width);
-      console.log(rect.width);
+      //console.log(rect.width);
     };
 
     updateWidth();

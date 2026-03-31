@@ -4,7 +4,7 @@ import {useState, useContext} from 'react';
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import LoginForm from '../../components/sections/LoginForm';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { fetchWithAuth } from '../../lib/api';
+import { fetchWithTokenAuth } from '../../lib/api';
 import {auth} from "../../lib/firebase";
 import ConfirmationButton from '../../components/elements/ConfirmationButton';
 import { text } from 'stream/consumers';
@@ -29,7 +29,9 @@ export default function Login() {
       console.log("login successful");
       const token = await user.getIdToken();
       console.log("token: ",token);
-      await login_auth(token);
+      const res = await login_auth(token);
+      console.log(res);
+      router.push("/");
     }catch(err){
       console.log(err);
       setToastMessage("Email does not exist or password is incorrect");
@@ -50,7 +52,7 @@ export default function Login() {
       <InputField
           
           type="text" 
-          placeholder="Enter your username" 
+          placeholder="Enter your email address" 
           name="username" 
           onChange={(e) => setEmail(e.target.value)}
       />

@@ -5,12 +5,13 @@ type ConfirmationButtonProps = {
   text?: string;
   className ?: string;
   name ?: string;
+  disabled ?: boolean;
 };
 
-const ConfirmationButton = ({fnc ,type, text , className, name } : ConfirmationButtonProps) => {
+const ConfirmationButton = ({fnc ,type, text , className, name, disabled } : ConfirmationButtonProps) => {
     return (
         <div className="confirmation_button">
-            <button type={type} onClick={fnc} className={className}>
+            <button type={type} onClick={fnc} className={className} disabled={disabled}>
                 {text}
             </button>
         </div>
