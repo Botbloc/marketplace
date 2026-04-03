@@ -46,6 +46,7 @@ type AuthContextType = {
   refreshUser: () => Promise<boolean>;
   resendVerification: () => Promise<void>;
   firebaseUser : User | null;
+  verificationWithCreatedUser : (user : User) => Promise<void>;
 };
 
 // context storing the Authentication details that can be used later on
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
             method: "GET",
             credentials: "include",
         });
-
+        const data = await res.json();
         if (!res.ok) {
             setAuth({
             isLoggedIn: false,
@@ -77,9 +78,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
             account_type: "",
             });
             setUserData(null);
+            console.error("Status:", res.status);
+            console.error("Response:", data);
             return;
         }
-        const data = await res.json();
+        
+        console.log(data);
+        if (data?.error){
+            console.log("hi");
+            throw new Error(data?.error);
+        }
+        
 
         const payload = data.user;
 
@@ -103,7 +112,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
                 sessionLoading: false,
                 account_type: "",
             });
-        setUserData(null);
+            setUserData(null);
         }
     };
 
@@ -143,6 +152,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
         });
     };
 
+    const verificationWithCreatedUser = async (user : User) => {
+        setUser(user);
+        await sendEmailVerification(user, {
+            url: process.env.NEXT_PUBLIC_FRONDEND_URL + "/email-verification",
+            handleCodeInApp: false,
+        });
+    }
+
     const signup = async (
         email: string, 
         password: string,
@@ -162,12 +179,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
         );
         console.log("success");
 
-        await sendEmailVerification(userCredential.user, {
+        await sendEmailVerification(user, {
             url: process.env.NEXT_PUBLIC_FRONDEND_URL + "/email-verification",
             handleCodeInApp: false,
         });
         
-        setUser(userCredential.user);
+        setUser(user);
 
         return data;
     };
@@ -284,7 +301,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
             refresh_auth,
             refreshUser,
             resendVerification,
-            
+            verificationWithCreatedUser
             }}
         >
             {children}

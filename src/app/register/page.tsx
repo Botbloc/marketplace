@@ -29,10 +29,6 @@ export default function Register() {
 
       router.push("/email-verification");
 
-
-      //const token = await user.getIdToken();
-      //await login_auth(token);
-      //router.push("/");
     }catch(err){
       console.log(err);
       setToastMessage("Something is wrong");

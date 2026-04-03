@@ -19,18 +19,31 @@ export default function Login() {
   const router = useRouter();
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const {auth_in_context, login_auth} = useContext(AuthContext);
+  const {
+    auth_in_context, 
+    login_auth, 
+    refreshUser,
+    verificationWithCreatedUser
+  } = useContext(AuthContext);
 
   const Login_fn = async (email: string, password: string) => {
     try{
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("logged in user:", userCredential.user);
       const user = userCredential.user;
       console.log("login successful");
-      const token = await user.getIdToken();
-      const res = await login_auth(token);
-      console.log(res);
-      router.push("/");
+      console.log("logged in user:", userCredential.user);
+      const verified = await refreshUser();
+      if (!verified){
+        await verificationWithCreatedUser(user);
+        router.push("/email-verification");
+      }
+      else{
+        const token = await user.getIdToken();
+        const res = await login_auth(token);
+        console.log(res);
+        router.push("/");
+      }
+      
     }catch(err){
       console.log(err);
       setToastMessage("Email does not exist or password is incorrect");

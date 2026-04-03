@@ -206,6 +206,22 @@ $screen_width: 100vw;
 
 
         // CTA button
+
+        .button_1{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 50px;
+          height: 50px;
+          gap: .25rem;
+          background-color: rgb(255, 163, 163);
+          border-radius: 50%;
+          .avatar-fallback{
+            color: white;
+            font-size: 12px;
+          }
+        }
+
         .button_2 {
           display: flex;
           align-items: center;
@@ -227,7 +243,10 @@ $screen_width: 100vw;
             transition: fill .2s ease;
 
             &:hover { fill: $accent; }
+            
           }
+          
+
         }
         justify-content: flex-end;
 
