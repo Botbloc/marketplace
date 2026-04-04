@@ -7,7 +7,8 @@
   import {useRouter} from "next/navigation";
   import login_icon from "../../assets/images/login_icon.svg";
   import AuthContext from '../../global_quantity/AuthContext';
-  
+  import ProfileOverlay from './ProfileOverlay';
+  import { useProfile } from "../../global_quantity/ProfileContext";
   
   
   const NAV = [
@@ -47,12 +48,14 @@
     const headerRef = useRef(null);
     const { product_in_cart_Context } = useContext(cart_logic);
     const router = useRouter();
-  // scroll-aware visibility
+    // scroll-aware visibility
     const [show, setShow] = useState(true);
     const lastScrollY = useRef(0);
     const ticking = useRef(false);
     const [screenWidth, setScreenWidth] = useState(0);
-    const {auth_in_context, userData} = useContext(AuthContext);
+    const {auth_in_context, userData, appReady} = useContext(AuthContext);
+    const sessionLoading = auth_in_context.sessionLoading;
+    const {openProfile} = useProfile();
 
     // Close on ESC
     useEffect(() => {
@@ -98,6 +101,8 @@
     }, [lastScrollY]);
 
     useEffect(() => {
+      console.log("appReady: ",appReady);
+      console.log("sessionLoading: ",sessionLoading);
       // This only runs in the browser
       const handleResize = () => {
         setScreenWidth(window.innerWidth);
@@ -130,11 +135,12 @@
 
     const href = "";
     const [selected, setSelected] = useState(null);
+    const login_status = auth_in_context.isLoggedIn;
 
     const profile_login_render = () => {
-        const status = auth_in_context.isLoggedIn;
-        console.log("status: ",status );
-        if (status){
+        
+        console.log("login_status: ",login_status );
+        if (login_status){
             let profile_pic = null;
             const initial = userData?.username
               ? userData.username
@@ -143,22 +149,21 @@
                 .join("")
                 .toUpperCase()
               : "" ;
-            console.log(initial);
             if (userData?.profile_picture && userData?.profile_picture!==""){
               profile_pic = userData?.profile_picture?.src;
               return(
-                <Link href="/profile" onClick={closeAll} className="button_1">
+                <button onClick={openProfile} className="button_1">
                   <img src={profile_pic} alt={initial}/>
-                </Link>
+                </button>
               )
             }
             else{
               return(
-                <Link href="/profile" onClick={closeAll} className="button_1">
+                <button onClick={openProfile} className="button_1">
                     <div className="avatar-fallback">
                       {initial}
                     </div>
-                </Link>
+                </button>
               )
             }
         }
@@ -176,6 +181,7 @@
     
 
     return (
+      
       <header ref={headerRef} className={headerClasses}>
         
           <div className={innerClasses}>
@@ -280,9 +286,11 @@
                       </div>
                     </li>
                     <li>
-                      {profile_login_render()}
+                      {appReady && profile_login_render()}
                     </li>
                   </ul>
+                  
+                  
                   
                 )}
               </div>

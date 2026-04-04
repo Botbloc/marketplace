@@ -1,0 +1,106 @@
+@use "../base/_mixins.scss" as *;
+@use "../base/variables" as *;
+
+/* === Sidebar Overlay (background dim) === */
+.profile-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(180, 180, 180, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  //transition: opacity 3s ease-in-out;
+  transition: opacity 0.4s ease;
+  will-change:auto;
+  z-index: 200;
+}
+
+.profile-sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === Sidebar Panel (slide-in from right) === */
+.profile-sidebar-panel {
+  position: fixed;
+  top: 10vh;
+  right: 2vw;
+  min-height: 20vh;
+  width: clamp(350px,25%,900px);
+  opacity : 0;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  //transform: translate3d(0,100%,  0);
+  //transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1)   ;
+  transition : opacity .2s ease;
+  will-change: transform;
+  z-index: 1000;
+  visibility: hidden;
+  border-radius: 20px;
+
+  @include respond(sm){
+    top: 20%;
+    bottom: 0;
+    width: 100%;
+    height: 80%;
+    //transform: translate3d( 0,100%, 0);
+  }
+  .profile_header{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80px;
+    //padding: 10px;
+    h5{
+      display: block;
+      margin: 0px;
+    }
+    button{
+      position: absolute;
+      right: 20px;
+      border-width: 0px;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background-color: #fff;
+      &:hover{
+        background-color: $button_hover;
+      }
+    }
+    &::after{
+      content: "";
+      position: absolute;
+      top: 80px;
+      left: 0px;
+      width: 100%;
+      height: 1px;
+      background-color: rgb(224, 224, 224);
+    }
+
+  }
+
+}
+
+.profile-sidebar-panel.open {
+  //transform: translate3d(0, 0, 0);
+  visibility: visible;
+  opacity: 1;
+}
+
+.profile-sidebar-content {
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.profile_option{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+

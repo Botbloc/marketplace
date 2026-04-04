@@ -23,7 +23,8 @@ export default function Login() {
     auth_in_context, 
     login_auth, 
     refreshUser,
-    verificationWithCreatedUser
+    verificationWithCreatedUser,
+    refresh_auth
   } = useContext(AuthContext);
 
   const Login_fn = async (email: string, password: string) => {
@@ -40,6 +41,7 @@ export default function Login() {
       else{
         const token = await user.getIdToken();
         const res = await login_auth(token);
+        await refresh_auth();
         console.log(res);
         router.push("/");
       }

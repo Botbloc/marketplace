@@ -47,6 +47,7 @@ type AuthContextType = {
   resendVerification: () => Promise<void>;
   firebaseUser : User | null;
   verificationWithCreatedUser : (user : User) => Promise<void>;
+  appReady : Boolean;
 };
 
 // context storing the Authentication details that can be used later on
@@ -63,6 +64,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
     const [firebaseLoading, setFirebaseLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
     const [userData, setUserData] = useState<UserData | null>(null);
+    const appReady = !firebaseLoading && !auth_in_context.sessionLoading;
 
     const refresh_auth = async () => {
         try {
@@ -293,6 +295,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
             searchQuery, 
             firebaseLoading,
             firebaseUser,
+            appReady,
             signup,
             login_auth, 
             logout_auth, 

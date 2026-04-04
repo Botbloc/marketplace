@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/admin/users", "src/app/admin/products", "src/app/admin/orders"  ],
+, "src/app/admin/users", "src/app/admin/products", "src/app/admin/orders", "src/global_quantity/ProfileContext.jsx", "src/components/layout/ProfileOptions.jsx"  ],
   "exclude": [
     "node_modules"
   ]
