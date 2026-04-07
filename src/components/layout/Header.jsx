@@ -101,8 +101,8 @@
     }, [lastScrollY]);
 
     useEffect(() => {
-      console.log("appReady: ",appReady);
-      console.log("sessionLoading: ",sessionLoading);
+      //console.log("appReady: ",appReady);
+      //console.log("sessionLoading: ",sessionLoading);
       // This only runs in the browser
       const handleResize = () => {
         setScreenWidth(window.innerWidth);
@@ -139,7 +139,7 @@
 
     const profile_login_render = () => {
         
-        console.log("login_status: ",login_status );
+        //console.log("login_status: ",login_status );
         if (login_status){
             let profile_pic = null;
             const initial = userData?.username

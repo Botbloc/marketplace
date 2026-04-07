@@ -82,6 +82,8 @@ export default function Login() {
           fnc={() => Login_fn(email, pw)}
           type="submit"
           text="Continue"
+          color="primary"
+          
       />
       <h5 className='separation_line'>Or sign in with</h5>
 
@@ -156,6 +158,7 @@ export default function Login() {
       <ConfirmationButton
           fnc={(e)=>{router.push("/register")}}
           text="Tap to join us!"
+          color="primary"
       />
     </div>
   </div>);

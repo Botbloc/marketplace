@@ -5,7 +5,7 @@
 .profile-sidebar-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(180, 180, 180, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
   //transition: opacity 3s ease-in-out;
@@ -25,7 +25,7 @@
   top: 10vh;
   right: 2vw;
   min-height: 20vh;
-  width: clamp(350px,25%,900px);
+  width: clamp(350px,22%,900px);
   opacity : 0;
   background-color: #fff;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
@@ -93,14 +93,19 @@
   padding: 20px;
   height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile_option{
     height: 100%;
-    width: 100%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 12px;
 }
 

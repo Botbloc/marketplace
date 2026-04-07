@@ -3,7 +3,13 @@
 import React from "react";
 import { useSidebar } from "../../global_quantity/SidebarContext";
 
-const SidebarLayer = ({value, onChange ,children, header}) => {
+type SidebarLayerProps = {
+  children: React.ReactNode;
+  header: string;
+  
+};
+
+const SidebarLayer = ({children, header} : SidebarLayerProps) => {
   const { isOpen, closeSidebar, sidebarContent } = useSidebar();
 
   //if (!isOpen) return null;
@@ -21,9 +27,7 @@ const SidebarLayer = ({value, onChange ,children, header}) => {
             <button onClick={closeSidebar}>X</button>
         </div>
         <div className="sidebar-content">
-          {typeof children === "function"
-          ? children(value, onChange)
-          : children}
+          {children}
           
         </div>
       </div>

@@ -1,18 +1,13 @@
+
 .confirmation_button{
     width: 100%;
     button{
         //margin-top: 20px;
-        background-color: #232c38;
-        color: white;
         //margin-top: 80%;
         width: 100%;
         height: 5vh;
         border-radius: 50px;
         border-width: 0px;
-        &:hover{
-            background-color: #f6f6f6;
-            color: #000000;
-        }
         &.continue{
             margin-top: 30px;
         }

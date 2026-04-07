@@ -18,8 +18,19 @@ const ProfileOptions = () => {
         <ProfileOverlay header={"Hello, " + username + " !"} >
             <div className='profile_option'>
                 <ConfirmationButton
+                    text="Edit Profile"
+                    fnc={logout}
+                    color='primary'
+                />
+                <ConfirmationButton
                     text="Logout"
                     fnc={logout}
+                    color='neutral'
+                />
+                <ConfirmationButton
+                    text="Delete Account"
+                    fnc={logout}
+                    color='danger'
                 />
             </div>
         </ProfileOverlay>

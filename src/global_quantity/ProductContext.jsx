@@ -331,8 +331,6 @@ const items = [
   },
 ];
 
-
-
 export const ProductProvider = ({children}) => {
     
     const [products, setProducts] = useState(items);
@@ -340,9 +338,6 @@ export const ProductProvider = ({children}) => {
     // NEW: derive a Map index for O(1) lookups by id (internal)
     const idIndex = useMemo(() => new Map(products.map(p => [p.id, p])), [products]);
 
-
-       
-    
     // UPDATED: use the index; return same shape as before
     const findProductByID = (id) => {
         const item = idIndex.get(id);
@@ -399,8 +394,5 @@ export const ProductProvider = ({children}) => {
         </ProductContext.Provider>
     );
 }
-
-
-
 
 export default ProductContext;

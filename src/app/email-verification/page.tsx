@@ -18,7 +18,7 @@ const email_verfication = () => {
         return <div>Auth context unavailable.</div>;
     }
 
-    const {refreshUser, resendVerification, login_auth, firebaseUser} = useContext(AuthContext);
+    const {refreshUser, resendVerification, login_auth, firebaseUser, refresh_auth} = useContext(AuthContext);
 
     const handleResend = async () => {
         try {
@@ -50,6 +50,7 @@ const email_verfication = () => {
                     );
                 console.log(sth);
                 await login_auth(idToken);
+                await refresh_auth();
                 router.push("/");
             }
             } catch (error) {

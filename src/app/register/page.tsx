@@ -76,6 +76,7 @@ export default function Register() {
           text="Register"
           type="submit"
           className='continue'
+          color="primary"
       />
       <h6 className='separation_line'>Or register with</h6>
       <div className='register_options'>
@@ -149,6 +150,7 @@ export default function Register() {
       <ConfirmationButton
           fnc={(e)=>{router.push("/login")}}
           text="Tap to login!"
+          color="primary"
       />
     </div>
   </div>);
