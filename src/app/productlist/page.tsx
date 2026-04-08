@@ -155,7 +155,7 @@ const Productlist = () => {
                                         <img src={placeholder.src}/>
                                     </div>
                                     <div className="product_detail_module">
-                                        <span className="text-sm" >{item.name}</span>
+                                        <span className="text-sm" >{item.product_name}</span>
                                         <span className="text-sm">{item.currency+" "+item.price}</span>
                                     </div>
                                 </li>

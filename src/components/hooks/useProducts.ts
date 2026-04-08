@@ -34,10 +34,8 @@ type Product = {
 
 type ProductsResponse = {
   products: Product[];
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
+  nextCursor: string | null;
+  count: number;
   error?: string;
 };
 
@@ -91,6 +89,7 @@ export function useProducts(filters: Filters) {
         
 
         setProducts(data.products ?? []);
+        console.log(data.products);
         setMeta(data);
       } catch (err: any) {
         if (err.name === "AbortError") return;
