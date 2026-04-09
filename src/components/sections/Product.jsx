@@ -60,25 +60,15 @@
     const Product = ({productID,...prop})=>{
 
         const router = useRouter();
-
         const [toastVisible, setToastVisible] = useState(false);
-
         const [Display, setDisplay] = useState();
-
         const [display_pointer, setDisplay_pointer] = useState(0);
-
         const {addCart} = useContext(cart_logic);
-
         const [noti_msg, setNoti_msg] = useState("");
-
         const {isOpen, openSidebar, sidebarContent} = useContext(SidebarContext);
-
         const {products, findProductByID} = useContext(product_logic);
-
         const option = [{},{},{},{}];
-
         const thumbRefs = useRef([]);
-
         const [product_detail, setProduct_detail] = useState({
             "product_name": "Product 1",
             "price" : 0,
@@ -103,18 +93,18 @@
         });
 
         const setQuan = (type, quan) =>{
-        if (type === "+"){
-            setQuantity(quantity+1);
-        }
-        else if (type === "-"){
-            if (quantity >0){
-                setQuantity(quantity-1);
+            if (type === "+"){
+                setQuantity(quantity+1);
+            }
+            else if (type === "-"){
+                if (quantity >0){
+                    setQuantity(quantity-1);
+                }
+            }
+            else if (type === "NA"){
+                setQuantity(quan);
             }
         }
-        else if (type === "NA"){
-            setQuantity(quan);
-        }
-    }
 
         useEffect(()=>{
             setDisplay(product_iamges[display_pointer].img_src);

@@ -41,7 +41,7 @@
             <CartProvider>
             <SidebarProvider>
               <ProfileProvider>
-                <Header className="invert-color" navPosition="right" />
+                <Header navPosition="right" />
                 
                       <ProfileOptions/>
                       <main>

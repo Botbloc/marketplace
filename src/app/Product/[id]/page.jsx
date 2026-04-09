@@ -19,9 +19,9 @@ export async function generateStaticParams() {
   return products.map(id => ({ id }));
 }
 
-const Product_id = async ({params})=>{
+const Product_id = ({params})=>{
 
-    const param = await params;
+    const param = params;
     const id  = param.id;
 
 

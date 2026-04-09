@@ -10,7 +10,7 @@
     background-color: #ffffff;
     border-bottom: #000000 1px solid;
     transition: top 0.2s ease;
-    .site-header.hidden + main & {
+    .site-header.hidden ~ main & {
         top: 0;                      // snap to very top of viewport
     }
 
