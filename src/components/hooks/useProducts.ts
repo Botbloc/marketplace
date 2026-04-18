@@ -49,7 +49,6 @@ export function useProducts(filters: Filters) {
   const [hasMore, setHasMore] = useState(true);
   const isFetchingRef = useRef(false);
   const cooldownRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   //const [meta, setMeta] = useState<ProductsResponse | null>(null);
 
   const buildParams = (cursor?: string | null) => {
@@ -116,12 +115,6 @@ export function useProducts(filters: Filters) {
   },[filters])
 
   const loadMore = useCallback(async () => {
-    //console.log("nextCursor: ",nextCursor);
-    //console.log("hasMore: ",hasMore);
-    //console.log("loadingMore: ",loadingMore);
-    //console.log("!nextCursor || !hasMore: ",!nextCursor || !hasMore);
-    //console.log("isFetchingRef.current: ",isFetchingRef.current);
-    //console.log("cooldownRef.current: ",cooldownRef.current);
     if (!nextCursor || !hasMore) return;
     if (isFetchingRef.current) return;
     if (cooldownRef.current) return;

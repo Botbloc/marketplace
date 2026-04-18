@@ -46,7 +46,7 @@
     const [open, setOpen] = useState(false);              // mobile nav, open == true for mobile, css listens for .is-active
     const [openDropdown, setOpenDropdown] = useState(null); // mobile: which dropdown is open
     const headerRef = useRef(null);
-    const { product_in_cart_Context } = useContext(cart_logic);
+    const { cart } = useContext(cart_logic);
     const router = useRouter();
     // scroll-aware visibility
     const [show, setShow] = useState(true);
@@ -281,8 +281,8 @@
                         </svg>
                       
                       </Link>
-                      <div className={product_in_cart_Context?.length > 0 ? 'box-show' : 'box-hide'}>
-                          {product_in_cart_Context?.length ?? 0}
+                      <div className={cart?.length > 0 ? 'box-show' : 'box-hide'}>
+                          {cart?.length ?? 0}
                       </div>
                     </li>
                     <li>

@@ -6,7 +6,7 @@ import Product from "../../../components/sections/Product"
 import Search_bar from '../../../components/sections/Search_bar';
 import Product_display from '../../../components/sections/Product_display';
 
-
+/*
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -17,22 +17,23 @@ export async function generateStaticParams() {
     "AB-1011", "AB-1012", "AB-1013", "AB-1014", "AB-1015", "AB-1016", "AB-1017", "AB-1018"
   ]
   return products.map(id => ({ id }));
-}
+}*/
 
-const Product_id = ({params})=>{
+type Props = {
+  params: {
+    id: string;
+  };
+};
 
-    const param = params;
-    const id  = param.id;
+const Product_id = ({ params }: Props) => {
+  const id = params.id;
 
-
-    
-    return(
-        <>
-            
-            <Product productID={id} /> 
-            <Product_display theme="Suggestion"/>
-        </>
-    )
-}
+  return (
+    <>
+      <Product productID={id} />
+      <Product_display theme="Suggestion" />
+    </>
+  );
+};
 
 export default Product_id;

@@ -11,6 +11,7 @@
     import {useRouter,notFound} from "next/navigation";
     import SidebarLayer from "../../components/layout/SidebarLayer";
     import SlideButton from "../elements/SlideButton";
+    import {useProductByID} from "../hooks/useProductByID";
 
     // we need image, price, products detail
 
@@ -58,7 +59,6 @@
 
 
     const Product = ({productID,...prop})=>{
-
         const router = useRouter();
         const [toastVisible, setToastVisible] = useState(false);
         const [Display, setDisplay] = useState();
@@ -66,31 +66,14 @@
         const {addCart} = useContext(cart_logic);
         const [noti_msg, setNoti_msg] = useState("");
         const {isOpen, openSidebar, sidebarContent} = useContext(SidebarContext);
-        const {products, findProductByID} = useContext(product_logic);
+        //const {products, findProductByID} = useContext(product_logic);
         const option = [{},{},{},{}];
         const thumbRefs = useRef([]);
-        const [product_detail, setProduct_detail] = useState({
-            "product_name": "Product 1",
-            "price" : 0,
-            "currency" : "$",
-            "description": "Template Description",
-            "Specs" : {
-                "spec 1" : 0,
-                "spec 2" : 0,
-                "spec 3" : 0,
-                "spec 4" : 0,
-            },
-            "review" : {
-                "user 1" : {
-                    "stars" : 5,
-                    "remark" : "Template Remark"
-                },
-                "user 2" : {
-                    "stars" : 5,
-                    "remark" : "Template Remark"
-                }
-            }
-        });
+        const [product_detail, setProduct_detail] = useState(null);
+        // switch between Detail, Statistics, and review
+        const [TextType, setTextType] = useState("Overview");
+        const [quantity, setQuantity] = useState(0);
+        const {product, loading, error} = useProductByID(productID);
 
         const setQuan = (type, quan) =>{
             if (type === "+"){
@@ -111,20 +94,31 @@
             //loadImage; // call api to draw images from drive to local 
         },[display_pointer])
 
-        
-        // switch between Detail, Statistics, and review
-        const [TextType, setTextType] = useState("Overview");
-        const [quantity, setQuantity] = useState(0);
-        const [isValid, setIsValid] = useState(true);
-        
+        useEffect(() => {
+            console.log("loading: ", loading);
+            console.log("error: ", error);
+            console.log("product: ", product);
+            if (loading) return;
+
+            if (error || !product) {
+                console.error("Product load failed:", error);
+                setProduct_detail(null);
+                router.push("/product");
+
+                // optional: redirect or show a fallback UI
+                // router.replace("/product");
+                return;
+            }
+
+             setProduct_detail(product);
+            return;
+        }, [product, loading, error, router]);
+
 
         const confirmToCart = (e) => {
-           
             const reply = addCart(productID, quantity);
             setToastVisible(true);
             setNoti_msg(reply);
-            
-            
         }
 
         const onQuanChange = (value)=>{
@@ -139,15 +133,15 @@
                 return(
                     <div>
                         <h1>Overview</h1>
-                        <p>{product_detail.description}</p>
+                        <p>{product_detail?.description}</p>
                     </div>
                 )
             }
             else if (TextType == "Specs"){
                 return(
                     <ul>
-                        {   product_detail.specs &&
-                            Object.entries(product_detail.specs).map(([key, value])=> (
+                        {   product_detail?.specs &&
+                            Object.entries(product_detail?.specs).map(([key, value])=> (
                                 <li key={key}>
                                     <span className="key">{key}</span>
                                     <span className="value">{value}</span>
@@ -163,8 +157,8 @@
             else if (TextType == "Review"){
                 return(
                         <ul>
-                            { product_detail.review &&
-                            Object.entries(product_detail.review).map((id, {stars, remark})=> {
+                            { product_detail?.review &&
+                            Object.entries(product_detail?.review).map((id, {stars, remark})=> {
                                 <div>
                                     <h3>id</h3>
                                     <ul>
@@ -196,20 +190,6 @@
 
         }
 
-        const verifyEntry = () => {
-            // find product by id to confirm entry exists
-            const product_entity = findProductByID(productID);
-            console.log("verify entry: \n",product_entity);
-            if (product_entity.exist === true){
-                setProduct_detail(product_entity.data);
-                
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-
         const switch_img = (dir) => {
             if (dir === 0 && display_pointer != 0){
                 setDisplay_pointer(display_pointer-1); 
@@ -220,15 +200,7 @@
             console.log("display_pointer: ",display_pointer);
         }
 
-        useEffect(() => {
-            if (products && products.length > 0){
-                if (!verifyEntry()){
-                    setIsValid(false);
-                    router.push("/product");
-            }
-            }
-            
-        },[products])
+        
 
         useEffect(() => {
             const el = thumbRefs.current[display_pointer];
@@ -241,7 +213,12 @@
             });
         }, [display_pointer]);
 
-        if (isValid){
+
+        if (loading) return <p>Loading product...</p>;
+        if (error) return <p>{error}</p>;
+        if (!product_detail) return <p>Loading…</p>;
+
+        if (product_detail){
             return(   
             <>  
                 <SidebarLayer header="Other Options"/>
@@ -286,23 +263,23 @@
 
                         <div className="right-pane">
                             <div className="price_tag">
-                                <h5 className="id_text" >{product_detail.id}</h5>
-                                <h4>{product_detail.product_name}</h4>
-                                <h5>{product_detail.description}</h5>
-                                <h5 className="status_text">{product_detail.status + " | " + product_detail.delivery_status }</h5>
+                                <h5 className="id_text" >{product_detail?.id}</h5>
+                                <h4>{product_detail?.product_name}</h4>
+                                <h5>{product_detail?.description}</h5>
+                                <h5 className="status_text">{product_detail?.status + " | " + product_detail?.delivery_status }</h5>
                                 <h5>Producer(placeholder)</h5>
                                 <div className="review">
-                                    {Array.from({ length : Math.round(product_detail.rating)}, (_,i)=>(
+                                    {Array.from({ length : Math.round(product_detail?.rating)}, (_,i)=>(
                                         <span key={"full-" + i} className="star">★</span>
                                     ))}
                                     {/* Empty stars */}
-                                    {Array.from({ length: 5 - Math.round(product_detail.rating) }, (_, i) => (
+                                    {Array.from({ length: 5 - Math.round(product_detail?.rating) }, (_, i) => (
                                         <span key={"empty-" + i} className="star">☆</span>
                                     ))}
-                                    <span>({(product_detail.rating.toFixed(1))})</span>
-                                    <span>({product_detail.review? product_detail.review.length : 0 })</span>
+                                    <span>({(product_detail?.rating.toFixed(1))})</span>
+                                    <span>({product_detail?.review? product_detail?.review.length : 0 })</span>
                                 </div>
-                                <h3>{product_detail.currency + " " + product_detail.price}</h3>
+                                <h3>{product_detail?.currency + " " + product_detail?.price}</h3>
                             </div>
                             <div className="spec_module" onClick={() => openSidebar()}>
                                 <div className="spec_text">

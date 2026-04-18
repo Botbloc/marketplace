@@ -97,7 +97,6 @@ const Productlist = () => {
                 threshold: 0.3,
             }
         );
-
         observer.observe(node);
 
         return () => {

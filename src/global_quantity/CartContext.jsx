@@ -3,14 +3,17 @@ import React, { useContext } from "react";
 import {createContext, useState, useEffect} from "react";
 import placeholder from "../assets/images/placeholder.jpg" ;
 import ProductContext from "./ProductContext";
+import { useCart } from "../components/hooks/useCart";
 
 // context storing the cart details that can be used later on
 const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
     const {idIndex} = useContext(ProductContext); // map object for fast retrival
-    const [product_in_cart_Context, setCart] = useState([]);
+    const [cart, setCart] = useState([]);
+    const [cartLoaded, setCartLoaded] = useState(false);
     const [currency, setCurrency] = useState("$");
+    const { setCart: updateCloudCart } = useCart({local_cart : cart});
     // cart : [{"product_name" : sth, "price" : sth, "currency": sth},...,{}]
 
     useEffect(() => {
@@ -21,17 +24,19 @@ export const CartProvider = ({children}) => {
             
             setCart(JSON.parse(storedCart));
         }
+        setCartLoaded(true);
     },[])
 
     useEffect(() => {
-        if (product_in_cart_Context !== undefined && product_in_cart_Context !== null ){
-             if(product_in_cart_Context.length > 0){
-                localStorage.setItem("cart", JSON.stringify(product_in_cart_Context));
-            }
+        if (!cartLoaded) return;
+
+        if (cart !== undefined && cart !== null ){
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCloudCart(cart);
         }
        
         
-    },[product_in_cart_Context])
+    },[cart, cartLoaded, updateCloudCart])
 
     const addCart = (id, amount, option = null) => {
         console.log(idIndex);
@@ -39,7 +44,7 @@ export const CartProvider = ({children}) => {
         console.log(item);
         
         if (item!== undefined && amount >0){
-            const find_exist = product_in_cart_Context.find(item => item.id === id);
+            const find_exist = cart.find(item => item.id === id);
             if (find_exist === undefined){
                 const item_with_quan = 
                 {   "id" : id, 
@@ -49,8 +54,8 @@ export const CartProvider = ({children}) => {
                     "product_name" : item.product_name
                 }
             
-                const new_context = [...product_in_cart_Context, item_with_quan];
-                //let new_context = product_in_cart_Context;
+                const new_context = [...cart, item_with_quan];
+                //let new_context = cart;
                 //new_context.push(item_with_quan);
                 console.log("new context: ", new_context);
                 setCart(new_context);
@@ -59,7 +64,7 @@ export const CartProvider = ({children}) => {
                 return "Item added to cart!"
             }
             else{
-                const updated_context = product_in_cart_Context.map(
+                const updated_context = cart.map(
                     item => item.id === id? {...item, quantity : item.quantity + amount} : item
                 );
                 console.log("new context: ", updated_context);
@@ -84,14 +89,14 @@ export const CartProvider = ({children}) => {
         const idArray = Array.isArray(ids) ? ids : [ids];
 
         console.log("Removing ids: ", idArray);
-        console.log("Current cart: ", product_in_cart_Context);
+        console.log("Current cart: ", cart);
 
         // filter out all items whose id is in idArray
-        const newCart = product_in_cart_Context.filter(
+        const newCart = cart.filter(
             item => !idArray.includes(item.id)
         );
 
-        // persist to localStorage
+        // persist to localStorag
         localStorage.setItem("cart", JSON.stringify(newCart));
 
         // update state
@@ -104,10 +109,11 @@ export const CartProvider = ({children}) => {
     }
 
     const listCart = () => {
-        return(product_in_cart_Context)
+        return(cart)
     }
+
     return (
-        <CartContext.Provider value={{product_in_cart_Context, currency, addCart, removeCart, clearCart, listCart}}>
+        <CartContext.Provider value={{cart, currency, addCart, removeCart, clearCart, listCart}}>
             {children}
         </CartContext.Provider>
     );

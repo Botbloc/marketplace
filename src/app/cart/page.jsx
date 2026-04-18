@@ -71,7 +71,7 @@ const template_product = [
 const Cart = () =>{
     const [product_in_cart, setProduct] = useState([]);
     const {product} = useContext(product_logic);
-    const {product_in_cart_Context, addCart, removeCart} = useContext(cart_logic);
+    const {cart, addCart, removeCart} = useContext(cart_logic);
     const [currency, setCurrency] = useState("$");
     const [total, setTotal] = useState(0);
     const router = useRouter();
@@ -119,15 +119,15 @@ const Cart = () =>{
     useEffect(() => {
         console.log("hi");
         setDisplay(image2);
-        if (product_in_cart_Context.length >= 0){
-            setProduct(product_in_cart_Context);
+        if (cart.length >= 0){
+            setProduct(cart);
             calculateTotal();
         }
-    },[product_in_cart_Context])
+    },[cart])
 
     const calculateTotal = () => {
         let temp = 0;
-        product_in_cart_Context.map(({quantity, price}) => {
+        cart.map(({quantity, price}) => {
             temp += quantity * price;
         })
         setTotal(temp);

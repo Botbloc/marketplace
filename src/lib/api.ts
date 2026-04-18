@@ -10,12 +10,15 @@ export const fetchWithTokenAuth = async <T> (
   if (!user) {
     throw new Error("User not authenticated");
   }
+  
   const token = await user.getIdToken();
   const headers = new Headers(options.headers || {});
   headers.set("Authorization", `Bearer ${token}`);
+
   if (body) {
     headers.set("Content-Type", "application/json");
   }
+
   const res = await fetch(url, {
     ...options,
     headers,
