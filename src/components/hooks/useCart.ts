@@ -38,7 +38,7 @@ export const useCart = ({local_cart = [] }: UseCartProps = {}) => {
         }
     }, []);
 
-    async function mergeGuestCartAfterLogin(local_cart): Promise<CartItem[]> {
+    const mergeCart = useCallback( async (local_cart : CartItem[] ): Promise<CartItem[]> => {
         const existing = localStorage.getItem("pendingCartMerge");
 
         const pendingMerge = existing
@@ -52,7 +52,7 @@ export const useCart = ({local_cart = [] }: UseCartProps = {}) => {
         localStorage.setItem("pendingCartMerge", JSON.stringify(pendingMerge));
 
         try {
-            const response = await fetch("/api/user/mergeCart", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/mergeCart`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -69,31 +69,42 @@ export const useCart = ({local_cart = [] }: UseCartProps = {}) => {
             }
 
             const result = await response.json();
+            console.log(result);
 
             localStorage.removeItem("pendingCartMerge");
-            localStorage.removeItem("guestCart");
+            localStorage.removeItem("cart");
 
-            return result.cart;
+            return result.cart.items;
         } catch (error) {
             // Keep pendingCartMerge in localStorage.
             // Retry later with the same mergeRequestId.
             throw error;
         }
-    }
+    },[]);
 
 
-    const setCart = useCallback(
-        async (nextCart: CartItem[] = local_cart) => {
+    const addCart = useCallback(
+        async (productId: string, quantity: number): Promise<CartItem[] | null> => {
             try {
                 
                 setError("");
-                const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/setCart`, {
-                    method: "PUT",
+                 if (!productId) {
+                    throw new Error("Product ID is required");
+                }
+
+                if (quantity <= 0) {
+                    throw new Error("Quantity must be greater than 0");
+                }
+                const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/addCart`, {
+                    method: "POST",
                     credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ cart: nextCart }),
+                    body: JSON.stringify({ 
+                        id : productId, 
+                        quantity : quantity 
+                    }),
                 });
 
                 const data = await res.json().catch(() => ({}));
@@ -102,20 +113,57 @@ export const useCart = ({local_cart = [] }: UseCartProps = {}) => {
                     throw new Error(data?.error || "Failed to update cart");
                 }
 
-                setCloudCart(data.cart ?? nextCart);
-                return data.cart ?? nextCart;
+                return data?.cart?.items || [];
             } catch (err) {
                 console.log("Error updating cart: ", err);
                 setError(err instanceof Error ? err.message : "Error updating cart");
                 return null;
             }
         },
-        [local_cart]
+        []
     );
+
+    const removeCartItems = useCallback(
+        async (productIds: string | string[]): Promise<CartItem[] | null> => {
+            try {
+            setError("");
+
+            const ids = Array.isArray(productIds) ? productIds : [productIds];
+
+            if (ids.length === 0) {
+                throw new Error("At least one product ID is required");
+            }
+
+            const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/removeCart`, {
+                method: "DELETE",
+                credentials: "include",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ ids: ids }),
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok) {
+                throw new Error(data?.error || "Failed to remove cart item(s)");
+            }
+
+            return data?.cart?.items || [];
+            } catch (err) {
+            console.log("Error removing cart item(s):", err);
+            setError(err instanceof Error ? err.message : "Error removing cart item(s)");
+            return null;
+            }
+        },
+        []
+    );
+
+
 
     useEffect(() => {
         fetchCart();
     }, [fetchCart]);
 
-    return { cloud_cart, setCart, error };
+    return { cloud_cart , mergeCart, addCart, removeCartItems, error };
 }

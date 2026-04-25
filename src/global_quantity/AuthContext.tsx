@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode })  => {
             return;
         }
         
-        console.log(data);
+        console.log("me data",data);
         if (data?.error){
             console.log("hi");
             throw new Error(data?.error);

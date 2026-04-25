@@ -8,8 +8,16 @@ const DashboardLayout =  ({multi_display}) => {
         {
             // need to build another component for the below
         }
+        
         <div className="main_display">
-
+            {
+                // chart, table, etc.
+                // table for recent orders, chart for sales over time, etc.
+                // alerts
+                // quick actions (e.g., add product, view orders, etc.)
+                
+            }
+            
         </div>
         
     </div>

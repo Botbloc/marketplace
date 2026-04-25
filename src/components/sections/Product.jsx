@@ -115,8 +115,8 @@
         }, [product, loading, error, router]);
 
 
-        const confirmToCart = (e) => {
-            const reply = addCart(productID, quantity);
+        const confirmToCart = async (e) => {
+            const reply = await addCart(productID, Number(quantity), product);
             setToastVisible(true);
             setNoti_msg(reply);
         }

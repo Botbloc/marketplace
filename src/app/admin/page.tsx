@@ -9,6 +9,8 @@ export default function page() {
     {id: 3 , label: "Users", amount : "89"}
   ]);
   return (
+    
      <DashboardLayout multi_display={multi_display}/>
+
   );
 }

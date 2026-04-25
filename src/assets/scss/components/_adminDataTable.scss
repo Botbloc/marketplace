@@ -1,0 +1,95 @@
+.admin-table-container {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.admin-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: #666;
+  }
+}
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+
+  th,
+  td {
+    padding: 0.9rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+  }
+
+  th {
+    background: #f8f8f8;
+    font-weight: 600;
+    color: #333;
+  }
+
+  tbody tr:hover {
+    background: #fafafa;
+  }
+}
+
+.action-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.edit-btn {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.admin-table-status,
+.admin-table-error {
+  padding: 1rem;
+  border-radius: 10px;
+  background: #f8f8f8;
+}
+
+.admin-table-error {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.empty-cell {
+  text-align: center;
+  color: #777;
+  padding: 2rem;
+}

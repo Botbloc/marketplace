@@ -144,13 +144,13 @@ $cart_width: 85vw;
             
             .empty_container{
                 height: 50vh;
-                width: 100vw;
+                width: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 span{
-                    font-size: 30px;
+                    font-size: 20px;
                 }
             }
 

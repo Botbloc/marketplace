@@ -1,11 +1,19 @@
 "use client";
 import {useState,useEffect} from "react";
 import { getAuth } from "firebase/auth";
-import { fetchWithAuth } from "../../../lib/api";
 import Table from "../../../components/elements/Table";
 import { User_type } from "../../types/Index";
 import { fetchUsers, createNewUser } from "../../service/users.service";
+import AdminDataTable from "../../../components/elements/AdminDataTable";
 const Users = () => {
+    type Product = {
+    id: string;
+    product_name: string;
+    category: string;
+    price: number;
+    stock: number;
+    status: string;
+    };
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -32,17 +40,33 @@ const Users = () => {
             }
             
         };
-
-        loadUsers();
+        // testing
+        setLoading(false);
+        //loadUsers();
 
     }, []);
 
     const renderTable = () => {
         if (loading) return <div>Loading...</div>;
         if (error) return <div>{error}</div>;
-        return(
+        /*return(
             <Table content={users} columns={userColumns}/>
+        )*/
+        return(
+            <AdminDataTable<Product>
+            title="Products"
+            endpoint="/api/admin/products"
+            columns={[
+                { key: "id", label: "ID" },
+                { key: "product_name", label: "Product Name" },
+                { key: "category", label: "Category" },
+                { key: "price", label: "Price" },
+                { key: "stock", label: "Stock" },
+                { key: "status", label: "Status" },
+            ]}
+            />
         )
+
     }
 
     return(
