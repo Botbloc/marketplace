@@ -1,6 +1,6 @@
 export type Products_type = {
     id: string
-    img: string
+    img: string | string[]
     product_name: string
     price: number
     currency: string

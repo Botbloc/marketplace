@@ -127,3 +127,43 @@
   }
 }
 
+@mixin custom-scrollbar(
+  $width: 8px,
+  $height: 8px,
+  $track-color: transparent,
+  $thumb-color: rgba(#585858, 0.9),
+  $thumb-hover-color: rgba(#585858, 1),
+  $thumb-hidden-color: $thumb-color,
+  $radius: 10px,
+  $reveal-class: null
+) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $height;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumb-hidden-color;
+    border-radius: $radius;
+    transition: background-color 0.3s ease;
+  }
+
+  @if $reveal-class != null {
+    &.#{$reveal-class}::-webkit-scrollbar-thumb {
+      background-color: $thumb-color;
+    }
+  } @else {
+    &::-webkit-scrollbar-thumb {
+      background-color: $thumb-color;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $thumb-hover-color;
+  }
+}
+

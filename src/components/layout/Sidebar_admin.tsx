@@ -1,11 +1,11 @@
 "use client";
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import {useRouter} from "next/navigation";
+import React, { useState } from 'react';
+import { usePathname, useRouter } from "next/navigation";
 import Accordion  from "../elements/Accordion"
-const Sidebar = () => {
+const Sidebar_admin = () => {
     const [expand, setExpand] = useState(true);
     const router = useRouter();
-    const [selected, setSelected] = useState(0); 
+    const pathname = usePathname();
 
     const NAV = [
         { id: 0, label: 'Dashboard', href: '/admin' },
@@ -20,6 +20,14 @@ const Sidebar = () => {
             {id: 1, label: 'something2' , href: '/admin/orders' }
         ] }
     ]
+
+    const isActivePath = (href: string) => {
+        if (href === '/admin') {
+            return pathname === href;
+        }
+
+        return pathname === href || pathname.startsWith(`${href}/`);
+    };
 
     return (
         <div className={['Sidebar', expand ? 'expand' : ''].join(' ')}> 
@@ -37,9 +45,8 @@ const Sidebar = () => {
                             <button 
                             onClick={()=>{
                                 router.push(item.href)
-                                setSelected(item.id);
                             }}
-                            className={selected === item.id? 'selected' : ''}
+                            className={isActivePath(item.href) ? 'selected' : ''}
                             >
                                 {item.label}
                             </button>
@@ -84,4 +91,4 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar;
+export default Sidebar_admin;

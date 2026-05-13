@@ -1,0 +1,275 @@
+@use "../base/variables" as *;
+@use "../base/mixins" as *;
+
+.admin-overlay-open {
+  overflow: hidden;
+}
+
+.admin-add-entity-button {
+  border: none;
+  border-radius: 999px;
+  background: $primary-color;
+  color: $text-color;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: $selected-color;
+    transform: translateY(-1px);
+  }
+}
+
+.admin-entity-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: $overlay-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.admin-entity-dialog {
+  width: min(860px, 100%);
+  max-height: min(92vh, 920px);
+  overflow-y: auto;
+  background: $surface-dark;
+  color: $text-color;
+  border-radius: 22px;
+  border: 1px solid $surface-border;
+  box-shadow: 0 24px 90px $shadow-strong;
+  @include custom-scrollbar(
+    10px,
+    10px,
+    transparent,
+    rgba($accent-color, 0.55),
+    rgba($accent-color, 0.85),
+    rgba($accent-color, 0.4),
+    999px
+  );
+}
+
+.admin-entity-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.75rem 1.75rem 1.25rem;
+  border-bottom: 1px solid $surface-border;
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  p {
+    margin: 0 0 0.25rem;
+    font-size: 0.9rem;
+    color: $text-muted;
+  }
+
+  strong {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-color;
+  }
+}
+
+.admin-entity-close {
+  border: none;
+  background: transparent;
+  color: $text-muted;
+  font-size: 1.2rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.admin-entity-form {
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.admin-entity-document-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+
+  label {
+    flex: 1 1 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.admin-entity-fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-entity-field-card {
+  padding: 1rem;
+  border: 1px solid $surface-border;
+  border-radius: 16px;
+  background: rgba($text-color, 0.02);
+}
+
+.admin-entity-field-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+
+  label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $text-color;
+  }
+
+  span {
+    font-size: 0.82rem;
+    color: $info-accent;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
+.admin-entity-form input,
+.admin-entity-form select,
+.admin-entity-form textarea {
+  width: 100%;
+  border: 1px solid $input-border;
+  border-radius: 12px;
+  background: $surface-darker;
+  color: $text-color;
+  padding: 0.85rem 0.95rem;
+  font-size: 0.95rem;
+}
+
+.admin-entity-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.admin-entity-helper {
+  margin: 0.65rem 0 0;
+  color: $text-muted;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.admin-entity-submit-error {
+  margin: 1rem 0 0;
+  color: #fca5a5;
+  font-size: 0.9rem;
+}
+
+.admin-entity-image-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.admin-entity-image-item {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.admin-entity-image-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  input {
+    flex: 1 1 auto;
+  }
+}
+
+.admin-entity-image-preview {
+  width: 100%;
+  min-height: 150px;
+  border: 1px dashed $input-border;
+  border-radius: 16px;
+  background: rgba($text-color, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.admin-entity-add-image,
+.admin-entity-remove-image {
+  border: 1px solid $surface-border;
+  border-radius: 999px;
+  background: transparent;
+  color: $text-color;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-entity-remove-image {
+  color: $text-soft;
+}
+
+.admin-entity-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: $text-color;
+
+  input {
+    width: auto;
+  }
+}
+
+.admin-entity-auto-id {
+  border: none;
+  background: transparent;
+  color: $link-accent;
+  font-weight: 600;
+  padding: 0.85rem 0.2rem;
+  cursor: pointer;
+}
+
+.admin-entity-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+
+  button {
+    border: none;
+    border-radius: 999px;
+    padding: 0.8rem 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  button:first-child {
+    background: transparent;
+    color: $text-soft;
+  }
+
+  button:last-child {
+    background: $primary-color;
+    color: $text-color;
+  }
+
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

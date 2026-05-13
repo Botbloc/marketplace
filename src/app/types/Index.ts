@@ -1,4 +1,0 @@
-export * from "./User"
-export * from "./product"
-//export * from "./order"
-//export * from "./api"

@@ -1,12 +1,15 @@
 @use "../base/_mixins.scss" as *;
 @use "../base/variables" as *;
 
-.User_Information{
+.table_container{
     overflow-y: auto;
     position: relative;
     min-width: 0;
     .feature_bar{
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
         padding: 40px 2vw 20px 2vw;
     }
     .table_session{
