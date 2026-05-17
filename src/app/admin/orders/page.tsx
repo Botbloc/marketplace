@@ -11,7 +11,7 @@ import {
   AdminEntityCreatorPayload,
   Order_type,
   TableColumn,
-} from "../../../types";
+} from "../../../types/Index";
 
 const orderColumns: TableColumn<Order_type>[] = [
   { key: "id", label: "Order ID" },

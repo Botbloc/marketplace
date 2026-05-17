@@ -15,6 +15,7 @@ export default function AdminDataTable<T extends Record<string, unknown>>({
   initialPageSize = 10,
   pageSizeOptions = [10, 25, 50, 100],
   onEdit,
+  onDelete,
   refreshKey,
 }: AdminDataTableProps<T>) {
   const defaultPageSize = initialPageSize > 0 ? initialPageSize : 10;
@@ -40,7 +41,7 @@ export default function AdminDataTable<T extends Record<string, unknown>>({
         const nextData = Array.isArray(result)
           ? result
           : result?.data || result?.items || result?.users || [];
-
+        console.log("Fetched data:", result);
         setData(Array.isArray(nextData) ? nextData : []);
         setCurrentPage(1);
       } catch (err) {
@@ -235,7 +236,11 @@ export default function AdminDataTable<T extends Record<string, unknown>>({
                     >
                       Edit
                     </button>
-                    <button type="button" className="delete-btn">
+                    <button 
+                      type="button" 
+                      className="delete-btn"
+                      onClick={() => onDelete?.(row)}
+                      >
                       Delete
                     </button>
                   </td>

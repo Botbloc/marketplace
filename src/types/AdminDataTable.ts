@@ -16,5 +16,6 @@ export type AdminDataTableProps<T> = {
   initialPageSize?: number;
   pageSizeOptions?: number[];
   onEdit?: (row: T) => void;
+  onDelete?: (row: T) => void;
   refreshKey?: number;
 };

@@ -14,7 +14,7 @@ const buildAdminRequestBody = (
   payload: AdminEntityCreatorPayload,
   mode: "create" | "update"
 ) => ({
-  documentId: payload.documentId,
+  id: payload.id,
   originalDocumentId:
     mode === "update" ? payload.originalDocumentId : undefined,
   ...payload.values,
@@ -44,3 +44,11 @@ export const updateAdminEntity = async (
   endpoint: string,
   payload: AdminEntityCreatorPayload
 ) => writeAdminEntity(endpoint, "PATCH", payload, "update");
+
+export const deleteAdminEntity = async (endpoint: string) => {
+  const requestUrl = `${process.env.NEXT_PUBLIC_URL ?? ""}${endpoint}`;
+
+  return fetchWithSessionAuth<AdminWriteResponse>(requestUrl, {
+    method: "DELETE",
+  });
+};

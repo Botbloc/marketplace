@@ -4,6 +4,7 @@ import AdminDataTable from "../../../components/elements/AdminDataTable";
 import AdminEntityCreator from "../../../components/elements/AdminEntityCreator";
 import {
   createAdminEntity,
+  deleteAdminEntity,
   updateAdminEntity,
 } from "../../../service/admin.service";
 import {
@@ -12,6 +13,7 @@ import {
 } from "../entityInitialValues";
 import {
   AdminEntityCreatorPayload,
+  FirestoreTimestamp,
   Products_type,
   TableColumn,
 } from "../../../types/Index";
@@ -22,6 +24,29 @@ const formatPrice = (price: number, currency: string) => {
   }
 
   return `${currency ?? "$"} ${price.toFixed(2)}`;
+};
+
+const isFirestoreTimestamp = (
+  value: unknown
+): value is FirestoreTimestamp => {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  return "_seconds" in value && "_nanoseconds" in value;
+};
+
+const formatDate = (value?: string | FirestoreTimestamp) => {
+  if (!value) {
+    return "-";
+  }
+
+  if (isFirestoreTimestamp(value)) {
+    return new Date(value._seconds * 1000).toLocaleString();
+  }
+
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleString();
 };
 
 const productColumns: TableColumn<Products_type>[] = [
@@ -36,6 +61,12 @@ const productColumns: TableColumn<Products_type>[] = [
   },
   { key: "stock", label: "Stock" },
   { key: "status", label: "Status" },
+  {
+    key: "updatedAt",
+    label: "Updated",
+    render: (value) =>
+      formatDate(value as Products_type["updatedAt"]),
+  },
   {
     key: "active",
     label: "Active",
@@ -79,7 +110,7 @@ const buildProductPayload = (
   return {
     ...payload,
     values: {
-      id: String(values.id ?? payload.documentId ?? ""),
+      id: String(values.id ?? payload.id ?? ""),
       product_name: String(values.product_name ?? ""),
       category: String(values.category ?? ""),
       price: Number(values.price ?? 0),
@@ -106,12 +137,30 @@ const Products = () => {
   const productInitialValues = buildProductInitialValues(editingProduct);
 
   const handleCreateProduct = async (payload: AdminEntityCreatorPayload) => {
-    await createAdminEntity("/api/admin/products", buildProductPayload(payload));
+    await createAdminEntity(`/api/admin/products/`, buildProductPayload(payload));
     setRefreshKey((currentKey) => currentKey + 1);
   };
 
   const handleUpdateProduct = async (payload: AdminEntityCreatorPayload) => {
-    await updateAdminEntity("/api/admin/products", buildProductPayload(payload));
+    await updateAdminEntity(`/api/admin/products/${payload.id}`, buildProductPayload(payload));
+    setRefreshKey((currentKey) => currentKey + 1);
+  };
+
+  const handleDeleteProduct = async (product: Products_type) => {
+    const shouldDelete = window.confirm(
+      `Permanently delete "${product.product_name}"? This cannot be undone.`
+    );
+
+    if (!shouldDelete) {
+      return;
+    }
+
+    await deleteAdminEntity(`/api/admin/products/${product.id}/hard`);
+
+    if (editingProduct?.id === product.id) {
+      setEditingProduct(null);
+    }
+
     setRefreshKey((currentKey) => currentKey + 1);
   };
 
@@ -125,6 +174,7 @@ const Products = () => {
           parentPath="/Products"
           documentIdLabel="Product document ID"
           fields={productFields}
+          syncFieldWithDocumentId="id"
           onSave={handleCreateProduct}
         />
       </div>
@@ -158,6 +208,7 @@ const Products = () => {
           initialPageSize={25}
           pageSizeOptions={[10, 25, 50, 100]}
           onEdit={setEditingProduct}
+          onDelete={handleDeleteProduct}
           refreshKey={refreshKey}
         />
       </div>

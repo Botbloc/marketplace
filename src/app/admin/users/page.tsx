@@ -71,7 +71,7 @@ const buildUserPayload = (
   return {
     ...payload,
     values: {
-      uid: String(values.uid ?? payload.documentId ?? ""),
+      uid: String(values.uid ?? payload.id ?? ""),
       username: String(values.username ?? ""),
       email: String(values.email ?? ""),
       role: String(values.role ?? ""),
@@ -94,7 +94,7 @@ const Users = () => {
   };
 
   const handleUpdateUser = async (payload: AdminEntityCreatorPayload) => {
-    await updateAdminEntity("/api/admin/users", buildUserPayload(payload));
+    await updateAdminEntity(`/api/admin/users/${payload.id}`, buildUserPayload(payload));
     setRefreshKey((currentKey) => currentKey + 1);
   };
 

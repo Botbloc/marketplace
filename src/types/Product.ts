@@ -1,3 +1,5 @@
+import { FirestoreTimestamp } from "./User";
+
 export type Products_type = {
     id: string
     img: string | string[]
@@ -14,4 +16,5 @@ export type Products_type = {
     delivery_status: string
     specs: Record<string, string>
     active: boolean
+    updatedAt?: string | FirestoreTimestamp
 }

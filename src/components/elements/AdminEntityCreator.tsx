@@ -56,12 +56,14 @@ export default function AdminEntityCreator({
   initialDocumentId,
   initialValues,
   showAutoId = true,
+  syncFieldWithDocumentId,
 }: AdminEntityCreatorProps) {
   const defaultValues = useMemo(
     () => buildInitialValues(fields, initialValues),
     [fields, initialValues]
   );
   const isControlled = open !== undefined;
+  const isEditing = Boolean(initialDocumentId);
   const [internalOpen, setInternalOpen] = useState(false);
   const [documentId, setDocumentId] = useState("");
   const [formValues, setFormValues] =
@@ -120,6 +122,17 @@ export default function AdminEntityCreator({
     setFormValues(defaultValues);
     setSubmitError("");
     setOpenState(true);
+  };
+
+  const updateDocumentId = (value: string) => {
+    setDocumentId(value);
+
+    if (!isEditing && syncFieldWithDocumentId) {
+      setFormValues((currentValues) => ({
+        ...currentValues,
+        [syncFieldWithDocumentId]: value,
+      }));
+    }
   };
 
   const updateFieldValue = (name: string, value: AdminEntityFieldValue) => {
@@ -182,6 +195,8 @@ export default function AdminEntityCreator({
     return value;
   };
 
+  const shouldForceDocumentIdSync = !isEditing && Boolean(syncFieldWithDocumentId);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -193,6 +208,10 @@ export default function AdminEntityCreator({
       {}
     );
 
+    if (shouldForceDocumentIdSync && syncFieldWithDocumentId) {
+      normalizedValues[syncFieldWithDocumentId] = documentId.trim();
+    }
+
     if (!onSave) {
       closeOverlay();
       return;
@@ -202,7 +221,7 @@ export default function AdminEntityCreator({
       setSubmitError("");
       setIsSaving(true);
       await onSave({
-        documentId: documentId.trim() || undefined,
+        id: documentId.trim() || undefined,
         originalDocumentId: initialDocumentId?.trim() || undefined,
         values: normalizedValues,
       });
@@ -260,15 +279,21 @@ export default function AdminEntityCreator({
                   <input
                     type="text"
                     value={documentId}
-                    onChange={(event) => setDocumentId(event.target.value)}
-                    placeholder="Leave blank to use an auto-generated ID"
+                    onChange={(event) => updateDocumentId(event.target.value)}
+                    placeholder={
+                      isEditing
+                        ? "Document ID cannot be changed"
+                        : "Leave blank to use an auto-generated ID"
+                    }
+                    disabled={isEditing}
+                    required={shouldForceDocumentIdSync}
                   />
                 </label>
                 {showAutoId ? (
                   <button
                     type="button"
                     className="admin-entity-auto-id"
-                    onClick={() => setDocumentId(generateDocumentId())}
+                    onClick={() => updateDocumentId(generateDocumentId())}
                   >
                     Auto-ID
                   </button>
@@ -293,6 +318,10 @@ export default function AdminEntityCreator({
                         placeholder={field.placeholder}
                         required={field.required}
                         rows={field.rows ?? 4}
+                        disabled={
+                          shouldForceDocumentIdSync &&
+                          syncFieldWithDocumentId === field.name
+                        }
                       />
                     ) : field.type === "image-list" ? (
                       <div className="admin-entity-image-list">
@@ -351,6 +380,10 @@ export default function AdminEntityCreator({
                           updateFieldValue(field.name, event.target.value)
                         }
                         required={field.required}
+                        disabled={
+                          shouldForceDocumentIdSync &&
+                          syncFieldWithDocumentId === field.name
+                        }
                       >
                         <option value="">Select an option</option>
                         {field.options?.map((option) => (
@@ -381,6 +414,10 @@ export default function AdminEntityCreator({
                         }
                         placeholder={field.placeholder}
                         required={field.required}
+                        disabled={
+                          shouldForceDocumentIdSync &&
+                          syncFieldWithDocumentId === field.name
+                        }
                       />
                     )}
 

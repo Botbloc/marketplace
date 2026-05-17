@@ -5,6 +5,25 @@ type ApiErrorResponse = {
   error?: string;
 };
 
+const parseApiResponse = async <T>(res: Response): Promise<T> => {
+  if (res.status === 204 || res.status === 205) {
+    return undefined as T;
+  }
+
+  const contentLength = res.headers.get("content-length");
+  const contentType = res.headers.get("content-type") ?? "";
+
+  if (contentLength === "0" || contentType === "") {
+    return undefined as T;
+  }
+
+  if (contentType.includes("application/json")) {
+    return res.json() as Promise<T>;
+  }
+
+  return (await res.text()) as T;
+};
+
 export const fetchWithTokenAuth = async <T> (
   url: string,
   options: RequestInit = {},
@@ -35,7 +54,7 @@ export const fetchWithTokenAuth = async <T> (
     throw new Error(error?.error || "Request failed");
   }
 
-    return res.json();
+  return parseApiResponse<T>(res);
 };
 
 export const fetchWithSessionAuth = async <T> (
@@ -55,11 +74,12 @@ export const fetchWithSessionAuth = async <T> (
     headers,
     body: body !== undefined && body !== null ? JSON.stringify(body) : undefined,
   });
-
   if (!res.ok) {
+    console.log('Response not OK:', res);
     const error = await res.json().catch(() => ({} as ApiErrorResponse));
+    console.error('Error response:', error);
     throw new Error(error?.error || "Request failed");
   }
 
-  return res.json() as Promise<T>;
+  return parseApiResponse<T>(res);
 };

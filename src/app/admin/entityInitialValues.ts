@@ -90,9 +90,9 @@ export const productFields: AdminEntityFieldConfig[] = [
     type: "select",
     required: true,
     options: [
-      { label: "British Pounds", value: "British Pounds" },
+      { label: "British Pounds", value: "£" },
       { label: "US Dollars", value: "$" },
-      { label: "Euros", value: "Euros" },
+      { label: "Euros", value: "€" },
     ],
   },
   {

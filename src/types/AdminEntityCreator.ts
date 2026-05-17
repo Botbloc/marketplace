@@ -1,4 +1,7 @@
 export type AdminEntityFieldValue = string | number | boolean | string[];
+export type AdminEntityPayloadValue =
+  | AdminEntityFieldValue
+  | Record<string, string>;
 
 export type AdminEntityFieldOption = {
   label: string;
@@ -26,9 +29,9 @@ export type AdminEntityFieldConfig = {
 };
 
 export type AdminEntityCreatorPayload = {
-  documentId?: string;
+  id?: string;
   originalDocumentId?: string;
-  values: Record<string, AdminEntityFieldValue>;
+  values: Record<string, AdminEntityPayloadValue>;
 };
 
 export type AdminEntityCreatorProps = {
@@ -50,4 +53,5 @@ export type AdminEntityCreatorProps = {
   initialDocumentId?: string;
   initialValues?: Record<string, AdminEntityFieldValue>;
   showAutoId?: boolean;
+  syncFieldWithDocumentId?: string;
 };
